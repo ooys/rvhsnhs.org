@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import initFirebase from "../services/firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useDocumentOnce } from "react-firebase-hooks/firestore";
 
 initFirebase();
 const auth = firebase.auth();
@@ -17,38 +18,72 @@ function SignIn() {
         auth.signInWithPopup(provider).then((results) => {
             try {
                 var profile = results.additionalUserInfo.profile;
-                var credential = results.credential;
-                updateProfile(profile, credential);
+                createProfile(profile);
             } catch (error) {
                 console.error(error);
-                auth.signOut();
-                router.push("/login");
+                // auth.signOut();
+                // router.push("/login");
             }
         });
     };
 
-    async function updateProfile(profile, credential) {
+    async function checkRole(email) {
+        const sid = email.slice(0, -9);
+        // console.log(sid);
+        const rolesRef = db.collection("permissions").doc("roles");
+        const role = await rolesRef.get().then((snapshot) => {
+            let role_list = snapshot.data();
+
+            if (role_list.members.includes(sid)) {
+                // console.log("member");
+                return "member";
+            } else if (role_list.officers.includes(sid)) {
+                // console.log("officer");
+                return "officer";
+            } else if (role_list.moderators.includes(sid)) {
+                // console.log("moderator");
+                return "moderator";
+            } else if (role_list.admins.includes(sid)) {
+                // console.log("admin");
+                return "admin";
+            } else {
+                // console.log("student");
+                return "student";
+            }
+        });
+        return role;
+    }
+
+    async function createProfile(profile) {
+        // Check Organization
+        let org = "";
+        let role = "";
+        if (typeof profile.hd != "undefined" && profile.hd === "lcps.org") {
+            org = profile.hd;
+            // Check Role
+            role = await checkRole(profile.email);
+            // console.log(role);
+        } else {
+            org = "exterior";
+            role = "visitor";
+        }
+
+        // Create Profile
         const userRef = db
             .collection("users")
             .doc(firebase.auth().currentUser.uid);
 
-        var org = "";
-        if (typeof profile.hd === "undefined") {
-            org = "public";
-        } else {
-            org = profile.hd;
-        }
-
-        await userRef.set({
-            first: profile.given_name,
-            last: profile.family_name,
-            email: profile.email,
-            organization: org,
-            profilePicture: profile.picture,
-            accessToken: credential.accessToken,
-            idToken: credential.idToken,
-            lastLogin: new firebase.firestore.Timestamp.now(),
-        });
+        await userRef.set(
+            {
+                first: profile.given_name,
+                last: profile.family_name,
+                email: profile.email,
+                role: role,
+                profilePicture: profile.picture,
+                firstLogin: new firebase.firestore.Timestamp.now(),
+            },
+            { merge: false }
+        );
     }
 
     return (
