@@ -1,4 +1,4 @@
-
+/* Footer */
 .footer-container {
     background-color: #242424;
     padding: 4rem 0 2rem 0;
@@ -167,3 +167,72 @@
 .nav .navbar {
     background-color: #0e447b;
 }
+
+/* Login Page */
+
+.body-container {
+    background-color: white;
+    height: 1375px;
+    padding: 4rem 0 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.log-in-text {
+    font-size: 30px;
+    color: black;
+    padding: 0rem 0 3rem 0;
+}
+
+.login-box {
+    background-color: #0e447b;
+    height: 25%;
+    width: 33%;
+    padding: 5rem 0 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1%;
+}
+
+.sign-in {
+    background-color: #fff;
+    min-height: 25%;
+    width: 70%;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-width: 1px;
+    border-radius: 2%;
+    border-color: lightgray;
+    box-shadow: 0px;
+    
+}
+
+
+.google-icon {
+    margin-right: 5px;
+    margin-left: 5px;
+    color: #0e447b;
+}
+
+.bottom-logos {
+    padding: 4rem 0 0rem 0;
+    display: flex;
+    align-items: center;
+    color: white;
+
+}
+
+.bottom-nhs {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 85px;
+    height: 85px;
+}
+
+
