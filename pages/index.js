@@ -27,56 +27,55 @@ function SignOut() {
 function Index() {
     return (
         <>
-            <nav class="navbar is-info" role="navigation" aria-label="main navigation">
-                <div class="navbar-brand">
-                    <a class="navbar-item" href="/">
-                        <img src="/images/newnhslogo.png"/>
-                    </a>
+            <nav
+                className="navbar is-info"
+                role="navigation"
+                aria-label="main navigation">
+                <div className="navbar-brand">
+                    <Link href="/">
+                        <a className="navbar-item">
+                            <img src="/images/newnhslogo.png" />
+                        </a>
+                    </Link>
 
-                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <a
+                        role="button"
+                        className="navbar-burger"
+                        aria-label="menu"
+                        aria-expanded="false"
+                        data-target="navbarBasicExample">
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
-                         <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
                     </a>
                 </div>
 
-                <div id="navbarBasicExample" class="navbar-menu">
-                    <div class="navbar-start">
-                        <a class="navbar-item">
-                            Home
-                        </a>
-
-                        <a class="navbar-item">
-                            Apply
-                        </a>
-
-                        <div class="navbar-item">
-                            <a class="navbar-link">
-                                About
-                            </a>
-                        </div>
+                <div id="navbarBasicExample" className="navbar-menu">
+                    <div className="navbar-start">
+                        <Link href="/">
+                            <a className="navbar-item">Home</a>
+                        </Link>
+                        <Link href="/apply">
+                            <a className="navbar-item">Apply</a>
+                        </Link>
+                        <Link href="/about">
+                            <a className="navbar-link">About</a>
+                        </Link>
                     </div>
 
-                    <div class="navbar-end">
-                        <div class="navbar-item">
-                            <div class="buttons">
-                                <a class="button is-white">
-                                    Sign up
-                                </a>
-                                <a href="/login" class="button is-light">
-                                    Log in
-                                </a>
+                    <div className="navbar-end">
+                        <div className="navbar-item">
+                            <div className="buttons">
+                                <Link href="/login">
+                                    <a className="button is-light">Log in</a>
+                                </Link>
                             </div>
                         </div>
                     </div>
                 </div>
             </nav>
 
-
             <div>Home</div>
-            <Link href="/login">
-                <a>Login</a>
-            </Link>
             <SignOut />
         </>
     );
