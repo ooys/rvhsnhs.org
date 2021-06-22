@@ -100,11 +100,9 @@ function SignIn() {
 
     return (
         <>
-            <div className='body-container'>
-                <p className='log-in-text'>
-                    Log in to your account
-                </p>
-                <div className='login-box'>
+            <div className="body-container">
+                <p className="log-in-text">Log in to your account</p>
+                <div className="login-box">
                     <button className="sign-in" onClick={signInWithGoogle}>
                         <span className="google-icon">
                             <FontAwesomeIcon
@@ -112,11 +110,9 @@ function SignIn() {
                         </span>
                         Sign in with Google
                     </button>
-                    <div className='bottom-logos'>
+                    <div className="bottom-logos">
                         <img className="bottom-nhs" src="/images/nhslogo.png" />
-                        <p>
-                            Riverside National Honor Society
-                        </p>
+                        <p>Riverside National Honor Society</p>
                     </div>
                 </div>
             </div>
