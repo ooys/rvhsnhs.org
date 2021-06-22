@@ -34,8 +34,8 @@ function Index() {
             <Link href="/login">
                 <a>Login</a>
             </Link>
-            <Footer />
             <SignOut />
+            <Footer />
         </>
     );
 }
