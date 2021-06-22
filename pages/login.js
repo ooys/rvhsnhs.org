@@ -98,10 +98,15 @@ function SignIn() {
 
     return (
         <>
-            <button className="sign-in" onClick={signInWithGoogle}>
-                Sign in with Google
-            </button>
-            <p>Hello world!</p>
+            <div className='body-container'>
+                <div className='login-box'>
+                    <button className="sign-in" onClick={signInWithGoogle}>
+                        <img className="google-icon" src="/images/googlegpng.png" />
+                        Sign in with Google
+                    </button>
+                    <p>Hello world!</p>
+                </div>
+            </div>
         </>
     );
 }
