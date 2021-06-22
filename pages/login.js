@@ -100,23 +100,22 @@ function SignIn() {
 
     return (
         <>
-            <div className='body-container'>
-                <p className='log-in-text'>
-                    Log in to your account
-                </p>
-                <div className='login-box'>
-                    <button className="sign-in" onClick={signInWithGoogle}>
+            <div className="body-container">
+                <div className="login-box">
+                    <span className="log-in-text">User Login</span>
+                    <a className="sign-in" onClick={signInWithGoogle}>
                         <span className="google-icon">
                             <FontAwesomeIcon
                                 icon={fab.faGoogle}></FontAwesomeIcon>
                         </span>
                         Sign in with Google
-                    </button>
-                    <div className='bottom-logos'>
+                    </a>
+                    <span className="middle-text">SY 2021 - 2022</span>
+                    <div className="bottom-logos">
                         <img className="bottom-nhs" src="/images/nhslogo.png" />
-                        <p>
+                        <span className="bottom-text">
                             Riverside National Honor Society
-                        </p>
+                        </span>
                     </div>
                 </div>
             </div>
