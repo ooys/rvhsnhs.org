@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import initFirebase from "../services/firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fab, faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 initFirebase();
 const auth = firebase.auth();
@@ -99,12 +101,23 @@ function SignIn() {
     return (
         <>
             <div className='body-container'>
+                <p className='log-in-text'>
+                    Log in to your account
+                </p>
                 <div className='login-box'>
                     <button className="sign-in" onClick={signInWithGoogle}>
-                        <img className="google-icon" src="/images/googlegpng.png" />
+                        <span className="google-icon">
+                            <FontAwesomeIcon
+                                icon={fab.faGoogle}></FontAwesomeIcon>
+                        </span>
                         Sign in with Google
                     </button>
-                    <p>Hello world!</p>
+                    <div className='bottom-logos'>
+                        <img className="bottom-nhs" src="/images/nhslogo.png" />
+                        <p>
+                            Riverside National Honor Society
+                        </p>
+                    </div>
                 </div>
             </div>
         </>
