@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import initFirebase from "../services/firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useDocumentOnce } from "react-firebase-hooks/firestore";
 
 initFirebase();
 const auth = firebase.auth();
