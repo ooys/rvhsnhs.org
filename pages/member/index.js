@@ -14,4 +14,4 @@ function News() {
     return <>News/</>;
 }
 
-export default withAuth(News);
+export default withAuth(News, "admin");
