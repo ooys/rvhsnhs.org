@@ -17,14 +17,25 @@ function SignIn() {
         auth.signInWithPopup(provider).then((results) => {
             try {
                 var profile = results.additionalUserInfo.profile;
-                createProfile(profile);
+                checkProfile(profile);
             } catch (error) {
                 console.error(error);
-                // auth.signOut();
-                // router.push("/login");
+                auth.signOut();
+                router.push("/login");
             }
         });
     };
+
+    async function checkProfile(profile) {
+        const profileRef = db
+            .collection("users")
+            .doc(firebase.auth().currentUser.uid);
+        profileRef.get().then((docSnapshot) => {
+            if (!docSnapshot.exists) {
+                createProfile(profile);
+            }
+        });
+    }
 
     async function checkRole(email) {
         const sid = email.slice(0, -9);
