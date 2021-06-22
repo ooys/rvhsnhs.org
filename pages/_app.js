@@ -4,6 +4,7 @@ import Router from "next/router";
 import NProgress from "nprogress"; //nprogress module
 import "../node_modules/nprogress/nprogress.css"; //styles of nprogress
 import React, { useEffect } from "react";
+import '../styles/index.css';
 //Binding events.
 
 Router.events.on("routeChangeStart", () => NProgress.start());
