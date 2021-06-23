@@ -174,6 +174,22 @@ body {
     background-color: #0e447b;
 }
 
+.nav .navbar-item {
+    width: 12vw;
+    justify-content: center;
+    transition: 0.3s all;
+}
+
+.nav .navbar-item:hover {
+    color: #0e447b !important;
+    background-color: white !important;
+    transition: 0.3s all;
+}
+
+.nav #nav-logo:hover {
+    background-color: #0e447b !important;
+}
+
 /* Login Page */
 
 .body-container {

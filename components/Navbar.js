@@ -9,7 +9,7 @@ function Navbar() {
                 aria-label="main navigation">
                 <div className="navbar-brand">
                     <Link href="/">
-                        <a className="navbar-item">
+                        <a className="navbar-item" id="nav-logo">
                             <img src="/images/newnhslogo.png" />
                         </a>
                     </Link>
@@ -19,7 +19,17 @@ function Navbar() {
                         className="navbar-burger"
                         aria-label="menu"
                         aria-expanded="false"
-                        data-target="navbarBasicExample">
+                        data-target="navbarBasicExample"
+                        id="navbar-toggle"
+                        onClick={() => {
+                            let toggle =
+                                document.querySelector("#navbar-toggle");
+                            let menu = document.querySelector(
+                                "#navbarBasicExample"
+                            );
+                            toggle.classList.toggle("is-active");
+                            menu.classList.toggle("is-active");
+                        }}>
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
@@ -40,13 +50,9 @@ function Navbar() {
                     </div>
 
                     <div className="navbar-end">
-                        <div className="navbar-item">
-                            <div className="buttons">
-                                <Link href="/login">
-                                    <a className="button is-light">Log in</a>
-                                </Link>
-                            </div>
-                        </div>
+                        <Link href="/login">
+                            <a className="navbar-item">Log in</a>
+                        </Link>
                     </div>
                 </div>
             </nav>
