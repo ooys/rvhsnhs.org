@@ -7,6 +7,8 @@ import initFirebase from "../services/firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fab, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import Navbar from "../components/Navbar.js";
+import Footer from "../components/Footer";
 
 initFirebase();
 const auth = firebase.auth();
@@ -100,6 +102,7 @@ function SignIn() {
 
     return (
         <>
+            <Navbar />
             <div className="body-container">
                 <div className="login-box">
                     <span className="log-in-text">User Login</span>
@@ -119,6 +122,7 @@ function SignIn() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 }
@@ -133,7 +137,7 @@ function Login() {
     if (error != undefined || user == undefined) {
         return <SignIn />;
     } else {
-        router.push("/");
+        router.push("/member");
         return <>Signed in!</>;
     }
 }

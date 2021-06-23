@@ -4,6 +4,10 @@ body {
     font-family: "Oxygen", sans-serif;
 }
 
+.page-wrapper {
+    margin-top: 3.2rem;
+}
+
 /* Footer */
 .footer-container {
     background-color: #242424;
@@ -172,6 +176,9 @@ body {
 /* Navbar */
 .nav .navbar {
     background-color: #0e447b;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: white;
 }
 
 .nav .navbar-item {
