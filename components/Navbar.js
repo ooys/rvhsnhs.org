@@ -4,7 +4,7 @@ function Navbar() {
     return (
         <div className="nav">
             <nav
-                className="navbar is-info"
+                className="navbar is-info is-fixed-top"
                 role="navigation"
                 aria-label="main navigation">
                 <div className="navbar-brand">

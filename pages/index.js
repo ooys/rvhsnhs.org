@@ -30,7 +30,10 @@ function Index() {
     return (
         <>
             <Navbar />
-            <div>Home</div>
+            <div className="page-wrapper" id="index">
+                <div>Home</div>
+            </div>
+
             <SignOut />
             <Footer />
         </>
