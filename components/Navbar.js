@@ -43,6 +43,41 @@ function IO() {
     }
 }
 
+function Routes(user) {
+    if (user.user === "member") {
+        return (
+            <div className="navbar-start">
+                <Link href="/member">
+                    <a className="navbar-item">News</a>
+                </Link>
+                <Link href="/member/opportunities">
+                    <a className="navbar-item">Opportunities</a>
+                </Link>
+                <Link href="/member/tutoring">
+                    <a className="navbar-item">Tutoring</a>
+                </Link>
+                <Link href="/profile">
+                    <a className="navbar-item">Profile</a>
+                </Link>
+            </div>
+        );
+    } else {
+        return (
+            <div className="navbar-start">
+                <Link href="/">
+                    <a className="navbar-item">Home</a>
+                </Link>
+                <Link href="/apply">
+                    <a className="navbar-item">Apply</a>
+                </Link>
+                <Link href="/about">
+                    <a className="navbar-item">About</a>
+                </Link>
+            </div>
+        );
+    }
+}
+
 function Navbar({ user }) {
     return (
         <div className="nav">
@@ -80,19 +115,9 @@ function Navbar({ user }) {
                 </div>
 
                 <div id="navbarBasicExample" className="navbar-menu">
-                    <div className="navbar-start">
-                        <Link href="/">
-                            <a className="navbar-item">Home</a>
-                        </Link>
-                        <Link href="/apply">
-                            <a className="navbar-item">Apply</a>
-                        </Link>
-                        <Link href="/about">
-                            <a className="navbar-item">About</a>
-                        </Link>
-                    </div>
+                    <Routes user={user} />
                     <div className="navbar-end">
-                        <IO user={user} />
+                        <IO />
                     </div>
                 </div>
             </nav>
