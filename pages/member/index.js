@@ -13,7 +13,7 @@ const db = firebase.firestore();
 function Member() {
     return (
         <div className="member">
-            <Navbar />
+            <Navbar user="member" />
             <div className="page-wrapper" id="member"></div>
             <Footer />
         </div>

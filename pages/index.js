@@ -10,22 +10,6 @@ import Footer from "../components/Footer";
 initFirebase();
 const auth = firebase.auth();
 
-function SignOut() {
-    return (
-        auth.currentUser && (
-            <Link href="/login">
-                <button
-                    className="sign-out"
-                    onClick={() => {
-                        auth.signOut();
-                    }}>
-                    Sign Out
-                </button>
-            </Link>
-        )
-    );
-}
-
 function Index() {
     return (
         <>
@@ -33,8 +17,6 @@ function Index() {
             <div className="page-wrapper" id="index">
                 <div>Home</div>
             </div>
-
-            <SignOut />
             <Footer />
         </>
     );
