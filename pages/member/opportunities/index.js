@@ -56,7 +56,7 @@ function Events() {
 function Opportunities() {
     return (
         <div className="opportunities">
-            <Navbar />
+            <Navbar user="member" />
             <div className="page-wrapper" id="opportunities">
                 <Events />
             </div>

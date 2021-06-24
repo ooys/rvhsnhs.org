@@ -1,6 +1,49 @@
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
+import initFirebase from "../services/firebase.js";
 import Link from "next/link";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-function Navbar() {
+initFirebase();
+const auth = firebase.auth();
+
+function SignOut() {
+    return (
+        auth.currentUser && (
+            <Link href="/">
+                <a
+                    className="navbar-item"
+                    onClick={() => {
+                        auth.signOut();
+                    }}>
+                    Log Out
+                </a>
+            </Link>
+        )
+    );
+}
+
+function SignIn() {
+    return (
+        <Link href="/login">
+            <a className="navbar-item">Log In</a>
+        </Link>
+    );
+}
+function IO() {
+    const [user, loading, error] = useAuthState(auth);
+    if (loading) {
+        return <a className="navbar-item">...</a>;
+    }
+    if (error != undefined || user == undefined) {
+        return <SignIn />;
+    } else {
+        return <SignOut />;
+    }
+}
+
+function Navbar({ user }) {
     return (
         <div className="nav">
             <nav
@@ -48,11 +91,8 @@ function Navbar() {
                             <a className="navbar-item">About</a>
                         </Link>
                     </div>
-
                     <div className="navbar-end">
-                        <Link href="/login">
-                            <a className="navbar-item">Log in</a>
-                        </Link>
+                        <IO user={user} />
                     </div>
                 </div>
             </nav>
