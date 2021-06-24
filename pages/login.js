@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import initFirebase from "../services/firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fab, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import Navbar from "../components/Navbar.js";
@@ -16,6 +17,23 @@ const db = firebase.firestore();
 
 function SignIn() {
     const router = useRouter();
+
+    // function redirect() {
+    //     const profileRef = db
+    //         .collection("users")
+    //         .doc(firebase.auth().currentUser.uid);
+    //     const [value, loading2, error2] = useDocumentDataOnce(profileRef);
+    //     if (loading2) {
+    //         return <>Authorized, fetching more data...</>;
+    //     }
+    //     if (error2 != undefined || value == undefined) {
+    //         // console.log("error");
+    //         return <div>Unauthorized, back to login!</div>;
+    //     } else {
+    //         // console.log(value.role);
+    //         return <div>{value.role}</div>;
+    //     }
+    // }
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider).then((results) => {
@@ -28,6 +46,7 @@ function SignIn() {
                 router.push("/login");
             }
         });
+        // .then(() => redirect());
     };
 
     async function checkProfile(profile) {
