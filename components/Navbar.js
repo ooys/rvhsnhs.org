@@ -73,6 +73,9 @@ function Routes(user) {
                 <Link href="/about">
                     <a className="navbar-item">About</a>
                 </Link>
+                <Link href="/member">
+                    <a className="navbar-item">Member Portal</a>
+                </Link>
             </div>
         );
     }
