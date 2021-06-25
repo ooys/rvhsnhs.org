@@ -322,3 +322,85 @@ body {
     background-color: rgba(14, 68, 123, 1);
     transition: all 0.3s;
 }
+
+/* Profile */
+
+#profile {
+    background-color: #0e447b;
+}
+
+.profile-title {
+    font-size: 2rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+.profile-full {
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+.profile-info {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-top: 2rem;
+    /* border: solid 1px black; */
+    background-color: white;
+}
+
+#profile-small {
+    background-color: white;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+#profile-large {
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+}
+
+.profile-picture-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-picture {
+    background-color: black;
+    width: stretch;
+    max-width: 20vw;
+}
+
+.profile-badges {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+}
+
+.profile-line {
+    background-color: black;
+}
+
+.small-margins {
+    margin-top: 0.5rem;
+}
+
+.profile-hours-title {
+    font-size: 1.2rem;
+}
+
+.profile-hours-table {
+    margin-top: 1rem;
+}
+
+.profile-hours-table thead {
+    background-color: rgba(14, 68, 123, 0.4);
+}
+
+.profile-hours-table tbody tr:hover {
+    background-color: rgba(14, 68, 123, 0.2);
+}
