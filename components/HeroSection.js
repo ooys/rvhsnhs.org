@@ -22,7 +22,7 @@ function HeroSection() {
             </a>
             <img
                 className="hero-logo"
-                src="/images/newnhslogo.png"
+                src="/images/nhs_black.svg"
                 alt="Riverside NHS"></img>
         </div>
     );

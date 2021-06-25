@@ -3,13 +3,13 @@ import "firebase/firestore";
 import "firebase/auth";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import initFirebase from "../services/firebase.js";
+import initFirebase from "../../services/firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fab, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import Navbar from "../components/Navbar.js";
-import Footer from "../components/Footer";
+import Navbar from "../../components/Navbar.js";
+import Footer from "../../components/Footer";
 
 initFirebase();
 const auth = firebase.auth();
@@ -148,6 +148,7 @@ function SignIn() {
 
 function Login() {
     const router = useRouter();
+    const { dest } = router.query;
     const [user, loading, error] = useAuthState(auth);
 
     if (loading) {
@@ -156,7 +157,7 @@ function Login() {
     if (error != undefined || user == undefined) {
         return <SignIn />;
     } else {
-        router.push("/member");
+        router.push("/" + dest);
         return <>Signed in!</>;
     }
 }
