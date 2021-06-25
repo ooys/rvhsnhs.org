@@ -26,7 +26,7 @@ function SignOut() {
 
 function SignIn() {
     return (
-        <Link href="/login">
+        <Link href="/login/member">
             <a className="navbar-item">Log In</a>
         </Link>
     );
@@ -67,11 +67,11 @@ function Routes(user) {
                 <Link href="/">
                     <a className="navbar-item">Home</a>
                 </Link>
-                <Link href="/apply">
-                    <a className="navbar-item">Apply</a>
-                </Link>
                 <Link href="/about">
                     <a className="navbar-item">About</a>
+                </Link>
+                <Link href="/apply">
+                    <a className="navbar-item">Apply</a>
                 </Link>
                 <Link href="/member">
                     <a className="navbar-item">Member Portal</a>

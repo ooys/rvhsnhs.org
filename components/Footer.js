@@ -1,5 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 //<Button buttonStyle='btn--outline'>Subscribe</Button>
 
@@ -29,35 +32,39 @@ function Footer() {
                 <div className="footer-link-wrapper">
                     <div className="footer-link-items">
                         <h2>About Us</h2>
-                        <Link href="/sign-up">How it works</Link>
-                        <Link href="/">Website Tour</Link>
+                        <Link href="/about">Our work</Link>
+                        {/* <Link href="/">Apply</Link> */}
                         <Link href="/">Officers</Link>
                         <Link href="/">Sponsors</Link>
                         <Link href="/">Terms of Service</Link>
                     </div>
                     <div className="footer-link-items">
-                        <h2>Contact Us</h2>
-                        <Link href="/">Contact</Link>
-                        <Link href="/">Support</Link>
-                        <Link href="/">FAQ</Link>
-                        <Link href="/"> </Link>
+                        <h2>Apply</h2>
+                        <Link href="/">Trailer</Link>
+                        <Link href="/">Requirements</Link>
+                        <Link href="/">Application Portal</Link>
+                        <Link href="/">Officer Positions</Link>
                     </div>
                 </div>
                 <div className="footer-link-wrapper">
                     <div className="footer-link-items">
-                        <h2>Apply</h2>
-                        <Link href="/">Requirements</Link>
-                        <Link href="/">Submit Application</Link>
-                        <Link href="/">Trailer</Link>
-                        <Link href="/">Officer Positions</Link>
+                        <h2>Member</h2>
+                        <Link href="/login/member">Login</Link>
+                        <Link href="/member/opportunities">Volunteer</Link>
+                        <Link href="/member/tutoring">Tutoring</Link>
+                        <Link href="/profile">Profile</Link>
                     </div>
                     <div className="footer-link-items">
+                        <h2>Officer</h2>
+                        <Link href="/login/officer">Portal</Link>
+                    </div>
+                    {/* <div className="footer-link-items">
                         <h2>Social Media</h2>
                         <Link href="/">Instagram</Link>
                         <Link href="/">Facebook</Link>
                         <Link href="/">Youtube</Link>
                         <Link href="/">Twitter</Link>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <section className="social-media">
@@ -73,41 +80,28 @@ function Footer() {
                     </div>
                     <small className="website-rights">NHS © 2021</small>
                     <div className="social-icons">
-                        <Link
-                            className="social-icon-link facebook"
-                            href="/"
+                        <a
+                            className="icon-anchor"
+                            id="footer-button-email"
                             target="_blank"
-                            aria-label="Facebook">
-                            <i className="fab fa-facebook-f" />
-                        </Link>
-                        <Link
-                            className="social-icon-link instagram"
-                            href="/"
+                            rel="noopener noreferrer"
+                            href="mailto:michaelsong4399@gmail.com,1036566@lcps.org">
+                            <span className="icon fa-2x">
+                                <FontAwesomeIcon
+                                    icon={faEnvelope}></FontAwesomeIcon>
+                            </span>
+                        </a>
+                        <a
+                            className="icon-anchor"
+                            id="footer-button-github"
                             target="_blank"
-                            aria-label="Instagram">
-                            <i className="fab fa-instagram" />
-                        </Link>
-                        <Link
-                            className="social-icon-link youtube"
-                            href="/"
-                            target="_blank"
-                            aria-label="Youtube">
-                            <i className="fab fa-youtube" />
-                        </Link>
-                        <Link
-                            className="social-icon-link twitter"
-                            href="/"
-                            target="_blank"
-                            aria-label="Twitter">
-                            <i className="fab fa-twitter" />
-                        </Link>
-                        <Link
-                            className="social-icon-link twitter"
-                            href="/"
-                            target="_blank"
-                            aria-label="LinkedIn">
-                            <i className="fab fa-linkedin" />
-                        </Link>
+                            rel="noopener noreferrer"
+                            href="https://www.instagram.com/rvhsnhs15/">
+                            <span className="icon fa-2x">
+                                <FontAwesomeIcon
+                                    icon={fab.faInstagram}></FontAwesomeIcon>
+                            </span>
+                        </a>
                     </div>
                 </div>
             </section>
