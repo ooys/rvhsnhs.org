@@ -1,17 +1,23 @@
 import withAuth from "/components/auth/withAuth.js";
-import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import initFirebase from "/services/firebase.js";
+import Navbar from "/components/Navbar.js";
+import Footer from "/components/Footer";
 
 initFirebase();
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-function News() {
-    const [user, loading, error] = useAuthState(auth);
-    return <>News/</>;
+function Member() {
+    return (
+        <div className="member">
+            <Navbar user="member" />
+            <div className="page-wrapper" id="member"></div>
+            <Footer />
+        </div>
+    );
 }
 
-export default withAuth(News, "admin");
+export default withAuth(Member, "member");

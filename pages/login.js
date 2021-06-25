@@ -5,8 +5,11 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import initFirebase from "../services/firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fab, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import Navbar from "../components/Navbar.js";
+import Footer from "../components/Footer";
 
 initFirebase();
 const auth = firebase.auth();
@@ -14,6 +17,23 @@ const db = firebase.firestore();
 
 function SignIn() {
     const router = useRouter();
+
+    // function redirect() {
+    //     const profileRef = db
+    //         .collection("users")
+    //         .doc(firebase.auth().currentUser.uid);
+    //     const [value, loading2, error2] = useDocumentDataOnce(profileRef);
+    //     if (loading2) {
+    //         return <>Authorized, fetching more data...</>;
+    //     }
+    //     if (error2 != undefined || value == undefined) {
+    //         // console.log("error");
+    //         return <div>Unauthorized, back to login!</div>;
+    //     } else {
+    //         // console.log(value.role);
+    //         return <div>{value.role}</div>;
+    //     }
+    // }
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider).then((results) => {
@@ -26,6 +46,7 @@ function SignIn() {
                 router.push("/login");
             }
         });
+        // .then(() => redirect());
     };
 
     async function checkProfile(profile) {
@@ -100,22 +121,27 @@ function SignIn() {
 
     return (
         <>
+            <Navbar />
             <div className="body-container">
-                <p className="log-in-text">Log in to your account</p>
                 <div className="login-box">
-                    <button className="sign-in" onClick={signInWithGoogle}>
+                    <span className="log-in-text">User Login</span>
+                    <a className="sign-in" onClick={signInWithGoogle}>
                         <span className="google-icon">
                             <FontAwesomeIcon
                                 icon={fab.faGoogle}></FontAwesomeIcon>
                         </span>
                         Sign in with Google
-                    </button>
+                    </a>
+                    <span className="middle-text">SY 2021 - 2022</span>
                     <div className="bottom-logos">
                         <img className="bottom-nhs" src="/images/nhslogo.png" />
-                        <p>Riverside National Honor Society</p>
+                        <span className="bottom-text">
+                            Riverside National Honor Society
+                        </span>
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 }
@@ -130,7 +156,7 @@ function Login() {
     if (error != undefined || user == undefined) {
         return <SignIn />;
     } else {
-        router.push("/");
+        router.push("/member");
         return <>Signed in!</>;
     }
 }

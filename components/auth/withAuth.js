@@ -57,7 +57,7 @@ function withAuth(C, authlevel) {
         }
         if (error != undefined || user == undefined) {
             router.push("/login");
-            const profileRef = db.collection("users").doc(user.uid);
+            const profileRef = db.collection("users").doc("await");
             const [value, loading2, error2] = useDocumentDataOnce(profileRef);
             return <div>Unauthorized, back to login!</div>;
         } else {
