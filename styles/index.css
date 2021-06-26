@@ -659,3 +659,40 @@ video {
 
 .officers-body {
 }
+
+/* News Page */
+
+.member-top-page-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.slideshow-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 0rem 1rem 0rem 0rem;
+    background-color: #fff;
+    font-size: 50px;
+}
+
+.member-side-column {
+    height: 100%;
+    width: 20%;
+    box-shadow: 0px 0px 15px #c2c2c2;
+    background-color: white;
+    margin-top: 6vw;
+    margin-right: 8vw;
+}
+
+.member-side-column-upcoming {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 0.5vw;
+}
+
+.member-side-column-text {
+    font-size: 18px;
+    margin-top: 1vw;
+    margin-left: 1vw;
+    margin-bottom: 1vw;
+}
