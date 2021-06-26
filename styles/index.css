@@ -564,3 +564,74 @@ video {
         width: 100%;
     }
 }
+
+/* Apply Page */
+
+.big-eligibililty {
+    text-align: center;
+    font-size: 50px;
+    text-decoration: underline;
+    margin-top: 3vw;
+}
+
+.eligibility-list {
+    height: 100%;
+    width: 50%;
+    font-size: 20px;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    margin-top: 1vw;
+}
+
+.apply-button {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    height: auto;
+    width: 7%;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    background-color: #0e447b;
+    font-family: "Oxygen", sans-serif;
+    color: #fff;
+    border-radius: 0.3rem;
+    transition: 0.3s all;
+    align-content: center;
+    margin-left: 46vw;
+    margin-right: 46vw;
+    margin-top: 2vw;
+}
+
+.apply-text {
+    height: 100%;
+    width: 50%;
+    font-size: 20px;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    margin-top: 2vw;
+}
+
+.big-about-us {
+    text-align: center;
+    font-size: 50px;
+    text-decoration: underline;
+    margin-top: 3vw;
+}
+
+.about-us-body-text {
+    height: 100%;
+    width: 50%;
+    font-size: 20px;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    margin-top: 1vw;
+}
+
+.officers-big-text {
+    text-align: center;
+    font-size: 35px;
+    margin-top: 1vw;
+}
+
+.officers-body {
+}
