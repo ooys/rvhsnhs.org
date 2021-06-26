@@ -6,13 +6,52 @@ import Navbar from "/components/Navbar.js";
 import Footer from "/components/Footer";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { faBorderNone } from "@fortawesome/free-solid-svg-icons";
 
 initFirebase();
 const db = firebase.firestore();
 
-function badgeModal(info) {}
+function BadgeModal(props) {
+    if (props.active === props.title) {
+        return (
+            <div className={"modal is-active"} id="badge-modal">
+                <div
+                    className="modal-background"
+                    onClick={() => {
+                        props.setActive("");
+                    }}></div>
+                <div className="modal-content">
+                    <div className="columns is-mobile is-variable is-4 modal-wrapper">
+                        <div className="column is-one-third modal-picture">
+                            <img
+                                className={"modal-badge " + props.color}
+                                src={props.src}
+                                alt={props.title}></img>
+                        </div>
+                        <div className="column is-two-thirds modal-text">
+                            <div className="modal-title">{props.title}</div>
+                            <hr></hr>
+                            <div className="modal-desc">{props.desc}</div>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    className="modal-close is-large"
+                    aria-label="close"
+                    onClick={() => {
+                        props.setActive("");
+                    }}>
+                    >
+                </button>
+            </div>
+        );
+    } else {
+        return <></>;
+    }
+}
 
-function badge(name) {
+function badge(name, active, setActive) {
     let src = "";
     let desc = "";
     let title = "";
@@ -45,13 +84,27 @@ function badge(name) {
             break;
     }
     return (
-        <a className="column is-2 is-offset-1 badge-wrapper" title={title}>
-            <img className="badge" src={src} alt={title}></img>
-        </a>
+        <>
+            <a
+                className="column is-2 is-offset-1 badge-wrapper"
+                title={title}
+                onClick={() => {
+                    setActive(title);
+                }}>
+                <img className="badge" src={src} alt={title}></img>
+            </a>
+            <BadgeModal
+                active={active}
+                title={title}
+                desc={desc}
+                src={src}
+                setActive={setActive}
+            />
+        </>
     );
 }
 
-function HourBadge({ hours }) {
+function HourBadge({ hours, active, setActive }) {
     let src = "";
     let desc = "";
     let title = "";
@@ -143,9 +196,24 @@ function HourBadge({ hours }) {
         }
     }
     return (
-        <a className="column is-2 is-offset-1 badge-wrapper" title={title}>
-            <img className={"badge " + color} src={src} alt={title}></img>
-        </a>
+        <>
+            <a
+                className="column is-2 is-offset-1 badge-wrapper"
+                title={title}
+                onClick={() => {
+                    setActive(title);
+                }}>
+                <img className={"badge " + color} src={src} alt={title}></img>
+            </a>
+            <BadgeModal
+                active={active}
+                title={title}
+                desc={desc}
+                src={src}
+                setActive={setActive}
+                color={color}
+            />
+        </>
     );
 }
 
@@ -154,6 +222,7 @@ function Profile() {
     const { uid } = router.query;
     const userRef = db.collection("users").doc(uid);
     const [data, loading, error] = useDocumentDataOnce(userRef);
+    const [active, setActive] = useState("");
 
     if (loading) {
         return <>Loading Events...</>;
@@ -162,7 +231,6 @@ function Profile() {
         // console.log("error");
         return <div>Error!</div>;
     } else {
-        console.log(data);
         return (
             <div id="profile">
                 <Navbar user="member" />
@@ -184,13 +252,15 @@ function Profile() {
                             <hr className="profile-line small-margins"></hr>
                             <div className="columns is-mobile is-multiline profile-badges">
                                 {data.badges.map((name) => {
-                                    return badge(name);
+                                    return badge(name, active, setActive);
                                 })}
                                 <HourBadge
                                     hours={
                                         data.hours.tutoring +
                                         data.hours.volunteering
                                     }
+                                    active={active}
+                                    setActive={setActive}
                                 />
                             </div>
                             <br></br>
@@ -240,6 +310,7 @@ function Profile() {
                                     </tbody>
                                 </table>
                             </div>
+                            <div className="modal-wrapper"></div>
                         </div>
                     </div>
                 </div>
