@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer";
+import { useRouter } from "next/router";
 
 function Apply() {
     return (
