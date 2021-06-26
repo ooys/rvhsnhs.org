@@ -610,3 +610,28 @@ video {
     margin-right: 25vw;
     margin-top: 2vw;
 }
+
+.big-about-us {
+    text-align: center;
+    font-size: 50px;
+    text-decoration: underline;
+    margin-top: 3vw;
+}
+
+.about-us-body-text {
+    height: 100%;
+    width: 50%;
+    font-size: 20px;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    margin-top: 1vw;
+}
+
+.officers-big-text {
+    text-align: center;
+    font-size: 35px;
+    margin-top: 1vw;
+}
+
+.officers-body {
+}
