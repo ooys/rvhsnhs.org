@@ -433,6 +433,30 @@ body {
     transition: all 0.3s;
 }
 
+.modal-content {
+    background: white;
+    /* overflow: hidden; */
+    padding: 5vw 5vw 5vw 5vw;
+    border-radius: 1rem;
+}
+
+.modal-text hr {
+    background-color: black;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-title {
+    font-size: 1.2rem;
+}
+
+/* .modal-badge {
+    height: 30vh;
+    width: 30vw;
+    margin-top: 10vh;
+    margin-left: 10vw;
+} */
+
 .bronze {
     filter: invert(47%) sepia(91%) saturate(441%) hue-rotate(3deg)
         brightness(96%) contrast(81%);
