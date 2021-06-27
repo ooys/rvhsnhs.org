@@ -7,7 +7,6 @@ import Footer from "/components/Footer";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { faBorderNone } from "@fortawesome/free-solid-svg-icons";
 
 initFirebase();
 const db = firebase.firestore();
@@ -41,9 +40,7 @@ function BadgeModal(props) {
                     aria-label="close"
                     onClick={() => {
                         props.setActive("");
-                    }}>
-                    >
-                </button>
+                    }}></button>
             </div>
         );
     } else {
@@ -74,7 +71,7 @@ function badge(name, active, setActive) {
             break;
         case "overachiever":
             title = "Overachiever";
-            desc = "Log in during a school break.";
+            desc = "Logged in during a school break.";
             src = "/images/badges/overachiever.svg";
             break;
         case "volunteer_of_the_month":

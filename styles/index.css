@@ -696,3 +696,14 @@ video {
     margin-left: 1vw;
     margin-bottom: 1vw;
 }
+
+/* Officer Create Opportunity */
+
+.create-opportunity-title {
+    font-size: 2rem;
+    text-align: center;
+}
+
+#create-opportunity-wrapper hr {
+    background-color: black;
+}
