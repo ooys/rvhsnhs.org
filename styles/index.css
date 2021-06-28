@@ -672,3 +672,17 @@ video {
     margin-left: 1vw;
     margin-bottom: 1vw;
 }
+
+/* Admin Group Tab */
+.admin-group-title {
+    font-size: 25px;
+    padding: 1.5rem 0rem 0rem 1.5rem;
+}
+
+.admin-group-table {
+    padding: 1.5rem 20rem 1.5rem 1.5rem;
+}
+
+.email-divider {
+    padding: 0.5rem 0rem 0.5rem 1rem;
+}
