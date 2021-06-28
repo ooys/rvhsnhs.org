@@ -709,7 +709,8 @@ video {
 
 .email-divider {
     padding: 0.5rem 0rem 0.5rem 1rem;
-/* Officer Create Opportunity */
+    /* Officer Create Opportunity */
+}
 
 .create-opportunity-title {
     font-size: 2rem;
@@ -809,4 +810,19 @@ video {
 
 .button-disabled {
     display: hidden !important;
+}
+
+/* Verification Page */
+.verificiation-title {
+    font-size: 25px;
+    text-align: center;
+    padding-top: 1.5rem;
+}
+
+.check-button {
+    padding: 0rem 0rem 0rem 1rem;
+}
+
+.x-button {
+    padding: 0rem 0rem 0rem 1rem;
 }
