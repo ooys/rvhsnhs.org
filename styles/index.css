@@ -707,3 +707,94 @@ video {
 #create-opportunity-wrapper hr {
     background-color: black;
 }
+
+/* Event Detail */
+
+.event-detail {
+    background-color: white;
+}
+
+.event-detail-title-overlay {
+    width: 100vw;
+    height: 30vw;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding-top: 13vw;
+    font-size: 4vw;
+    text-align: center;
+}
+
+.event-detail-title {
+    width: 100vw;
+    height: 30vw;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.event-detail-descriptions {
+    margin-top: 2rem;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.event-detail-descriptions hr {
+    background-color: black;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.event-detail-descriptions-title {
+    font-size: 2rem;
+}
+
+.event-detail-tasks {
+    margin-top: 2rem;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.event-detail-tasks hr {
+    background-color: black;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.event-detail-tasks-register-wrapper {
+    padding-top: 1rem !important;
+}
+
+.event-detail-tasks-register {
+    border-width: 2px;
+    border-color: #0e447b;
+    color: #0e447b;
+    border-style: solid;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 0.2rem;
+    transition: 0.3s all;
+}
+
+.event-detail-tasks-register:hover {
+    background-color: #0e447b;
+    color: white;
+    transition: 0.3s all;
+}
+
+.is-locked {
+    border-color: red;
+    color: red;
+
+    pointer-events: none;
+}
+
+.is-registered {
+    border-color: orange;
+    color: orange;
+    pointer-events: none;
+}
+
+.button-disabled {
+    display: hidden !important;
+}

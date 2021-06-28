@@ -6,11 +6,13 @@ import Footer from "/components/Footer";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import withAuth from "/components/auth/withAuth.js";
 
 initFirebase();
 const db = firebase.firestore();
 
 function CreateOpportunity() {
+    const router = useRouter();
     const {
         register,
         control,
@@ -23,7 +25,7 @@ function CreateOpportunity() {
         name: "tasks",
     });
     async function onSubmitForm(values) {
-        console.log(values);
+        // console.log(values);
 
         const eventRef = db.collection("opportunities");
 
@@ -43,7 +45,7 @@ function CreateOpportunity() {
                 { merge: false }
             )
             .then(function (docRef) {
-                console.log(docRef.id);
+                // console.log(docRef.id);
                 const masterRef = db.collection("opportunities").doc("master");
                 masterRef.update({
                     ongoing: firebase.firestore.FieldValue.arrayUnion({
@@ -53,6 +55,12 @@ function CreateOpportunity() {
                         picture: values.picture,
                     }),
                 });
+            })
+            .then(() => {
+                window.alert(
+                    "Event " + values.title + " successfully created."
+                );
+                router.push("/member/opportunities");
             });
     }
 
@@ -287,4 +295,4 @@ function CreateOpportunity() {
     );
 }
 
-export default CreateOpportunity;
+export default withAuth(CreateOpportunity, "officer");
