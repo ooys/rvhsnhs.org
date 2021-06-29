@@ -60,7 +60,17 @@ function Member() {
         <div className="member">
             <Navbar user="member" />
             <div className="page-wrapper" id="member">
-                <div className="member-top-page-wrapper">
+                <img src="/images/mainpage.png" alt=""></img>
+            </div>
+            <Footer />
+        </div>
+    );
+}
+
+export default withAuth(Member, "member");
+
+/*
+<div className="member-top-page-wrapper">
                     <div className="slideshow-wrapper">
                         <Events />
                     </div>
@@ -90,10 +100,4 @@ function Member() {
                         </div>
                     </div>
                 </div>
-            </div>
-            <Footer />
-        </div>
-    );
-}
-
-export default withAuth(Member, "member");
+*/

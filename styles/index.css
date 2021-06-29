@@ -697,7 +697,20 @@ video {
     margin-bottom: 1vw;
 }
 
-/* Officer Create Opportunity */
+/* Admin Group Tab */
+.admin-group-title {
+    font-size: 25px;
+    padding: 1.5rem 0rem 0rem 1.5rem;
+}
+
+.admin-group-table {
+    padding: 1.5rem 20rem 1.5rem 1.5rem;
+}
+
+.email-divider {
+    padding: 0.5rem 0rem 0.5rem 1rem;
+    /* Officer Create Opportunity */
+}
 
 .create-opportunity-title {
     font-size: 2rem;
@@ -797,4 +810,19 @@ video {
 
 .button-disabled {
     display: hidden !important;
+}
+
+/* Verification Page */
+.verificiation-title {
+    font-size: 25px;
+    text-align: center;
+    padding-top: 1.5rem;
+}
+
+.check-button {
+    padding: 0rem 0rem 0rem 1rem;
+}
+
+.x-button {
+    padding: 0rem 0rem 0rem 1rem;
 }
