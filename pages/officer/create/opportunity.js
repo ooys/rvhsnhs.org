@@ -26,6 +26,13 @@ function CreateOpportunity() {
     });
     async function onSubmitForm(values) {
         // console.log(values);
+        let tasklist = values.tasks;
+        Array.from(
+            tasklist.map((element) => {
+                element["registrations"] = [];
+                return element;
+            })
+        );
 
         const eventRef = db.collection("opportunities");
 
@@ -39,7 +46,7 @@ function CreateOpportunity() {
                     "end-time": values.endtime,
                     location: values.location,
                     picture: values.picture,
-                    tasks: values.tasks,
+                    tasks: tasklist,
                     "time-created": new firebase.firestore.Timestamp.now(),
                 },
                 { merge: false }
