@@ -46,7 +46,6 @@ function SignIn() {
                 router.push("/login");
             }
         });
-        // .then(() => redirect());
     };
 
     async function checkProfile(profile) {
@@ -62,6 +61,13 @@ function SignIn() {
 
     async function checkRole(email) {
         const sid = email.slice(0, -9);
+        var regExp = /[a-zA-Z]/g;
+
+        if (regExp.test(sid)) {
+            /* do something if letters are found in your string */
+            return "faculty";
+        }
+
         // console.log(sid);
         const rolesRef = db.collection("permissions").doc("roles");
         const role = await rolesRef.get().then((snapshot) => {

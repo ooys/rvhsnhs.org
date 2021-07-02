@@ -44,4 +44,4 @@ function opportunity() {
     }
 }
 
-export default opportunity;
+export default withAuth(opportunity, "member");
