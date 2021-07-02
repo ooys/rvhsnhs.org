@@ -712,6 +712,8 @@ video {
     /* Officer Create Opportunity */
 }
 
+/* Create Opportunity */
+
 .create-opportunity-title {
     font-size: 2rem;
     text-align: center;
@@ -719,6 +721,16 @@ video {
 
 #create-opportunity-wrapper hr {
     background-color: black;
+}
+
+.create-opportunity-form {
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.task-label {
+    margin-top: 1rem;
+    margin-left: 5vw;
 }
 
 /* Event Detail */

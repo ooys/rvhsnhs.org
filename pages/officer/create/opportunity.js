@@ -210,7 +210,7 @@ function CreateOpportunity() {
                             {fields.map(({ id }, index) => {
                                 return (
                                     <div className="control" key={id}>
-                                        <label className="label">
+                                        <label className="label task-label">
                                             Task {index + 1}
                                             <label className="label">
                                                 Title
@@ -257,7 +257,7 @@ function CreateOpportunity() {
                                                     )}></input>
                                             </label>
                                             <input
-                                                className="button"
+                                                className="button is-danger"
                                                 type="button"
                                                 value="Delete"
                                                 onClick={() =>
@@ -272,27 +272,31 @@ function CreateOpportunity() {
 
                     <div className="field">
                         <input
-                            className="button"
+                            className="button is-info"
                             type="button"
                             value="Add Tasks"
                             onClick={() => append({})}></input>
                     </div>
 
                     {/* Submission */}
+                    <hr></hr>
                     <div className="field is-grouped">
                         <div className="control">
                             <input
-                                className="button"
+                                className="button is-success"
                                 type="submit"
                                 name="submit"
                                 value="Submit"></input>
                         </div>
                         <div className="control">
                             <input
-                                className="button"
+                                className="button is-danger"
                                 type="button"
                                 name="cancel"
-                                value="Cancel"></input>
+                                value="Cancel"
+                                onClick={() => {
+                                    router.push("/officer/admingroup");
+                                }}></input>
                         </div>
                     </div>
                 </form>
