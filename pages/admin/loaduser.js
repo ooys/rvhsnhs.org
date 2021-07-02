@@ -9,7 +9,6 @@ import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import Navbar from "../../components/Navbar.js";
 import Footer from "../../components/Footer";
 import { render } from "nprogress";
-import Papa from "papaparse";
 import withAuth from "/components/auth/withAuth.js";
 // import memberlist from ;
 // import officerlist from "/data/officers.csv";
