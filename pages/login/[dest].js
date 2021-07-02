@@ -59,70 +59,98 @@ function SignIn() {
         });
     }
 
-    async function checkRole(email) {
+    async function checkInit(email) {
+        let profile = {
+            role: "visitor",
+            hours: null,
+            grade: null,
+            admingroup: null,
+        };
         const sid = email.slice(0, -9);
         var regExp = /[a-zA-Z]/g;
 
         if (regExp.test(sid)) {
             /* do something if letters are found in your string */
-            return "faculty";
+            profile.role = "faculty";
+            return profile;
         }
 
         // console.log(sid);
-        const rolesRef = db.collection("permissions").doc("roles");
-        const role = await rolesRef.get().then((snapshot) => {
-            let role_list = snapshot.data();
-
-            if (role_list.members.includes(sid)) {
-                // console.log("member");
-                return "member";
-            } else if (role_list.officers.includes(sid)) {
-                // console.log("officer");
-                return "officer";
-            } else if (role_list.moderators.includes(sid)) {
-                // console.log("moderator");
-                return "moderator";
-            } else if (role_list.admins.includes(sid)) {
-                // console.log("admin");
-                return "admin";
+        const initRef = db.collection("inituser").doc(sid);
+        const inituser = await initRef.get().then((snapshot) => {
+            if (snapshot.exists) {
+                const data = snapshot.data();
+                profile.role = data.role;
+                profile.hours = data.hours.carryon;
+                profile.grade = data.grade;
+                profile.admingroup = data.admingroup;
+                return profile;
             } else {
-                // console.log("student");
-                return "student";
+                profile.role = "student";
+                return profile;
             }
         });
-        return role;
+        return profile;
     }
 
     async function createProfile(profile) {
         // Check Organization
         let org = "";
-        let role = "";
+        let profileInfo = {
+            role: "visitor",
+            hours: null,
+            grade: null,
+            admingroup: null,
+        };
         if (typeof profile.hd != "undefined" && profile.hd === "lcps.org") {
             org = profile.hd;
             // Check Role
-            role = await checkRole(profile.email);
+            profileInfo = await checkInit(profile.email);
             // console.log(role);
         } else {
             org = "exterior";
-            role = "visitor";
+            profileInfo.role = "visitor";
         }
 
         // Create Profile
         const userRef = db
             .collection("users")
             .doc(firebase.auth().currentUser.uid);
-
-        await userRef.set(
-            {
-                first: profile.given_name,
-                last: profile.family_name,
-                email: profile.email,
-                role: role,
-                profilePicture: profile.picture,
-                firstLogin: new firebase.firestore.Timestamp.now(),
-            },
-            { merge: false }
-        );
+        if (["visitor", "faculty", "student"].includes(profileInfo.role)) {
+            await userRef.set(
+                {
+                    first: profile.given_name,
+                    last: profile.family_name,
+                    email: profile.email,
+                    role: profileInfo.role,
+                    badges: [],
+                    profilePicture: profile.picture,
+                    firstLogin: new firebase.firestore.Timestamp.now(),
+                },
+                { merge: true }
+            );
+        } else {
+            await userRef.set(
+                {
+                    first: profile.given_name,
+                    last: profile.family_name,
+                    email: profile.email,
+                    role: profileInfo.role,
+                    hours: {
+                        carryon: profileInfo.hours,
+                        volunteer: 0,
+                        tutoring: 0,
+                    },
+                    grade: profileInfo.grade,
+                    admingroup: profileInfo.admingroup,
+                    opportunities: [],
+                    badges: ["beta_tester"],
+                    profilePicture: profile.picture,
+                    firstLogin: new firebase.firestore.Timestamp.now(),
+                },
+                { merge: true }
+            );
+        }
     }
 
     return (
