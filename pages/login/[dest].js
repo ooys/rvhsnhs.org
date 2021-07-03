@@ -138,7 +138,7 @@ function SignIn() {
                     role: profileInfo.role,
                     hours: {
                         carryon: profileInfo.hours,
-                        volunteer: 0,
+                        volunteering: 0,
                         tutoring: 0,
                     },
                     grade: profileInfo.grade,
