@@ -6,35 +6,120 @@ function About() {
         <>
             <Navbar />
             <div className="page-wrapper" id="about">
-                <div className="big-about-us">
-                    <p> About Us </p>
-                </div>
-                <div className="about-us-body-text">
-                    <p>
-                        The Riverside High School chapter of the National Honor
-                        Society was established in 2015 and is committed to
-                        serving the community while upholding the values of
-                        scholarship, service, leadership and character. These
-                        four pillars have been upheld in the organization since
-                        its inception in 1921. All students in NHS are expected
-                        to attend monthly meetings as scheduled at the start of
-                        the year, maintain their standards of selection, and to
-                        complete a specific quantity of quality service hours as
-                        determined by the organization’s leadership with support
-                        by the Faculty Council and school principal. NHS
-                        meetings are only subject to change in emergencies or by
-                        administrative approval. Officers are obligated to meet
-                        prior to the full NHS meeting as required by the NHS
-                        adviser. Any NHS student who misses three meetings
-                        throughout the course of the school year or who fails to
-                        complete the required service hours by the assigned due
-                        dates at the end of the first and/or second semesters
-                        may be dismissed from the organization by the Faculty
-                        Council.
-                    </p>
-                </div>
-                <div className="officers-big-text">
-                    <p> Officers </p>
+                <div className="columns columns-wrapper is-multiline">
+                    <div className="column about-section is-full is-bg-light">
+                        <div className="about-section-top">
+                            <div className="about-section-title">
+                                The Four Pillars
+                            </div>
+                            <div className="about-section-subtitle">
+                                of National Honor Society
+                            </div>
+                        </div>
+                    </div>
+                    <div className="column about-section is-full is-bg-light">
+                        <div className="columns about-section-wrapper is-vcentered">
+                            <div
+                                className="column about-section-picture is-half"
+                                id="about-column-picture-1">
+                                <img
+                                    className="scholarship-image"
+                                    src="images\splashicons\graduated (1).png"
+                                    alt="graduated"
+                                />
+                            </div>
+                            <div className="column about-section-text is-half">
+                                <div className="about-section-header">
+                                    Scholarship
+                                </div>
+                                <div className="about-section-body">
+                                    Members achieve academic excellence by
+                                    maintaining at least a 3.5 cumulative GPA
+                                    and tutoring students who need help in their
+                                    classes.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="column about-section is-full is-bg-shade">
+                        <div className="columns about-section-wrapper is-vcentered">
+                            <div className="column about-section-text align-right is-half">
+                                <div className="about-section-header">
+                                    Service
+                                </div>
+                                <div className="about-section-body">
+                                    Service is about giving back to the
+                                    community through meaningful ways with the
+                                    intent of improvement. Members have an
+                                    enthusiastic and encouraging attitude while
+                                    dedicating time and effort to making a
+                                    positive difference.
+                                </div>
+                            </div>
+
+                            <div
+                                className="column about-section-picture is-half"
+                                id="about-column-picture-1">
+                                <img
+                                    src="images\splashicons\beneficiary.png"
+                                    alt=""
+                                    className="scholarship-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="column about-section is-full is-bg-light">
+                        <div className="columns about-section-wrapper is-vcentered">
+                            <div
+                                className="column about-section-picture is-half"
+                                id="about-column-picture-1">
+                                <img
+                                    src="images\splashicons\leadership (2).png"
+                                    alt=""
+                                    className="scholarship-image"
+                                />
+                            </div>
+                            <div className="column about-section-text is-half">
+                                <div className="about-section-header">
+                                    Leadership
+                                </div>
+                                <div className="about-section-body">
+                                    A leader communicates and inspires the group
+                                    to follow the vision to complete the task.
+                                    Members will be positive role models by
+                                    taking responsibility for their own actions,
+                                    communicating with others, and contributing
+                                    ideas to the group.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="column about-section is-full is-bg-shade">
+                        <div className="columns about-section-wrapper is-vcentered">
+                            <div className="column about-section-text align-right is-half">
+                                <div className="about-section-header">
+                                    Character
+                                </div>
+                                <div className="about-section-body">
+                                    Character is the combination of being
+                                    courteous, respectful of others, and
+                                    possessing high principles of ethics. Every
+                                    member of NHS demonstrates courtesy,
+                                    respectfulness, honesty and reliability.
+                                </div>
+                            </div>
+
+                            <div
+                                className="column about-section-picture is-half"
+                                id="about-column-picture-1">
+                                <img
+                                    src="images\splashicons\angel (1).png"
+                                    alt=""
+                                    className="scholarship-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <Footer />
