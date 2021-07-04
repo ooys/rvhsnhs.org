@@ -1,7 +1,42 @@
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer";
+import { Controller, Scene } from "react-scrollmagic";
+import React, { useState, useEffect } from "react";
 
 function About() {
+    let [hidden, setHidden] = useState(0);
+
+    useEffect(() => {
+        function checkPos() {
+            const el1 = document
+                .querySelector("#about-column-1")
+                .getBoundingClientRect().top;
+            const el2 = document
+                .querySelector("#about-column-2")
+                .getBoundingClientRect().top;
+            const el3 = document
+                .querySelector("#about-column-3")
+                .getBoundingClientRect().top;
+            const el4 = document
+                .querySelector("#about-column-4")
+                .getBoundingClientRect().top;
+            console.log(el1, el2, el3, el4);
+            if (el1 <= 200 && hidden < 1) {
+                setHidden(1);
+            }
+            if (el2 <= 200 && hidden < 2) {
+                setHidden(2);
+            }
+            if (el3 <= 200 && hidden < 3) {
+                setHidden(3);
+            }
+            if (el4 <= 200 && hidden < 4) {
+                setHidden(4);
+            }
+        }
+        document.body.onscroll = checkPos;
+    });
+
     return (
         <>
             <Navbar />
@@ -17,7 +52,12 @@ function About() {
                             </div>
                         </div>
                     </div>
-                    <div className="column about-section is-full is-bg-light">
+                    <div
+                        className={
+                            "column about-section is-full is-bg-light" +
+                            (hidden >= 1 ? "" : " is-scroll-hidden")
+                        }
+                        id="about-column-1">
                         <div className="columns about-section-wrapper is-vcentered">
                             <div
                                 className="column about-section-picture is-half"
@@ -41,7 +81,12 @@ function About() {
                             </div>
                         </div>
                     </div>
-                    <div className="column about-section is-full is-bg-shade">
+                    <div
+                        className={
+                            "column about-section is-full is-bg-shade" +
+                            (hidden >= 2 ? "" : " is-scroll-hidden")
+                        }
+                        id="about-column-2">
                         <div className="columns about-section-wrapper is-vcentered">
                             <div className="column about-section-text align-right is-half">
                                 <div className="about-section-header">
@@ -68,7 +113,12 @@ function About() {
                             </div>
                         </div>
                     </div>
-                    <div className="column about-section is-full is-bg-light">
+                    <div
+                        className={
+                            "column about-section is-full is-bg-light" +
+                            (hidden >= 3 ? "" : " is-scroll-hidden")
+                        }
+                        id="about-column-3">
                         <div className="columns about-section-wrapper is-vcentered">
                             <div
                                 className="column about-section-picture is-half"
@@ -94,7 +144,12 @@ function About() {
                             </div>
                         </div>
                     </div>
-                    <div className="column about-section is-full is-bg-shade">
+                    <div
+                        className={
+                            "column about-section is-full is-bg-shade" +
+                            (hidden >= 4 ? "" : " is-scroll-hidden")
+                        }
+                        id="about-column-4">
                         <div className="columns about-section-wrapper is-vcentered">
                             <div className="column about-section-text align-right is-half">
                                 <div className="about-section-header">

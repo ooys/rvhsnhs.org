@@ -859,6 +859,11 @@ video {
     font-size: 2rem;
 }
 
+.about-section {
+    opacity: 1;
+    transition: 0.8s all;
+}
+
 .about-section-picture {
     text-align: center;
 }
@@ -893,4 +898,9 @@ video {
 
 .align-right {
     text-align: right;
+}
+
+.is-scroll-hidden {
+    opacity: 0;
+    transition: 0.5s all;
 }
