@@ -859,9 +859,9 @@ video {
     font-size: 2rem;
 }
 
-.about-section {
+.about-section-wrapper {
     opacity: 1;
-    transition: 0.8s all;
+    transition: 0.5s all;
 }
 
 .about-section-picture {
