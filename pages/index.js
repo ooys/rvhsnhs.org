@@ -9,19 +9,27 @@ function Index() {
 
     useEffect(() => {
         function checkPos() {
-            const el1 = document
-                .querySelector("#about-column-1")
-                .getBoundingClientRect().top;
-            const el2 = document
-                .querySelector("#about-column-2")
-                .getBoundingClientRect().top;
-            const el3 = document
-                .querySelector("#about-column-3")
-                .getBoundingClientRect().top;
-            const el4 = document
-                .querySelector("#about-column-4")
-                .getBoundingClientRect().top;
-            console.log(el1, el2, el3, el4);
+            let el1 = 200;
+            let el2 = 200;
+            let el3 = 200;
+            let el4 = 200;
+            try {
+                el1 = document
+                    .querySelector("#about-column-1")
+                    .getBoundingClientRect().top;
+                el2 = document
+                    .querySelector("#about-column-2")
+                    .getBoundingClientRect().top;
+                el3 = document
+                    .querySelector("#about-column-3")
+                    .getBoundingClientRect().top;
+                el4 = document
+                    .querySelector("#about-column-4")
+                    .getBoundingClientRect().top;
+            } catch (error) {
+                console.log(error);
+                setHidden(4);
+            }
             if (el1 <= 200 && hidden < 1) {
                 setHidden(1);
             }
@@ -155,7 +163,7 @@ function Index() {
                                     courteous, respectful of others, and
                                     possessing high principles of ethics. Every
                                     member of NHS demonstrates courtesy,
-                                    respectfulness, honesty and reliability.
+                                    respectfulness, honesty, and reliability.
                                 </div>
                             </div>
 
