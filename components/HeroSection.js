@@ -15,7 +15,7 @@ function HeroSection() {
                 onClick={() => {
                     router.push("/apply");
                 }}>
-                Join Now
+                Apply for 2021-2022 SY
                 <span className="hero-button-icon">
                     <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
                 </span>

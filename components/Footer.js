@@ -78,7 +78,9 @@ function Footer() {
                             />
                         </Link>
                     </div>
-                    <small className="website-rights">NHS © 2021</small>
+                    <small className="website-rights">
+                        Riverside NHS © 2021
+                    </small>
                     <div className="social-icons">
                         <a
                             className="icon-anchor"
