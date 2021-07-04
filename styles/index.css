@@ -637,22 +637,6 @@ video {
     margin-top: 2vw;
 }
 
-.big-about-us {
-    text-align: center;
-    font-size: 50px;
-    text-decoration: underline;
-    margin-top: 3vw;
-}
-
-.about-us-body-text {
-    height: 100%;
-    width: 50%;
-    font-size: 20px;
-    margin-left: 25vw;
-    margin-right: 25vw;
-    margin-top: 1vw;
-}
-
 .officers-big-text {
     text-align: center;
     font-size: 35px;
@@ -842,146 +826,71 @@ video {
 }
 
 /* Splash Page */
-.scholarship-wrapper {
-    background-color: #fff;
-    height: 25vw;
-    width: 60%;
-    font-family: Touche;
+
+/* About Us */
+
+.columns-wrapper {
+    margin-top: 2rem;
+}
+
+.about-section-wrapper {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    padding-top: 10vw;
+    padding-bottom: 10vw;
+}
+
+.about-section-top {
+    text-align: center;
+    background-image: linear-gradient(120deg, #2793fa 0%, #66a6ff 100%);
+    color: white;
+    padding-top: 10vw;
+    padding-bottom: 10vw;
+}
+
+.about-section-title {
+    font-family: "Touche";
     font-weight: bold;
-    font-size: 50px;
-    color: #151717;
-    padding: 12rem 0rem 12rem 10rem;
+    text-align: center;
+    font-size: 3rem;
 }
 
-.scholarship-desc-wrapper {
-    color: grey;
-    height: 10vw;
-    width: 100%;
-    font-family: "Exo 2", sans-serif;
-    font-size: 25px;
-    padding: 0rem 0rem 0rem 0rem;
+.about-section-subtitle {
+    font-size: 2rem;
 }
 
-.service-wrapper {
-    background-color: #f5f5f5;
-    height: 25vw;
-    width: 60%;
-    font-family: Touche;
-    font-weight: bold;
-    font-size: 50px;
-    color: #151717;
-    padding: 12rem 10rem 0rem 0rem;
-}
-
-.service-desc-wrapper {
-    color: grey;
-    height: 10vw;
-    width: 100%;
-    font-family: "Exo 2", sans-serif;
-    font-size: 25px;
-    padding: 0rem 0rem 0rem 0rem;
-}
-
-.leadership-wrapper {
-    background-color: #fff;
-    height: 25vw;
-    width: 75%;
-    font-family: Touche;
-    font-weight: bold;
-    font-size: 50px;
-    color: #151717;
-    padding: 9rem 0rem 0rem 10rem;
-}
-
-.leadership-desc-wrapper {
-    color: grey;
-    height: 10vw;
-    width: 100%;
-    font-family: "Exo 2", sans-serif;
-    font-size: 25px;
-    padding: 0rem 0rem 0rem 0rem;
-}
-
-.character-wrapper {
-    background-color: #f5f5f5;
-    height: 25vw;
-    width: 50%;
-    font-family: Touche;
-    font-weight: bold;
-    font-size: 50px;
-    color: #151717;
-    padding: 12rem 0rem 0rem 0rem;
-}
-
-.character-desc-wrapper {
-    color: grey;
-    height: 10vw;
-    width: 100%;
-    font-family: "Exo 2", sans-serif;
-    font-size: 25px;
-    padding: 0rem 10rem 0rem 0rem;
-}
-
-.pillar-page-wrapper {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: white;
-}
-
-.pillar-div-1 {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    background-color: white;
-    margin-left: 35%;
-    margin-right: 30%;
-}
-
-.pillar-div-2 {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    background-color: #f5f5f5;
-    margin-left: 35%;
-    margin-right: 30%;
-}
-
-.pillar-div-3 {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    background-color: white;
-    margin-left: 35%;
-    margin-right: 30%;
-}
-
-.pillar-div-4 {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    background-color: #f5f5f5;
-    margin-left: 35%;
-    margin-right: 30%;
-}
-
-.pillar-bg1 {
-    background-color: white;
-}
-
-.pillar-bg2 {
-    background-color: #f5f5f5;
-}
-
-.pillar-bg3 {
-    background-color: white;
-}
-
-.pillar-bg4 {
-    background-color: #f5f5f5;
+.about-section-picture {
+    text-align: center;
 }
 
 .scholarship-image {
-    height: 30%;
-    width: 30%;
+    height: 50vh;
+}
+
+.about-section-text {
+    padding-right: 5vw;
+    padding-left: 5vw;
+}
+
+.about-section-header {
+    font-family: "Touche";
+    font-weight: bold;
+    font-size: 3rem;
+    color: #2793fa;
+}
+
+.about-section-body {
+    font-size: 1.2rem;
+}
+
+.is-bg-light {
+    background-color: white;
+}
+
+.is-bg-shade {
+    background-color: #f1f1e6;
+}
+
+.align-right {
+    text-align: right;
 }
