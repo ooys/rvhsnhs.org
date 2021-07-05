@@ -24,12 +24,47 @@ function CreateOpportunity() {
         control,
         name: "tasks",
     });
+
+    async function sendEmail(to, title, message, html) {
+        console.log("Sending");
+        let email_data = {
+            to,
+            title,
+            message,
+            html,
+        };
+        fetch("/api/email", {
+            method: "POST",
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(email_data),
+        }).then((res) => {
+            console.log("Response received");
+            if (res.status === 200) {
+                console.log("Response succeeded!");
+            } else {
+                console.log(res.status);
+            }
+        });
+    }
+
     async function onSubmitForm(values) {
         // console.log(values);
+        const memberEmailList = "";
+        const officerEmailList = "";
+        const advisorEmailList = "";
+        const testEmailList = "1036566@lcps.org,895090@lcps.org";
+        let emailBody = "";
+        let emailHtml = `<h2>A new volunteer opportunity has been listed on the website! Visit https://rvhnhs.vercel.app/ to register.</h2><br></br><h3>Event: ${values.title}</h3><h3>Date: ${values.date}</h3><h3>Time: ${values.starttime} - ${values.endtime}</h3><h3>Location: ${values.location}</h3><h3>Details: ${values.desc}</h3><br></br><h3>Tasks:</h3>`;
         let tasklist = values.tasks;
         Array.from(
             tasklist.map((element) => {
                 element["registrations"] = [];
+                emailHtml =
+                    emailHtml +
+                    `<h3>${element.title}</h3><h3>${element.description}</h3><h3>Positions Open: ${element["max-registrants"]}</h3><h3>Hours: ${element.hours}</h3><br></br>`;
                 return element;
             })
         );
@@ -62,6 +97,15 @@ function CreateOpportunity() {
                         picture: values.picture,
                     }),
                 });
+            })
+
+            .then(() => {
+                sendEmail(
+                    testEmailList,
+                    "New Opportunity: " + values.title,
+                    emailBody,
+                    emailHtml
+                );
             })
             .then(() => {
                 window.alert(
