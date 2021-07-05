@@ -19,8 +19,12 @@ export default function (req, res) {
         html: `${req.body.html}`,
     };
     transporter.sendMail(mailData, function (err, info) {
-        if (err) console.log(err);
-        else console.log(info);
+        if (err) {
+            console.log(err);
+            res.status(200).json(err);
+        } else {
+            console.log(info);
+            res.status(200).json(info);
+        }
     });
-    res.status(200);
 }

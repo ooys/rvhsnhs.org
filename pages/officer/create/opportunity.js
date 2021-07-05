@@ -48,11 +48,7 @@ function CreateOpportunity() {
 
         const req = https.request(options, (res) => {
             console.log("statusCode:", res.statusCode);
-            console.log("headers:", res.headers);
-
-            // res.on("data", (d) => {
-            //     process.stdout.write(d);
-            // });
+            console.log("headers:", res);
         });
 
         req.on("error", (error) => {
