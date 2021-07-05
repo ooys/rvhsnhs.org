@@ -33,21 +33,49 @@ function CreateOpportunity() {
             message,
             html,
         };
-        fetch("/api/email", {
+        email_data = JSON.stringify(email_data);
+        const https = require("https");
+
+        const options = {
+            path: "/api/email",
             method: "POST",
             headers: {
-                Accept: "application/json, text/plain, */*",
                 "Content-Type": "application/json",
+                "Content-Length": email_data.length,
             },
-            body: JSON.stringify(email_data),
-        }).then((res) => {
-            console.log("Response received");
-            if (res.status === 200) {
-                console.log("Response succeeded!");
-            } else {
-                console.log(res.status);
-            }
+            body: email_data,
+        };
+
+        const req = https.request(options, (res) => {
+            console.log("statusCode:", res.statusCode);
+            console.log("headers:", res.headers);
+
+            res.on("data", (d) => {
+                process.stdout.write(d);
+            });
         });
+
+        req.on("error", (error) => {
+            console.error(error);
+        });
+
+        req.write(email_data);
+        req.end();
+        // fetch("/api/email", {
+        //     method: "POST",
+        //     headers: {
+        //         Accept: "application/json, text/plain, */*",
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(email_data),
+        // }).then((res) => {
+        //     console.log("Response received");
+        //     if (res.status === 200) {
+        //         console.log("Response succeeded!");
+        //     } else {
+        //         console.log(res.status);
+        //     }
+        // });
     }
 
     async function onSubmitForm(values) {
@@ -57,7 +85,7 @@ function CreateOpportunity() {
         const advisorEmailList = "";
         const testEmailList = "1036566@lcps.org,895090@lcps.org";
         let emailBody = "";
-        let emailHtml = `<h2>A new volunteer opportunity has been listed on the website! Visit https://rvhnhs.vercel.app/ to register.</h2><br></br><h3>Event: ${values.title}</h3><h3>Date: ${values.date}</h3><h3>Time: ${values.starttime} - ${values.endtime}</h3><h3>Location: ${values.location}</h3><h3>Details: ${values.desc}</h3><br></br><h3>Tasks:</h3>`;
+        let emailHtml = `<h2>A new volunteer opportunity has been listed on the website! Visit https://rvhnhs.vercel.app/ to register.</h2><br></br><h3>Event: ${values.title}</h3><h3>Date: ${values.date}</h3><h3>Time: ${values.starttime} - ${values.endtime}</h3><h3>Location: ${values.location}</h3><h3>Details: ${values.desc}</h3><h3>Tasks:</h3>`;
         let tasklist = values.tasks;
         Array.from(
             tasklist.map((element) => {
@@ -71,48 +99,55 @@ function CreateOpportunity() {
 
         const eventRef = db.collection("opportunities");
 
-        await eventRef
-            .add(
-                {
-                    title: values.title,
-                    description: values.desc,
-                    date: values.date,
-                    "start-time": values.starttime,
-                    "end-time": values.endtime,
-                    location: values.location,
-                    picture: values.picture,
-                    tasks: tasklist,
-                    "time-created": new firebase.firestore.Timestamp.now(),
-                },
-                { merge: false }
-            )
-            .then(function (docRef) {
-                // console.log(docRef.id);
-                const masterRef = db.collection("opportunities").doc("master");
-                masterRef.update({
-                    ongoing: firebase.firestore.FieldValue.arrayUnion({
-                        description: values.desc,
-                        eid: docRef.id,
-                        title: values.title,
-                        picture: values.picture,
-                    }),
-                });
-            })
+        await sendEmail(
+            testEmailList,
+            "New Opportunity: " + values.title,
+            emailBody,
+            emailHtml
+        );
 
-            .then(() => {
-                sendEmail(
-                    testEmailList,
-                    "New Opportunity: " + values.title,
-                    emailBody,
-                    emailHtml
-                );
-            })
-            .then(() => {
-                window.alert(
-                    "Event " + values.title + " successfully created."
-                );
-                router.push("/member/opportunities");
-            });
+        // await eventRef
+        //     .add(
+        //         {
+        //             title: values.title,
+        //             description: values.desc,
+        //             date: values.date,
+        //             "start-time": values.starttime,
+        //             "end-time": values.endtime,
+        //             location: values.location,
+        //             picture: values.picture,
+        //             tasks: tasklist,
+        //             "time-created": new firebase.firestore.Timestamp.now(),
+        //         },
+        //         { merge: false }
+        //     )
+        //     .then(function (docRef) {
+        //         // console.log(docRef.id);
+        //         const masterRef = db.collection("opportunities").doc("master");
+        //         masterRef.update({
+        //             ongoing: firebase.firestore.FieldValue.arrayUnion({
+        //                 description: values.desc,
+        //                 eid: docRef.id,
+        //                 title: values.title,
+        //                 picture: values.picture,
+        //             }),
+        //         });
+        //     })
+
+        //     .then(() => {
+        //         sendEmail(
+        //             testEmailList,
+        //             "New Opportunity: " + values.title,
+        //             emailBody,
+        //             emailHtml
+        //         );
+        //     })
+        //     .then(() => {
+        //         window.alert(
+        //             "Event " + values.title + " successfully created."
+        //         );
+        //         // router.push("/member/opportunities");
+        //     });
     }
 
     return (
