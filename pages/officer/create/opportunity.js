@@ -119,7 +119,7 @@ function CreateOpportunity() {
                 window.alert(
                     "Event " + values.title + " successfully created."
                 );
-                // router.push("/member/opportunities");
+                router.push("/member/opportunities");
             });
     }
 
