@@ -21,10 +21,10 @@ export default function (req, res) {
     transporter.sendMail(mailData, function (err, info) {
         if (err) {
             console.log(err);
-            res.status(200).json(err);
+            res.status(500);
         } else {
             console.log(info);
-            res.status(200).json(info);
+            res.status(200);
         }
     });
 }
