@@ -55,6 +55,7 @@ function CreateOpportunity() {
         });
 
         req.write(email_data);
+        req.end();
     }
 
     async function onSubmitForm(values) {
