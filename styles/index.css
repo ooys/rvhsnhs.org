@@ -893,6 +893,14 @@ video {
     background-color: #f1f1e6;
 }
 
+.is-bg-blue {
+    background-color: #0e447b;
+}
+
+.is-white {
+    color: white;
+}
+
 .align-right {
     text-align: right;
 }
