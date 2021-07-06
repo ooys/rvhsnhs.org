@@ -45,43 +45,35 @@ function Index() {
         }
         document.body.onscroll = checkPos;
     });
+
     return (
         <>
             <Navbar />
+            <HeroSection />
             <div className="page-wrapper" id="index">
                 <div className="columns columns-wrapper is-multiline">
-                    <div className="horizontal-stack">
+                    <div
+                        className="column about-section is-full is-bg-light"
+                        id="about-column-1">
                         <div
-                            className="column about-section is-half is-bg-light"
-                            id="main-column-1">
-                            <div className="mains about-section-wrapper is-vcentered">
-                                <div className="about-section-big-header">
+                            className={
+                                "columns about-section-wrapper is-vcentered"
+                            }>
+                            <div className="column about-section-text is-full">
+                                <div className="about-section-header">
                                     Volunteer. Lead. Serve.
                                 </div>
-                                <div className="main-section-wrapper">
-                                    <div className="about-section-big-body">
-                                        The National Honor Society is dedicated
-                                        to empowering the community through
-                                        meaningful service. Through Group
-                                        Service Projects, Individual
-                                        Volunteering, and the most successful
-                                        tutoring program in Loudoun County,
-                                        Riverside's National Honor Society
-                                        Chapter is making a difference. Think
-                                        you've got what it takes?
-                                    </div>
+                                <div className="about-section-body">
+                                    National Honor Society is dedicated to
+                                    empowering communities through meaningful
+                                    service. With Group Service Projects,
+                                    Individual Volunteering, and the most
+                                    successful tutoring program in Loudoun
+                                    County, the Riverside Chapter is making a
+                                    difference. Think you've got what it takes?
                                 </div>
-                                <a
-                                    className="main-button-wrapper"
-                                    onClick={() => {
-                                        router.push("/application");
-                                    }}>
-                                    Apply Here
-                                    <span className="apply-button-icon"></span>
-                                </a>
                             </div>
                         </div>
-                        <div className="main-trailer-wrapper"></div>
                     </div>
                     <div
                         className="column about-section is-full is-bg-shade"
@@ -126,12 +118,12 @@ function Index() {
                                     Service
                                 </div>
                                 <div className="about-section-body">
-                                    Service is about giving back to the
-                                    community through meaningful ways with the
-                                    intent of improvement. Members have an
-                                    enthusiastic and encouraging attitude while
-                                    dedicating time and effort to making a
-                                    positive difference.
+                                    Members have an enthusiastic and encouraging
+                                    attitude while dedicating time and effort to
+                                    making a positive difference. Service is
+                                    about giving back to the community through
+                                    meaningful ways with the intent of
+                                    improvement.
                                 </div>
                             </div>
 
@@ -210,18 +202,24 @@ function Index() {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div
-                    className="column about-section is-full is-bg-blue"
-                    id="end-column">
-                    <div className="end-section">
-                        <div className="end-section-header">
-                            Want an NHS website at your school?
-                        </div>
-                        <div className="end-section-body">
-                            We're on a mission to revolutionize the way The
-                            National Honor Society operates. For business
-                            inquiries please make sure to contact us.
+                    <div
+                        className="column about-section is-full is-bg-blue"
+                        id="about-column-4">
+                        <div
+                            className={
+                                "columns about-section-wrapper is-vcentered"
+                            }>
+                            <div className="column about-section-text is-full">
+                                <div className="about-section-header is-white">
+                                    Want an NHS website at your school?
+                                </div>
+                                <div className="about-section-body is-white">
+                                    We're on a mission to revolutionize
+                                    operations of National Honor Society
+                                    chapters through a dynamic website portal.
+                                    To learn more, please contact us.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
