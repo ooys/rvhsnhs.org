@@ -833,46 +833,6 @@ video {
     margin-top: 2rem;
 }
 
-.mains-wrapper {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-}
-
-.main-section-wrapper {
-    width: 100%;
-}
-
-.main-button-wrapper {
-    margin-top: 2rem;
-    font-size: 1.5rem;
-    height: auto;
-    width: 11rem;
-    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
-    display: flex;
-    justify-content: center;
-    background-color: #2793fa;
-    font-family: "Oxygen", sans-serif;
-    color: #fff;
-    border-radius: 0.3rem;
-    transition: 0.3s all;
-    align-content: center;
-    margin-left: 1vw;
-    margin-right: 0vw;
-    margin-top: 2vw;
-}
-
-.main-trailer-wrapper {
-    background-color: black;
-    height: 40rem;
-    width: 60rem;
-    margin-left: 105rem;
-}
-
-.horizontal-stack {
-    display: flex;
-    flex-direction: row;
-}
-
 .about-section-wrapper {
     margin-left: 10vw;
     margin-right: 10vw;
@@ -921,40 +881,8 @@ video {
     color: #2793fa;
 }
 
-.about-section-big-header {
-    font-family: "Touche";
-    font-weight: bold;
-    font-size: 6rem;
-    color: #2793fa;
-    width: 70rem;
-}
-
 .about-section-body {
-    font-size: 1.5rem;
-}
-
-.about-section-big-body {
-    font-size: 1.7rem;
-}
-
-.end-section {
-    height: 20rem;
-    width: 100%;
-}
-
-.end-section-header {
-    color: #fff;
-    font-family: "Touche";
-    font-weight: bold;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.end-section-body {
-    color: #fff;
-    font-size: 1.7rem;
-    text-align: center;
+    font-size: 1.2rem;
 }
 
 .is-bg-light {
@@ -963,10 +891,6 @@ video {
 
 .is-bg-shade {
     background-color: #f1f1e6;
-}
-
-.is-bg-blue {
-    background-color: #0e447b;
 }
 
 .align-right {
