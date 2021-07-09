@@ -1,12 +1,14 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
+import "firebase/storage";
 import initFirebase from "/services/firebase.js";
 import { useRouter } from "next/router";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 initFirebase();
 const db = firebase.firestore();
+const fs = firebase.storage();
 
 function EventDetail({ data, uid, eid }) {
     // console.log(data);
@@ -15,6 +17,118 @@ function EventDetail({ data, uid, eid }) {
     const profileRef = db.collection("users").doc(uid);
     const [value, loading, error] = useDocumentDataOnce(profileRef);
     const [disable, setDisable] = useState(false);
+    const [verify, setVerify] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const fileInputRef = useRef(null);
+
+    function completeVerification(task, index, type, url) {
+        if (type === "file") {
+            const caseRef = db.collection("hours-submitted");
+            caseRef
+                .add({
+                    eid: eid,
+                    event_title: data.title,
+                    tid: index,
+                    task_title: task.title,
+                    task_description: task.description,
+                    uid: uid,
+                    url: url,
+                    timestamp: new firebase.firestore.Timestamp.now(),
+                })
+                .then(function (docRef) {
+                    console.log("Case Created.");
+                    const userRef = db.collection("users").doc(uid);
+                    userRef.update({
+                        [`opportunities.${eid}.status`]: "submitted",
+                        [`opportunities.${eid}.case`]: docRef.id,
+                    });
+                })
+                .then(() => {
+                    console.log("User Info Updated.");
+                    setVerify(false);
+                    setProgress(0);
+                    setDisable(true);
+                    window.alert("Verification Submitted.");
+                    router.reload(window.location.pathname);
+                });
+        }
+        if (type === "email") {
+        }
+    }
+
+    function sendVerifyEmail() {}
+
+    function uploadFile(taskinfo, index) {
+        if (fileInputRef.current.files[0] != null) {
+            var file = fileInputRef.current.files[0];
+            var storageRef = fs.ref(eid + "/" + uid);
+            var task = storageRef.put(file);
+            console.log(taskinfo, index);
+            task.on(
+                "state_change",
+                function progress(snapshot) {
+                    setProgress(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    );
+                },
+                function error(err) {
+                    console.log("Error: ", err);
+                },
+                function complete() {
+                    console.log("Upload Complete");
+                    storageRef.getDownloadURL().then((url) => {
+                        completeVerification(taskinfo, index, "file", url);
+                    });
+                }
+            );
+        }
+    }
+
+    function VerifyModal({ task, index }) {
+        if (verify == true) {
+            return (
+                <div className={"modal is-active"} id="verify-modal">
+                    <div
+                        className="modal-background"
+                        onClick={() => {
+                            setVerify(false);
+                            setProgress(0);
+                        }}></div>
+                    <div className="modal-content" id="verify-modal-content">
+                        <input
+                            className="hidden"
+                            type="file"
+                            // onChange={uploadFile}
+                            ref={fileInputRef}></input>
+                        <progress
+                            className="progress is-info"
+                            value={progress}
+                            max={100}></progress>
+                        <a
+                            className="button is-success"
+                            onClick={() => {
+                                uploadFile(task, index);
+                            }}>
+                            Submit
+                        </a>
+                        <div>OR</div>
+                        <a className="button is-warning">
+                            Teacher Verification
+                        </a>
+                    </div>
+                    <button
+                        className="modal-close is-large"
+                        aria-label="close"
+                        onClick={() => {
+                            setVerify(false);
+                            setProgress(0);
+                        }}></button>
+                </div>
+            );
+        } else {
+            return null;
+        }
+    }
 
     function RegisterButton({ task, index, disable, setDisable }) {
         if (loading) {
@@ -23,19 +137,48 @@ function EventDetail({ data, uid, eid }) {
         if (error != undefined || data == undefined) {
             return <a className="event-detail-tasks-register">Error!</a>;
         } else {
-            let existing_registration = value.opportunities.find(
-                (element) => element.eid === eid
-            );
+            let existing_registration = value.opportunities[eid];
             if (existing_registration) {
                 if (
                     existing_registration.task_id.toString() ===
                     index.toString()
                 ) {
-                    return (
-                        <a className="event-detail-tasks-register is-registered">
-                            Registered
-                        </a>
-                    );
+                    if (
+                        existing_registration.status.toString() === "registered"
+                    ) {
+                        return (
+                            <>
+                                <a
+                                    className="event-detail-tasks-register is-registered"
+                                    onClick={() => {
+                                        setVerify(true);
+                                    }}>
+                                    Verify
+                                </a>
+                                <VerifyModal task={task} index={index} />
+                            </>
+                        );
+                    } else if (
+                        existing_registration.status.toString() === "submitted"
+                    ) {
+                        return (
+                            <>
+                                <a className="event-detail-tasks-register is-submitted">
+                                    Submitted
+                                </a>
+                            </>
+                        );
+                    } else if (
+                        existing_registration.status.toString() === "verified"
+                    ) {
+                        return (
+                            <>
+                                <a className="event-detail-tasks-register is-verified">
+                                    Verified
+                                </a>
+                            </>
+                        );
+                    }
                 } else {
                     return (
                         <a className="event-detail-tasks-register is-locked">
@@ -117,16 +260,16 @@ function EventDetail({ data, uid, eid }) {
                         const userRef = db.collection("users").doc(uid);
                         userRef
                             .update({
-                                opportunities:
-                                    firebase.firestore.FieldValue.arrayUnion({
-                                        eid: eid,
+                                opportunities: {
+                                    [eid]: {
                                         title: data.title,
                                         task_id: index,
                                         task_title: data.tasks[index].title,
                                         status: "registered",
                                         timestamp:
                                             new firebase.firestore.Timestamp.now(),
-                                    }),
+                                    },
+                                },
                             })
                             .then(() => {
                                 window.alert("Registration approved.");

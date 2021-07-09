@@ -435,7 +435,7 @@ body {
     transition: all 0.3s;
 }
 
-.modal-content {
+#badge-modal-content {
     background: white;
     /* overflow: hidden; */
     padding: 5vw 5vw 5vw 5vw;
@@ -803,11 +803,33 @@ video {
 .is-registered {
     border-color: orange;
     color: orange;
+}
+
+.is-registered:hover {
+    background-color: orange;
+    color: white;
+}
+
+.is-submitted {
+    border-color: purple;
+    color: purple;
+
     pointer-events: none;
+}
+
+.is-verified {
+    border-color: green;
+    color: green;
+
+    pointer-events: green;
 }
 
 .button-disabled {
     display: hidden !important;
+}
+
+#verify-modal-content {
+    background-color: white;
 }
 
 /* Verification Page */
@@ -836,8 +858,8 @@ video {
 .about-section-wrapper {
     margin-left: 10vw;
     margin-right: 10vw;
-    padding-top: 10vw;
-    padding-bottom: 10vw;
+    padding-top: 8vw;
+    padding-bottom: 8vw;
     opacity: 1;
     transition: 0.5s all;
 }

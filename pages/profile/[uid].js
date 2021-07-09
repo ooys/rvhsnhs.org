@@ -20,7 +20,7 @@ function BadgeModal(props) {
                     onClick={() => {
                         props.setActive("");
                     }}></div>
-                <div className="modal-content">
+                <div className="modal-content" id="badge-modal-content">
                     <div className="columns is-mobile is-variable is-4 modal-wrapper">
                         <div className="column is-one-third modal-picture">
                             <img
