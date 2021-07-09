@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fab, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import Navbar from "../../components/Navbar.js";
 import Footer from "../../components/Footer";
+import Profile from "../../components/Profile.js";
 
 initFirebase();
 const auth = firebase.auth();
@@ -60,13 +61,15 @@ function SignIn() {
     }
 
     async function checkInit(email) {
+        const sid = email.slice(0, -9);
         let profile = {
             role: "visitor",
             hours: null,
             grade: null,
             admingroup: null,
+            sid: sid,
         };
-        const sid = email.slice(0, -9);
+
         var regExp = /[a-zA-Z]/g;
 
         if (regExp.test(sid)) {
@@ -101,6 +104,7 @@ function SignIn() {
             hours: null,
             grade: null,
             admingroup: null,
+            sid: null,
         };
         if (typeof profile.hd != "undefined" && profile.hd === "lcps.org") {
             org = profile.hd;
@@ -134,6 +138,7 @@ function SignIn() {
                 {
                     first: profile.given_name,
                     last: profile.family_name,
+                    sid: profileInfo.sid,
                     email: profile.email,
                     role: profileInfo.role,
                     hours: {
@@ -143,7 +148,7 @@ function SignIn() {
                     },
                     grade: profileInfo.grade,
                     admingroup: profileInfo.admingroup,
-                    opportunities: [],
+                    opportunities: {},
                     badges: ["beta_tester"],
                     profilePicture: profile.picture,
                     firstLogin: new firebase.firestore.Timestamp.now(),

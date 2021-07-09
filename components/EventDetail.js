@@ -31,6 +31,7 @@ function EventDetail({ data, uid, eid }) {
                     tid: index,
                     task_title: task.title,
                     task_description: task.description,
+                    hours: task.hours,
                     uid: uid,
                     url: url,
                     timestamp: new firebase.firestore.Timestamp.now(),
