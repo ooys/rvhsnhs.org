@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Oxygen&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
 @import url("https://db.onlinewebfonts.com/c/6ff35b8857ed1d3bf6a3cc93164ff962?family=Touche");
-@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@300&display=swap");
 
 body {
     font-family: "Oxygen", sans-serif;
@@ -962,4 +962,87 @@ video {
 .is-profile-picture {
     border-radius: 0.5rem;
     width: 10rem;
+}
+
+/* Find Tutor Page */
+
+.black-bg {
+    background-color: black;
+    height: 40rem;
+    width: 64rem;
+}
+
+.tutor-intro-header {
+    font-family: "Touche";
+    font-weight: bold;
+    font-size: 7rem;
+    color: black;
+    margin-top: 10%;
+    margin-left: 2.5%;
+}
+
+.tutor-intro-body {
+    font-family: "Exo 2", sans-serif;
+    font-size: 2rem;
+    color: black;
+    margin-left: 2.5%;
+}
+
+.tutoring-video-container {
+}
+
+.tutoring-video-body {
+    font-family: "Exo 2", sans-serif;
+    font-size: 2rem;
+    color: black;
+}
+
+@keyframes float {
+    0% {
+        transform: translatey(0px);
+    }
+    50% {
+        transform: translatey(-20px);
+    }
+    100% {
+        transform: translatey(0px);
+    }
+}
+
+.books-image {
+    margin-top: 4%;
+    margin-bottom: 14%;
+    margin-left: 65%;
+    height: 40%;
+    overflow: hidden;
+    transform: translatey(0px);
+    animation: float 6s ease-in-out infinite;
+}
+
+.tutor-button {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    height: auto;
+    width: 5%;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: #2793fa;
+    font-family: "Oxygen", sans-serif;
+    color: #fff;
+    border-radius: 0.3rem;
+    transition: 0.3s all;
+    margin-left: 6%;
+    margin-top: 2%;
+}
+
+.tutor-button:hover {
+    background-color: #0e447b;
+    border-radius: 0.3rem;
+    color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    transition: 0.3s all;
 }
