@@ -3,9 +3,23 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer";
 import HeroSection from "../components/HeroSection.js";
+import ImageGallery from "react-image-gallery";
 
 function Index() {
     let [hidden, setHidden] = useState(0);
+
+    const images = [
+        {
+            original: "https://picsum.photos/id/1018/1000/600/",
+            description: "National Honor Society Induction Ceremony, 2021",
+        },
+        {
+            original: "https://picsum.photos/id/1015/1000/600/",
+        },
+        {
+            original: "https://picsum.photos/id/1019/1000/600/",
+        },
+    ];
 
     useEffect(() => {
         function checkPos() {
@@ -57,7 +71,7 @@ function Index() {
                         id="about-column-1">
                         <div
                             className={
-                                "columns about-section-wrapper is-vcentered"
+                                "columns about-section-wrapper is-vcentered is-multiline"
                             }>
                             <div className="column about-section-text is-full">
                                 <div className="about-section-header">
@@ -72,6 +86,17 @@ function Index() {
                                     County, the Riverside Chapter is making a
                                     difference. Think you've got what it takes?
                                 </div>
+                            </div>
+                            <div className="column about-section-gallery is-8 is-offset-2">
+                                <br></br>
+                                <ImageGallery
+                                    items={images}
+                                    showBullets={true}
+                                    showThumbnails={false}
+                                    autoPlay={true}
+                                    slideDuration={1000}
+                                    slideInterval={7000}
+                                />
                             </div>
                         </div>
                     </div>

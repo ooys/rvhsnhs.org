@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
 import React, { useState, useEffect } from "react";
 import Profile from "../components/Profile.js";
+import LazyLoad from "react-lazyload";
 
 function About() {
     let [hidden, setHidden] = useState(5);
@@ -22,11 +23,12 @@ function About() {
                             <div
                                 className="column about-section-picture is-half"
                                 id="about-column-picture-1">
-                                <img
-                                    className="scholarship-image"
-                                    src="images\splashicons\graduated (1).png"
-                                    alt="graduated"
-                                />
+                                <LazyLoad once={true}>
+                                    <img
+                                        src="images/nhs/induction.jpg"
+                                        alt="induction"
+                                    />
+                                </LazyLoad>
                             </div>
                             <div className="column about-section-text is-half">
                                 <div className="about-section-header">
@@ -65,11 +67,12 @@ function About() {
                             <div
                                 className="column about-section-picture is-half"
                                 id="about-column-picture-1">
-                                <img
-                                    src="images\splashicons\beneficiary.png"
-                                    alt=""
-                                    className="scholarship-image"
-                                />
+                                <LazyLoad once={true}>
+                                    <img
+                                        src="images/nhs/holiday_party.jpg"
+                                        alt="holiday_party"
+                                    />
+                                </LazyLoad>
                             </div>
                         </div>
                     </div>
