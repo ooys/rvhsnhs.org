@@ -44,8 +44,8 @@ function Events() {
             <div className="events-wrapper">
                 <span className="events-title">Hours Opportunities</span>
                 <div className="columns is-multiline is-4 is-variable is-mobile events">
-                    {opportunities.map((opportunity) => {
-                        return <Event opportunity={opportunity} />;
+                    {opportunities.map((opportunity, index) => {
+                        return <Event key={index} opportunity={opportunity} />;
                     })}
                 </div>
             </div>

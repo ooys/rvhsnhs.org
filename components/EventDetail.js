@@ -275,15 +275,15 @@ function EventDetail({ data, uid, eid }) {
                         const userRef = db.collection("users").doc(uid);
                         userRef
                             .update({
-                                opportunities: {
-                                    [eid]: {
-                                        title: data.title,
-                                        task_id: index,
-                                        task_title: data.tasks[index].title,
-                                        status: "registered",
-                                        timestamp:
-                                            new firebase.firestore.Timestamp.now(),
-                                    },
+                                [`opportunities.${eid}`]: {
+                                    title: data.title,
+                                    task_id: index,
+                                    task_title: data.tasks[index].title,
+                                    status: "registered",
+                                    date: data.date,
+                                    hours: data.tasks[index].hours,
+                                    timestamp:
+                                        new firebase.firestore.Timestamp.now(),
                                 },
                             })
                             .then(() => {

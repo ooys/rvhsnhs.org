@@ -18,6 +18,9 @@ function Hours() {
     function verifyCase(id, values, action) {
         if (action === "accept") {
             const verifyRef = db.collection("hours-verified");
+            const userRef = db.collection("users").doc(values.uid);
+            let doc = "";
+            let hours = 0;
             verifyRef
                 .add({
                     values,
@@ -25,18 +28,30 @@ function Hours() {
                         firebase.firestore.FieldValue.serverTimestamp(),
                 })
                 .then(function (docRef) {
-                    const userRef = db.collection("users").doc(values.uid);
-                    userRef.update({
-                        [`opportunities.${values.eid}.status`]: "verified",
-                        [`opportunities.${values.eid}.case`]: docRef.id,
-                    });
+                    doc = docRef;
                 })
                 .then(() => {
-                    caseRef.doc(id).delete();
-                })
-                .then(() => {
-                    window.alert("Verification accepted.");
-                    router.reload(window.location.pathname);
+                    userRef
+                        .get()
+                        .then((doc) => {
+                            hours = parseFloat(doc.data().hours.volunteering);
+                        })
+                        .then(() => {
+                            userRef.update({
+                                [`hours.volunteering`]:
+                                    hours + parseFloat(values.hours),
+                                [`opportunities.${values.eid}.status`]:
+                                    "verified",
+                                [`opportunities.${values.eid}.case`]: doc.id,
+                            });
+                        })
+                        .then(() => {
+                            caseRef.doc(id).delete();
+                        })
+                        .then(() => {
+                            window.alert("Verification accepted.");
+                            router.reload(window.location.pathname);
+                        });
                 });
         }
     }
