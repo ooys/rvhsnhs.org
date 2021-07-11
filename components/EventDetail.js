@@ -21,11 +21,13 @@ function EventDetail({ data, uid, eid }) {
     const [progress, setProgress] = useState(0);
     const fileInputRef = useRef(null);
 
-    function completeVerification(task, index, type, url) {
+    function completeVerification(task, index, first, last, type, url) {
         if (type === "file") {
             const caseRef = db.collection("hours-submitted");
             caseRef
                 .add({
+                    first: first,
+                    last: last,
                     eid: eid,
                     event_title: data.title,
                     tid: index,
@@ -59,7 +61,7 @@ function EventDetail({ data, uid, eid }) {
 
     function sendVerifyEmail() {}
 
-    function uploadFile(taskinfo, index) {
+    function uploadFile(taskinfo, index, first, last) {
         if (fileInputRef.current.files[0] != null) {
             var file = fileInputRef.current.files[0];
             var storageRef = fs.ref(eid + "/" + uid);
@@ -78,14 +80,21 @@ function EventDetail({ data, uid, eid }) {
                 function complete() {
                     console.log("Upload Complete");
                     storageRef.getDownloadURL().then((url) => {
-                        completeVerification(taskinfo, index, "file", url);
+                        completeVerification(
+                            taskinfo,
+                            index,
+                            first,
+                            last,
+                            "file",
+                            url
+                        );
                     });
                 }
             );
         }
     }
 
-    function VerifyModal({ task, index }) {
+    function VerifyModal({ task, index, first, last }) {
         if (verify == true) {
             return (
                 <div className={"modal is-active"} id="verify-modal">
@@ -108,7 +117,7 @@ function EventDetail({ data, uid, eid }) {
                         <a
                             className="button is-success"
                             onClick={() => {
-                                uploadFile(task, index);
+                                uploadFile(task, index, first, last);
                             }}>
                             Submit
                         </a>
@@ -156,7 +165,12 @@ function EventDetail({ data, uid, eid }) {
                                     }}>
                                     Verify
                                 </a>
-                                <VerifyModal task={task} index={index} />
+                                <VerifyModal
+                                    task={task}
+                                    index={index}
+                                    first={value.first}
+                                    last={value.last}
+                                />
                             </>
                         );
                     } else if (

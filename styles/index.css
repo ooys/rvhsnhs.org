@@ -820,8 +820,7 @@ video {
 .is-verified {
     border-color: green;
     color: green;
-
-    pointer-events: green;
+    pointer-events: none;
 }
 
 .button-disabled {
@@ -834,17 +833,57 @@ video {
 
 /* Verification Page */
 .verificiation-title {
-    font-size: 25px;
+    font-size: 2rem;
     text-align: center;
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+}
+
+.verify-hours-table {
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.verification-action-wrapper {
     padding-top: 1.5rem;
 }
-
-.check-button {
-    padding: 0rem 0rem 0rem 1rem;
+.verification-action {
+    border-width: 2px;
+    border-color: #0e447b;
+    color: #0e447b;
+    border-style: solid;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    border-radius: 0.2rem;
+    transition: 0.3s all;
 }
 
-.x-button {
-    padding: 0rem 0rem 0rem 1rem;
+.verification-action:hover {
+    background-color: #0e447b;
+    color: white;
+    transition: 0.3s all;
+}
+
+.is-accept {
+    border-color: green;
+    color: green;
+}
+
+.is-accept:hover {
+    background-color: green;
+}
+
+.is-decline {
+    border-color: red;
+    color: red;
+}
+
+.is-decline:hover {
+    background-color: red;
 }
 
 /* Splash Page */
