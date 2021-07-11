@@ -1,4 +1,5 @@
 import Navbar from "/components/Navbar.js";
+import withAuth from "/components/auth/withAuth.js";
 
 function AdminGroup() {
     return (
@@ -41,4 +42,4 @@ function AdminGroup() {
     );
 }
 
-export default AdminGroup;
+export default withAuth(AdminGroup, "officer");
