@@ -385,7 +385,7 @@ body {
     font-size: 1.5rem;
 }
 
-.profile-picture-wrapper {
+.profile-rank-wrapper {
     display: flex;
     justify-content: center;
 }
@@ -411,18 +411,8 @@ body {
 
 .profile-hours-title {
     font-size: 1.2rem;
-}
-
-.profile-hours-table {
     margin-top: 1rem;
-}
-
-.profile-hours-table thead {
-    background-color: rgba(14, 68, 123, 0.4);
-}
-
-.profile-hours-table tbody tr:hover {
-    background-color: rgba(14, 68, 123, 0.2);
+    margin-bottom: 1rem;
 }
 
 .badge-wrapper {
@@ -1023,4 +1013,13 @@ video {
 .is-profile-picture {
     border-radius: 0.5rem;
     width: 10rem;
+}
+
+.rank-text {
+    text-align: center;
+    font-size: 1.2rem;
+}
+.rank-text-small {
+    text-align: center;
+    font-size: 0.8rem;
 }
