@@ -1,9 +1,11 @@
-import Navbar from "../components/Navbar.js";
-import Footer from "../components/Footer";
+import Navbar from "/components/Navbar";
+import Footer from "/components/Footer";
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 function FindTutor() {
+    const router = useRouter();
     return (
         <>
             <Navbar />
@@ -31,7 +33,9 @@ function FindTutor() {
                                         <a
                                             className="tutor-button"
                                             onClick={() => {
-                                                //router.push("/apply");
+                                                router.push(
+                                                    "/student/findtutor"
+                                                );
                                             }}>
                                             Sign up
                                             <span className="hero-button-icon">
@@ -54,15 +58,27 @@ function FindTutor() {
                 </div>
                 <div className="column about-section is-full is-bg-shade">
                     <div className="columns tutor-stats-wrapper">
-                        <div className="column is-half">
-                            <div className="benefit">600+</div>
-                            <div className="column benefit-text">
+                        <div className="column is-quarter tutor-stats-section">
+                            <div className="tutor-stats-title">600+</div>
+                            <div className="tutor-stats-text">
                                 students tutored in over
                             </div>
                         </div>
-                        <div className="column is-half">
-                            <div className="benefit">30</div>
-                            <div className="column benefit-text">
+                        <div className="column is-quarter tutor-stats-section">
+                            <div className="tutor-stats-title">30</div>
+                            <div className="tutor-stats-text">
+                                different subjects
+                            </div>
+                        </div>
+                        <div className="column is-quarter tutor-stats-section">
+                            <div className="tutor-stats-title">600+</div>
+                            <div className="tutor-stats-text">
+                                students tutored in over
+                            </div>
+                        </div>
+                        <div className="column is-quarter tutor-stats-section">
+                            <div className="tutor-stats-title">30</div>
+                            <div className="tutor-stats-text">
                                 different subjects
                             </div>
                         </div>
@@ -82,23 +98,21 @@ function FindTutor() {
                 </div>
                 WILL PROBABLY BE A TESTIMONIAL SECTION SOON
                 <div className="columns is-full is-bg-shade">
-                    <div className="column">
-                        <div className="column benefit-1 is-half is-offset-one-quarter">
-                            <img
-                                src="images\tutorimages\a-plus-best-test-result.png"
-                                className="column benefit-image"></img>
-                        </div>
-                        <div className="column benefit-2 is-half is-offset-one-quarter">
-                            <img
-                                src="images\tutorimages\exchange.png"
-                                className="column benefit-image"></img>
-                        </div>
-                        <div className="column benefit-3 is-half is-offset-one-quarter">
-                            <img
-                                src="images\tutorimages\tap.png"
-                                className="column benefit-image"></img>
-                        </div>
+                    {/* <div className="column benefit-1 is-half is-offset-one-quarter">
+                        <img
+                            src="images\tutorimages\a-plus-best-test-result.png"
+                            className="column benefit-image"></img>
                     </div>
+                    <div className="column benefit-2 is-half is-offset-one-quarter">
+                        <img
+                            src="images\tutorimages\exchange.png"
+                            className="column benefit-image"></img>
+                    </div>
+                    <div className="column benefit-3 is-half is-offset-one-quarter">
+                        <img
+                            src="images\tutorimages\tap.png"
+                            className="column benefit-image"></img>
+                    </div> */}
                 </div>
             </div>
             <Footer />

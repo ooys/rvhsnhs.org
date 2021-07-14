@@ -21,6 +21,10 @@ function withAuth(C, authlevel) {
             return 2;
         } else if (role === "member") {
             return 1;
+        } else if (role === "student") {
+            return 0.5;
+        } else if (role === "visitor") {
+            return 0.1;
         } else {
             return 0;
         }
@@ -37,7 +41,7 @@ function withAuth(C, authlevel) {
                 </>
             );
         } else {
-            router.push("/");
+            router.push("/login/" + authlevel);
             return (
                 <div>
                     Your authorization level of {curr} is not high enough for{" "}
@@ -56,7 +60,7 @@ function withAuth(C, authlevel) {
             return <>Fetching data...</>;
         }
         if (error != undefined || user == undefined) {
-            router.push("/login");
+            router.push("/login/" + authlevel);
             const profileRef = db.collection("users").doc("await");
             const [value, loading2, error2] = useDocumentDataOnce(profileRef);
             return <div>Unauthorized, back to login!</div>;
