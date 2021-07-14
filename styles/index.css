@@ -1039,9 +1039,6 @@ video {
     margin-left: 2.5%;
 }
 
-.tutoring-video-container {
-}
-
 .tutoring-video-body {
     font-family: "Exo 2", sans-serif;
     font-size: 2rem;
@@ -1074,7 +1071,7 @@ video {
     margin-top: 2rem;
     font-size: 1.5rem;
     height: auto;
-    width: 5%;
+    width: 9rem;
     padding: 0.5rem 1.5rem 0.5rem 1.5rem;
     display: flex;
     justify-content: center;
@@ -1096,6 +1093,27 @@ video {
     border-width: 1px;
     border-color: white;
     transition: 0.3s all;
+}
+
+.benefit-image {
+    height: 15%;
+    width: 15%;
+    padding: 3rem 0 3rem 0;
+}
+
+.benefit {
+    font-family: "Touche";
+    font-weight: bold;
+    font-size: 7rem;
+    color: black;
+    text-align: center;
+}
+
+.benefit-text {
+    text-align: center;
+    font-size: 2rem;
+}
+
 .rank-text {
     text-align: center;
     font-size: 1.2rem;

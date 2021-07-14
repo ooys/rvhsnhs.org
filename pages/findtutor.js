@@ -19,7 +19,7 @@ function FindTutor() {
                         <a
                             className="column tutor-button"
                             onClick={() => {
-                                router.push("/apply");
+                                //router.push("/apply");
                             }}>
                             Sign up
                         </a>
@@ -30,9 +30,14 @@ function FindTutor() {
                 </div>
                 <div className="columns is-full is-bg-shade">
                     <div className="column">
-                        <div className="column benefit-1">Benefit 1</div>
-                        <div className="column benefit-2">Benefit 2</div>
-                        <div className="column benefit-3">Benefit 3</div>
+                        <div className="benefit">600+</div>
+                        <div className="column benefit-text">
+                            students tutored in over
+                        </div>
+                        <div className="benefit">30</div>
+                        <div className="column benefit-text">
+                            different subjects
+                        </div>
                     </div>
                 </div>
                 <div className="columns">
@@ -44,6 +49,26 @@ function FindTutor() {
                             <div className="column tutoring-video-body is-offset-4">
                                 Riverside Tutoring Promotional Video
                             </div>
+                        </div>
+                    </div>
+                </div>
+                WILL PROBABLY BE A TESTIMONIAL SECTION SOON
+                <div className="columns is-full is-bg-shade">
+                    <div className="column">
+                        <div className="column benefit-1 is-half is-offset-one-quarter">
+                            <img
+                                src="images\tutorimages\a-plus-best-test-result.png"
+                                className="column benefit-image"></img>
+                        </div>
+                        <div className="column benefit-2 is-half is-offset-one-quarter">
+                            <img
+                                src="images\tutorimages\exchange.png"
+                                className="column benefit-image"></img>
+                        </div>
+                        <div className="column benefit-3 is-half is-offset-one-quarter">
+                            <img
+                                src="images\tutorimages\tap.png"
+                                className="column benefit-image"></img>
                         </div>
                     </div>
                 </div>
