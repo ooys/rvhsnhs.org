@@ -1,5 +1,7 @@
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 function FindTutor() {
     return (
@@ -7,36 +9,62 @@ function FindTutor() {
             <Navbar />
             <div className="page-wrapper" id="findtutor">
                 <div className="columns">
-                    <div className="column is-full is-bg-light">
-                        <div className="column tutor-intro-header">
-                            Need a tutor?
+                    <div className="column about-section is-full is-bg-light">
+                        <div
+                            className={
+                                "columns about-section-wrapper is-vcentered is-multiline"
+                            }>
+                            <div className="column about-section-text is-full">
+                                <div className="about-section-header">
+                                    Need a tutor?
+                                </div>
+                                <div className="about-section-body">
+                                    Riverside High School runs the most
+                                    successful tutoring program in Loudoun
+                                    County. We make sure that every student that
+                                    needs a tutor, gets one.
+                                </div>
+                            </div>
+                            <div className="column about-section-text is-full">
+                                <div className="columns about-section-split">
+                                    <div className="column tutor-button-wrapper is-half">
+                                        <a
+                                            className="tutor-button"
+                                            onClick={() => {
+                                                //router.push("/apply");
+                                            }}>
+                                            Sign up
+                                            <span className="hero-button-icon">
+                                                <FontAwesomeIcon
+                                                    icon={
+                                                        faArrowRight
+                                                    }></FontAwesomeIcon>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div className="column books-image-wrapper is-half">
+                                        <img
+                                            src="images/books.png"
+                                            className=" books-image"></img>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="column tutor-intro-body is-half">
-                            Riverside High School runs the most successful
-                            tutoring program in Loudoun County. We make sure
-                            that every student that needs a tutor, gets one.
-                        </div>
-                        <a
-                            className="column tutor-button"
-                            onClick={() => {
-                                //router.push("/apply");
-                            }}>
-                            Sign up
-                        </a>
-                        <img
-                            src="images/books.png"
-                            className="books-image"></img>
                     </div>
                 </div>
-                <div className="columns is-full is-bg-shade">
-                    <div className="column">
-                        <div className="benefit">600+</div>
-                        <div className="column benefit-text">
-                            students tutored in over
+                <div className="column about-section is-full is-bg-shade">
+                    <div className="columns tutor-stats-wrapper">
+                        <div className="column is-half">
+                            <div className="benefit">600+</div>
+                            <div className="column benefit-text">
+                                students tutored in over
+                            </div>
                         </div>
-                        <div className="benefit">30</div>
-                        <div className="column benefit-text">
-                            different subjects
+                        <div className="column is-half">
+                            <div className="benefit">30</div>
+                            <div className="column benefit-text">
+                                different subjects
+                            </div>
                         </div>
                     </div>
                 </div>
