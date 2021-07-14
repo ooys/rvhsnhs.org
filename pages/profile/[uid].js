@@ -5,8 +5,9 @@ import initFirebase from "/services/firebase.js";
 import Navbar from "/components/Navbar.js";
 import Footer from "/components/Footer";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import { useState } from "react";
+import Rank from "/components/Rank.js";
 
 initFirebase();
 const db = firebase.firestore();
@@ -20,7 +21,7 @@ function BadgeModal(props) {
                     onClick={() => {
                         props.setActive("");
                     }}></div>
-                <div className="modal-content">
+                <div className="modal-content" id="badge-modal-content">
                     <div className="columns is-mobile is-variable is-4 modal-wrapper">
                         <div className="column is-one-third modal-picture">
                             <img
@@ -48,7 +49,7 @@ function BadgeModal(props) {
     }
 }
 
-function badge(name, active, setActive) {
+function Badge(name, active, setActive) {
     let src = "";
     let desc = "";
     let title = "";
@@ -101,117 +102,44 @@ function badge(name, active, setActive) {
     );
 }
 
-function HourBadge({ hours, active, setActive }) {
-    let src = "";
-    let desc = "";
-    let title = "";
-    let color = "";
-    if (hours >= 80) {
-        color = "dark_purple";
-        desc =
-            "Very few members will ever be awarded the Master badge, as members in this tier come close to doubling the official amount of hours required by NHS. Volunteers in this tier dedicate a significant portion of their time to volunteering and for this reason they are awarded the highest tier badge for their efforts.";
-        if (hours >= 95) {
-            title = "Master Volunteer IV";
-            src = "/images/badges/rank4.svg";
-        } else if (hours >= 90) {
-            title = "Master Volunteer III";
-            src = "/images/badges/rank3.svg";
-        } else if (hours >= 85) {
-            title = "Master Volunteer II";
-            src = "/images/badges/rank2.svg";
-        } else {
-            title = "Master Volunteer I";
-            src = "/images/badges/rank1.svg";
-        }
-    } else if (hours >= 60) {
-        color = "light_purple";
-        desc =
-            "Members in the Expert tier have gone outside the official requirements of NHS and begun volunteering for the greater good of the community. At this tier, members have surpassed significant contributions to their community and have embraced what it truly means to be an NHS volunteer.";
-        if (hours >= 75) {
-            title = "Expert Volunteer IV";
-            src = "/images/badges/rank4.svg";
-        } else if (hours >= 70) {
-            title = "Expert Volunteer III";
-            src = "/images/badges/rank3.svg";
-        } else if (hours >= 65) {
-            title = "Expert Volunteer II";
-            src = "/images/badges/rank2.svg";
-        } else {
-            title = "Expert Volunteer I";
-            src = "/images/badges/rank1.svg";
-        }
-    } else if (hours >= 40) {
-        color = "gold";
-        desc =
-            "Members in the advanced tier are more often than not senior members of NHS. At this tier, members have made a significant contribution to the community through their volunteer work and continue to excel in their volunteer pursuits. These members are awarded a gold status for their hard work.";
-        if (hours >= 55) {
-            title = "Advanced Volunteer IV";
-            src = "/images/badges/rank4.svg";
-        } else if (hours >= 50) {
-            title = "Advanced Volunteer III";
-            src = "/images/badges/rank3.svg";
-        } else if (hours >= 45) {
-            title = "Advanced Volunteer II";
-            src = "/images/badges/rank2.svg";
-        } else {
-            title = "Advanced Volunteer I";
-            src = "/images/badges/rank1.svg";
-        }
-    } else if (hours >= 20) {
-        color = "silver";
-        desc =
-            "Members in this tier have begun to spread their wings as a National Honor Society volunteer. Seasoned volunteers are beginning to make a significant impact on the community, devoting a significant portion of their time to serving as an NHS member.";
-        if (hours >= 35) {
-            title = "Seasoned Volunteer IV";
-            src = "/images/badges/rank4.svg";
-        } else if (hours >= 30) {
-            title = "Seasoned Volunteer III";
-            src = "/images/badges/rank3.svg";
-        } else if (hours >= 25) {
-            title = "Seasoned Volunteer II";
-            src = "/images/badges/rank2.svg";
-        } else {
-            title = "Seasoned Volunteer I";
-            src = "/images/badges/rank1.svg";
-        }
-    } else {
-        color = "bronze";
-        desc =
-            "Members in the novice tier are often newer members or those who have yet to engage in significant volunteer work. While it may not be the most visually appealing badge, it’s a starting point for our volunteering journey.";
-        if (hours >= 15) {
-            title = "Novice Volunteer IV";
-            src = "/images/badges/rank4.svg";
-        } else if (hours >= 10) {
-            title = "Novice Volunteer III";
-            src = "/images/badges/rank3.svg";
-        } else if (hours >= 5) {
-            title = "Novice Volunteer II";
-            src = "/images/badges/rank2.svg";
-        } else {
-            title = "Novice Volunteer I";
-            src = "/images/badges/rank1.svg";
-        }
+function convertRole(role) {
+    let org = ", Loudoun County Public Schools";
+    switch (role) {
+        case "member":
+            org = ", Riverside National Honor Society";
+            break;
+        case "officer":
+            org = ", Riverside National Honor Society";
+            break;
+        case "moderator":
+            role = "officer";
+            org = ", Riverside National Honor Society";
+            break;
+        case "admin":
+            role = "officer";
+            org = ", Riverside National Honor Society";
+            break;
     }
-    return (
-        <>
-            <a
-                className="column is-2 is-offset-1 badge-wrapper"
-                title={title}
-                onClick={() => {
-                    setActive(title);
-                }}>
-                <img className={"badge " + color} src={src} alt={title}></img>
-            </a>
-            <BadgeModal
-                active={active}
-                title={title}
-                desc={desc}
-                src={src}
-                setActive={setActive}
-                color={color}
-            />
-        </>
-    );
+    return role.charAt(0).toUpperCase() + role.slice(1) + org;
+}
+
+function Status(status, eid) {
+    if (status != "registered") {
+        return status.charAt(0).toUpperCase() + status.slice(1);
+    } else {
+        return (
+            <>
+                <div>{status.charAt(0).toUpperCase() + status.slice(1)}</div>
+                <div
+                    className="button is-warning"
+                    onClick={() => {
+                        router.push("/member/opportunities/" + eid);
+                    }}>
+                    Submit Verification
+                </div>
+            </>
+        );
+    }
 }
 
 function Profile() {
@@ -238,27 +166,22 @@ function Profile() {
                         <div
                             className="column is-4 profile-info"
                             id="profile-small">
-                            <div className="profile-picture-wrapper">
-                                <img
-                                    className="profile-picture"
-                                    src={data.profilePicture}
-                                    alt={data.first}
-                                />
-                            </div>
+                            <br></br>
+                            <Rank
+                                hours={
+                                    data.hours.tutoring +
+                                    data.hours.volunteering
+                                }
+                                active={active}
+                                setActive={setActive}
+                            />
+
                             <div className="profile-badges-title">Badges</div>
                             <hr className="profile-line small-margins"></hr>
                             <div className="columns is-mobile is-multiline profile-badges">
                                 {data.badges.map((name) => {
-                                    return badge(name, active, setActive);
+                                    return Badge(name, active, setActive);
                                 })}
-                                <HourBadge
-                                    hours={
-                                        data.hours.tutoring +
-                                        data.hours.volunteering
-                                    }
-                                    active={active}
-                                    setActive={setActive}
-                                />
                             </div>
                             <br></br>
                         </div>
@@ -271,17 +194,20 @@ function Profile() {
                                 {data.last}
                             </div>
                             <div className="profile-role">
-                                {data.role.charAt(0).toUpperCase() +
-                                    data.role.slice(1) +
-                                    ", Riverside National Honor Society"}
+                                {convertRole(data.role)}
                             </div>
                             <div className="profile-year">SY 2021-2022</div>
+                            {/* <img
+                                className="profile-picture"
+                                src={data.profilePicture}
+                                alt={data.first}
+                            /> */}
                             <hr className="profile-line"></hr>
                             <div className="profile-hours">
                                 <div className="profile-hours-title">
                                     Hours Summary
                                 </div>
-                                <table className="table is-bordered is-fullwidth profile-hours-table">
+                                <table className="table is-bordered is-fullwidth is-hoverable">
                                     <thead>
                                         <tr>
                                             <th>Description</th>
@@ -304,6 +230,73 @@ function Profile() {
                                                     data.hours.volunteering}
                                             </td>
                                         </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="profile-hours">
+                                <div className="profile-hours-title">
+                                    Volunteer Opportunities
+                                </div>
+                                <table className="table is-bordered is-fullwidth is-hoverable">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Event</th>
+                                            <th>Task Group</th>
+                                            <th>Hours</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {Object.keys(data.opportunities).map(
+                                            (keyName, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td>
+                                                            {
+                                                                data
+                                                                    .opportunities[
+                                                                    keyName
+                                                                ].date
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                data
+                                                                    .opportunities[
+                                                                    keyName
+                                                                ].title
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                data
+                                                                    .opportunities[
+                                                                    keyName
+                                                                ]["task_title"]
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                data
+                                                                    .opportunities[
+                                                                    keyName
+                                                                ].hours
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            {Status(
+                                                                data
+                                                                    .opportunities[
+                                                                    keyName
+                                                                ].status,
+                                                                keyName
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            }
+                                        )}
                                     </tbody>
                                 </table>
                             </div>

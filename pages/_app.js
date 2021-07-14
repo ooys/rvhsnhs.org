@@ -1,10 +1,11 @@
+import "../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import "../node_modules/bulma/css/bulma.css";
 import "../styles/index.css";
 import Router from "next/router";
 import NProgress from "nprogress"; //nprogress module
 import "../node_modules/nprogress/nprogress.css"; //styles of nprogress
 import React, { useEffect } from "react";
-import '../styles/index.css';
+import "../styles/index.css";
 //Binding events.
 
 Router.events.on("routeChangeStart", () => NProgress.start());

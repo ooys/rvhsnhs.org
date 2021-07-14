@@ -385,7 +385,7 @@ body {
     font-size: 1.5rem;
 }
 
-.profile-picture-wrapper {
+.profile-rank-wrapper {
     display: flex;
     justify-content: center;
 }
@@ -411,18 +411,8 @@ body {
 
 .profile-hours-title {
     font-size: 1.2rem;
-}
-
-.profile-hours-table {
     margin-top: 1rem;
-}
-
-.profile-hours-table thead {
-    background-color: rgba(14, 68, 123, 0.4);
-}
-
-.profile-hours-table tbody tr:hover {
-    background-color: rgba(14, 68, 123, 0.2);
+    margin-bottom: 1rem;
 }
 
 .badge-wrapper {
@@ -435,7 +425,7 @@ body {
     transition: all 0.3s;
 }
 
-.modal-content {
+#badge-modal-content {
     background: white;
     /* overflow: hidden; */
     padding: 5vw 5vw 5vw 5vw;
@@ -803,6 +793,23 @@ video {
 .is-registered {
     border-color: orange;
     color: orange;
+}
+
+.is-registered:hover {
+    background-color: orange;
+    color: white;
+}
+
+.is-submitted {
+    border-color: purple;
+    color: purple;
+
+    pointer-events: none;
+}
+
+.is-verified {
+    border-color: green;
+    color: green;
     pointer-events: none;
 }
 
@@ -810,19 +817,63 @@ video {
     display: hidden !important;
 }
 
+#verify-modal-content {
+    background-color: white;
+}
+
 /* Verification Page */
 .verificiation-title {
-    font-size: 25px;
+    font-size: 2rem;
     text-align: center;
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+}
+
+.verify-hours-table {
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.verification-action-wrapper {
     padding-top: 1.5rem;
 }
-
-.check-button {
-    padding: 0rem 0rem 0rem 1rem;
+.verification-action {
+    border-width: 2px;
+    border-color: #0e447b;
+    color: #0e447b;
+    border-style: solid;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    border-radius: 0.2rem;
+    transition: 0.3s all;
 }
 
-.x-button {
-    padding: 0rem 0rem 0rem 1rem;
+.verification-action:hover {
+    background-color: #0e447b;
+    color: white;
+    transition: 0.3s all;
+}
+
+.is-accept {
+    border-color: green;
+    color: green;
+}
+
+.is-accept:hover {
+    background-color: green;
+}
+
+.is-decline {
+    border-color: red;
+    color: red;
+}
+
+.is-decline:hover {
+    background-color: red;
 }
 
 /* Splash Page */
@@ -836,8 +887,8 @@ video {
 .about-section-wrapper {
     margin-left: 10vw;
     margin-right: 10vw;
-    padding-top: 10vw;
-    padding-bottom: 10vw;
+    padding-top: 8vw;
+    padding-bottom: 8vw;
     opacity: 1;
     transition: 0.5s all;
 }
@@ -1045,4 +1096,11 @@ video {
     border-width: 1px;
     border-color: white;
     transition: 0.3s all;
+.rank-text {
+    text-align: center;
+    font-size: 1.2rem;
+}
+.rank-text-small {
+    text-align: center;
+    font-size: 0.8rem;
 }
