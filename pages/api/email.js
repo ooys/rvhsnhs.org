@@ -14,6 +14,8 @@ export default function (req, res) {
     const mailData = {
         from: process.env.EMAIL,
         to: req.body.to,
+        cc: req.body.cc,
+        bcc: req.body.bcc,
         subject: `${req.body.title}`,
         text: req.body.message,
         html: `${req.body.html}`,

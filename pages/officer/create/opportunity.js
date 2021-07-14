@@ -5,8 +5,8 @@ import Navbar from "/components/Navbar.js";
 import Footer from "/components/Footer";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import withAuth from "/components/auth/withAuth.js";
+import sendEmail from "/components/email/sendEmail.js";
 
 initFirebase();
 const db = firebase.firestore();
@@ -25,45 +25,7 @@ function CreateOpportunity() {
         name: "tasks",
     });
 
-    async function sendEmail(to, title, message, html) {
-        console.log("Sending");
-        let email_data = {
-            to,
-            title,
-            message,
-            html,
-        };
-        email_data = JSON.stringify(email_data);
-        const https = require("https");
-
-        const options = {
-            path: "/api/email",
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Content-Length": email_data.length,
-            },
-            body: email_data,
-        };
-
-        const req = https.request(options, (res) => {
-            console.log("statusCode:", res.statusCode);
-        });
-
-        req.on("error", (error) => {
-            console.error(error);
-        });
-
-        req.write(email_data);
-        req.end();
-    }
-
     async function onSubmitForm(values) {
-        // console.log(values);
-        const memberEmailList = "";
-        const officerEmailList = "";
-        const advisorEmailList = "";
-        const testEmailList = "1036566@lcps.org,895090@lcps.org";
         let emailBody = "";
         let emailHtml = `<h2>A new volunteer opportunity has been listed on the website! Visit https://rvhnhs.vercel.app/ to register.</h2><br></br><h3>Event: ${values.title}</h3><h3>Date: ${values.date}</h3><h3>Time: ${values.starttime} - ${values.endtime}</h3><h3>Location: ${values.location}</h3><h3>Details: ${values.desc}</h3><h3>Tasks:</h3>`;
         let tasklist = values.tasks;
@@ -109,9 +71,9 @@ function CreateOpportunity() {
 
             .then(() => {
                 sendEmail(
-                    testEmailList,
-                    "New Opportunity: " + values.title,
-                    emailBody,
+                    "member",
+                    "New NHS Opportunity: " + values.title,
+                    "",
                     emailHtml
                 );
             })

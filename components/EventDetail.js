@@ -5,6 +5,7 @@ import initFirebase from "/services/firebase.js";
 import { useRouter } from "next/router";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { useState, useRef } from "react";
+import sendEmail from "/components/email/sendEmail.js";
 
 initFirebase();
 const db = firebase.firestore();
@@ -20,8 +21,9 @@ function EventDetail({ data, uid, eid }) {
     const [verify, setVerify] = useState(false);
     const [progress, setProgress] = useState(0);
     const fileInputRef = useRef(null);
+    let emailHtml = "";
 
-    function completeVerification(task, index, first, last, type, url) {
+    function completeVerification(task, index, first, last, email, type, url) {
         if (type === "file") {
             const caseRef = db.collection("hours-submitted");
             caseRef
@@ -47,6 +49,15 @@ function EventDetail({ data, uid, eid }) {
                     });
                 })
                 .then(() => {
+                    emailHtml = `<h2>Your photo verification submission for ${data.title}, ${task.title}, ${task.description} has been received.</h2>`;
+                    sendEmail(
+                        email,
+                        "Receipt: Verification Photo for " + data.title,
+                        "",
+                        emailHtml
+                    );
+                })
+                .then(() => {
                     console.log("User Info Updated.");
                     setVerify(false);
                     setProgress(0);
@@ -59,9 +70,7 @@ function EventDetail({ data, uid, eid }) {
         }
     }
 
-    function sendVerifyEmail() {}
-
-    function uploadFile(taskinfo, index, first, last) {
+    function uploadFile(taskinfo, index, first, last, email) {
         if (fileInputRef.current.files[0] != null) {
             var file = fileInputRef.current.files[0];
             var storageRef = fs.ref(eid + "/" + uid);
@@ -85,6 +94,7 @@ function EventDetail({ data, uid, eid }) {
                             index,
                             first,
                             last,
+                            email,
                             "file",
                             url
                         );
@@ -94,7 +104,7 @@ function EventDetail({ data, uid, eid }) {
         }
     }
 
-    function VerifyModal({ task, index, first, last }) {
+    function VerifyModal({ task, index, first, last, email }) {
         if (verify == true) {
             return (
                 <div className={"modal is-active"} id="verify-modal">
@@ -117,7 +127,7 @@ function EventDetail({ data, uid, eid }) {
                         <a
                             className="button is-success"
                             onClick={() => {
-                                uploadFile(task, index, first, last);
+                                uploadFile(task, index, first, last, email);
                             }}>
                             Submit
                         </a>
@@ -140,7 +150,7 @@ function EventDetail({ data, uid, eid }) {
         }
     }
 
-    function RegisterButton({ task, index, disable, setDisable }) {
+    function RegisterButton({ task, index, email, disable, setDisable }) {
         if (loading) {
             return <a className="event-detail-tasks-register">Loading...</a>;
         }
@@ -170,6 +180,7 @@ function EventDetail({ data, uid, eid }) {
                                     index={index}
                                     first={value.first}
                                     last={value.last}
+                                    email={value.email}
                                 />
                             </>
                         );
@@ -219,7 +230,7 @@ function EventDetail({ data, uid, eid }) {
                             className={"event-detail-tasks-register"}
                             onClick={() => {
                                 console.log(index);
-                                register(index, setDisable);
+                                register(index, setDisable, value.email);
                             }}>
                             Register
                         </a>
@@ -229,7 +240,7 @@ function EventDetail({ data, uid, eid }) {
         }
     }
 
-    async function register(index, setDisable) {
+    async function register(index, setDisable, email) {
         setDisable(true);
         const taskRef = db.collection("opportunities").doc(eid);
         let updatedTasks = await taskRef.get().then((snapshot) => {
@@ -285,6 +296,18 @@ function EventDetail({ data, uid, eid }) {
                                     timestamp:
                                         new firebase.firestore.Timestamp.now(),
                                 },
+                            })
+                            .then(() => {
+                                emailHtml = `<h2>Your are registered for ${data.title}, ${data.tasks[index].title}.</h2>`;
+                                sendEmail(
+                                    email,
+                                    "Registered: " +
+                                        data.title +
+                                        ", " +
+                                        data.tasks[index].title,
+                                    "",
+                                    emailHtml
+                                );
                             })
                             .then(() => {
                                 window.alert("Registration approved.");

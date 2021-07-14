@@ -6,6 +6,7 @@ import Footer from "/components/Footer.js";
 import { useRouter } from "next/router";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
 import withAuth from "/components/auth/withAuth.js";
+import sendEmail from "/components/email/sendEmail.js";
 
 initFirebase();
 const db = firebase.firestore();
@@ -14,6 +15,8 @@ function Hours() {
     const router = useRouter();
     const caseRef = db.collection("hours-submitted");
     const [snapshot, loading, error] = useCollectionOnce(caseRef);
+    let emailHtml = "";
+    let email = "";
 
     function verifyCase(id, values, action) {
         if (action === "accept") {
@@ -35,6 +38,7 @@ function Hours() {
                         .get()
                         .then((doc) => {
                             hours = parseFloat(doc.data().hours.volunteering);
+                            email = doc.data().email;
                         })
                         .then(() => {
                             userRef.update({
@@ -47,6 +51,15 @@ function Hours() {
                         })
                         .then(() => {
                             caseRef.doc(id).delete();
+                        })
+                        .then(() => {
+                            emailHtml = `<h2>Your volunteer hours for ${values.event_title}, ${values.task_title}, ${values.task_description} has been verified.</h2>`;
+                            sendEmail(
+                                email,
+                                "Verified: " + values.event_title,
+                                "",
+                                emailHtml
+                            );
                         })
                         .then(() => {
                             window.alert("Verification accepted.");
