@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { useState, useRef } from "react";
 import sendEmail from "/components/email/sendEmail.js";
+import { useForm } from "react-hook-form";
 
 initFirebase();
 const db = firebase.firestore();
@@ -18,9 +19,16 @@ function EventDetail({ data, uid, eid }) {
     const profileRef = db.collection("users").doc(uid);
     const [value, loading, error] = useDocumentDataOnce(profileRef);
     const [disable, setDisable] = useState(false);
-    const [verify, setVerify] = useState(false);
+    const [verify, setVerify] = useState("false");
     const [progress, setProgress] = useState(0);
     const fileInputRef = useRef(null);
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors },
+        reset,
+    } = useForm();
     let emailHtml = "";
 
     function completeVerification(task, index, first, last, email, type, url) {
@@ -72,75 +80,254 @@ function EventDetail({ data, uid, eid }) {
 
     function uploadFile(taskinfo, index, first, last, email) {
         if (fileInputRef.current.files[0] != null) {
-            var file = fileInputRef.current.files[0];
-            var storageRef = fs.ref(eid + "/" + uid);
-            var task = storageRef.put(file);
-            console.log(taskinfo, index);
-            task.on(
-                "state_change",
-                function progress(snapshot) {
-                    setProgress(
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            if (isFileImage(fileInputRef.current.files[0])) {
+                if (fileInputRef.current.files[0].size <= 1000000) {
+                    var file = fileInputRef.current.files[0];
+                    var storageRef = fs.ref(eid + "/" + uid);
+                    var task = storageRef.put(file);
+                    // console.log(taskinfo, index);
+                    task.on(
+                        "state_change",
+                        function progress(snapshot) {
+                            setProgress(
+                                (snapshot.bytesTransferred /
+                                    snapshot.totalBytes) *
+                                    100
+                            );
+                        },
+                        function error(err) {
+                            console.log("Error: ", err);
+                        },
+                        function complete() {
+                            console.log("Upload Complete");
+                            storageRef.getDownloadURL().then((url) => {
+                                completeVerification(
+                                    taskinfo,
+                                    index,
+                                    first,
+                                    last,
+                                    email,
+                                    "file",
+                                    url
+                                );
+                            });
+                        }
                     );
-                },
-                function error(err) {
-                    console.log("Error: ", err);
-                },
-                function complete() {
-                    console.log("Upload Complete");
-                    storageRef.getDownloadURL().then((url) => {
-                        completeVerification(
-                            taskinfo,
-                            index,
-                            first,
-                            last,
-                            email,
-                            "file",
-                            url
-                        );
-                    });
+                } else {
+                    window.alert(
+                        "File size too large. Please submit a file smaller than 1MB."
+                    );
                 }
-            );
+            } else {
+                window.alert("Please upload an image!");
+            }
+        } else {
+            window.alert("Please choose a file to upload!");
         }
     }
 
+    function isFileImage(file) {
+        const acceptedImageTypes = [
+            "image/gif",
+            "image/jpeg",
+            "image/png",
+            "image/jpg",
+            "image/svg",
+        ];
+
+        return file && acceptedImageTypes.includes(file["type"]);
+    }
+
+    function validateEmail(email) {
+        const re =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
     function VerifyModal({ task, index, first, last, email }) {
-        if (verify == true) {
+        async function onSubmitForm(values) {
+            console.log(values);
+            if (!validateEmail(values.email)) {
+                window.alert("Please enter a valid email.");
+                return;
+            }
+            const caseid = "temp";
+            const verifyLink =
+                "https://rvhnhs.vercel.app/teacher/verify/" + caseid;
+            emailHtml = `<h2>A verification of particiption has been requested from ${first}, ${last}, ${task.title}, ${task.description}.</h2><h2>Please click the following link to verify ${first}'s participation: ${verifyLink}</h2>`;
+            await sendEmail(
+                values.email,
+                "Verification Needed: " +
+                    first +
+                    ", " +
+                    last +
+                    ", " +
+                    task.title,
+                "",
+                emailHtml
+            ).then(() => {
+                window.alert("Email Sent.");
+                // router.reload(window.location.pathname);
+            });
+        }
+
+        if (verify == "selection") {
             return (
                 <div className={"modal is-active"} id="verify-modal">
                     <div
                         className="modal-background"
                         onClick={() => {
-                            setVerify(false);
+                            setVerify("false");
                             setProgress(0);
                         }}></div>
-                    <div className="modal-content" id="verify-modal-content">
-                        <input
-                            className="hidden"
-                            type="file"
-                            // onChange={uploadFile}
-                            ref={fileInputRef}></input>
-                        <progress
-                            className="progress is-info"
-                            value={progress}
-                            max={100}></progress>
-                        <a
-                            className="button is-success"
-                            onClick={() => {
-                                uploadFile(task, index, first, last, email);
-                            }}>
-                            Submit
-                        </a>
-                        <div>OR</div>
-                        <a className="button is-warning">
-                            Teacher Verification
-                        </a>
+                    <div
+                        className="modal-content verify-modal-content columns is-multiline"
+                        id="selection-modal-content">
+                        <div className="verify-modal-title column is-full">
+                            Verify Event
+                            <hr className="verify-modal-line"></hr>
+                        </div>
+                        <div className="verify-modal-description column is-full">
+                            Select a verification method.
+                        </div>
+                        <div className="verify-modal-button-wrapper column is-full">
+                            <a
+                                className="button is-warning "
+                                onClick={() => {
+                                    setVerify("file");
+                                }}>
+                                Submit Image
+                            </a>
+                        </div>
+
+                        <div className="column is-full">OR</div>
+                        <div className="verify-modal-button-wrapper column is-full">
+                            <a
+                                className="button is-warning "
+                                onClick={() => {
+                                    setVerify("email");
+                                }}>
+                                Email Verification
+                            </a>
+                        </div>
                     </div>
                     <button
                         className="modal-close is-large"
                         aria-label="close"
                         onClick={() => {
-                            setVerify(false);
+                            setVerify("false");
+                            setProgress(0);
+                        }}></button>
+                </div>
+            );
+        } else if (verify == "file") {
+            return (
+                <div className={"modal is-active"} id="verify-modal">
+                    <div
+                        className="modal-background"
+                        onClick={() => {
+                            setVerify("false");
+                            setProgress(0);
+                        }}></div>
+                    <div
+                        className="modal-content verify-modal-content columns is-multiline"
+                        id="email-modal-content">
+                        <div className="verify-modal-title column is-full">
+                            Image Submission
+                            <hr className="verify-modal-line"></hr>
+                        </div>
+                        <div className="verify-modal-description column is-full">
+                            Submit an acceptable image to verify your attendance
+                            of the event.
+                        </div>
+                        <div className="verify-modal-input-wrapper column is-full">
+                            <input
+                                className="hidden verify-modal-input"
+                                type="file"
+                                ref={fileInputRef}></input>
+                        </div>
+                        <div className="verify-modal-progress column is-full">
+                            <progress
+                                className="progress is-info"
+                                value={progress}
+                                max={100}></progress>
+                        </div>
+                        <div className="verify-modal-button-wrapper column is-full">
+                            <a
+                                className="button is-success"
+                                onClick={() => {
+                                    uploadFile(task, index, first, last, email);
+                                }}>
+                                Submit
+                            </a>
+                        </div>
+                    </div>
+                    <button
+                        className="modal-close is-large"
+                        aria-label="close"
+                        onClick={() => {
+                            setVerify("false");
+                            setProgress(0);
+                        }}></button>
+                </div>
+            );
+        } else if (verify == "email") {
+            return (
+                <div className={"modal is-active"} id="verify-modal">
+                    <div
+                        className="modal-background"
+                        onClick={() => {
+                            setVerify("false");
+                            setProgress(0);
+                        }}></div>
+                    <div
+                        className="modal-content verify-modal-content columns is-multiline"
+                        id="email-modal-content">
+                        <div className="verify-modal-title column is-full">
+                            Email Submission
+                            <hr className="verify-modal-line"></hr>
+                        </div>
+                        <div className="verify-modal-description column is-full">
+                            Send an email to the faculty responsible for the
+                            event for validation. Please submit the email
+                            address below.
+                        </div>
+                        <div className="verify-modal-input-wrapper column is-full">
+                            <form
+                                className="verify-email-form"
+                                onSubmit={handleSubmit(onSubmitForm)}>
+                                <div className="field">
+                                    <div className="control">
+                                        <input
+                                            className="input"
+                                            type="email"
+                                            {...register("email", {
+                                                required: true,
+                                            })}></input>
+                                        <span className="help is-danger">
+                                            {errors.email?.type ===
+                                                "required" &&
+                                                "Title is required."}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="field">
+                                    <div className="control">
+                                        <input
+                                            className="button is-success"
+                                            type="submit"
+                                            name="submit"
+                                            value="Submit"></input>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <button
+                        className="modal-close is-large"
+                        aria-label="close"
+                        onClick={() => {
+                            setVerify("false");
                             setProgress(0);
                         }}></button>
                 </div>
@@ -150,7 +337,7 @@ function EventDetail({ data, uid, eid }) {
         }
     }
 
-    function RegisterButton({ task, index, email, disable, setDisable }) {
+    function RegisterButton({ task, index, disable, setDisable }) {
         if (loading) {
             return <a className="event-detail-tasks-register">Loading...</a>;
         }
@@ -171,7 +358,7 @@ function EventDetail({ data, uid, eid }) {
                                 <a
                                     className="event-detail-tasks-register is-registered"
                                     onClick={() => {
-                                        setVerify(true);
+                                        setVerify("selection");
                                     }}>
                                     Verify
                                 </a>
@@ -230,7 +417,7 @@ function EventDetail({ data, uid, eid }) {
                             className={"event-detail-tasks-register"}
                             onClick={() => {
                                 console.log(index);
-                                register(index, setDisable, value.email);
+                                startRegister(index, setDisable, value.email);
                             }}>
                             Register
                         </a>
@@ -240,7 +427,7 @@ function EventDetail({ data, uid, eid }) {
         }
     }
 
-    async function register(index, setDisable, email) {
+    async function startRegister(index, setDisable, email) {
         setDisable(true);
         const taskRef = db.collection("opportunities").doc(eid);
         let updatedTasks = await taskRef.get().then((snapshot) => {
@@ -298,7 +485,7 @@ function EventDetail({ data, uid, eid }) {
                                 },
                             })
                             .then(() => {
-                                emailHtml = `<h2>Your are registered for ${data.title}, ${data.tasks[index].title}.</h2>`;
+                                emailHtml = `<h2>You are registered for ${data.title}, ${data.tasks[index].title}.</h2>`;
                                 sendEmail(
                                     email,
                                     "Registered: " +
