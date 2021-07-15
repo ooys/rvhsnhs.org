@@ -53,6 +53,7 @@ function EventDetail({ data, uid, eid }) {
                     const userRef = db.collection("users").doc(uid);
                     userRef.update({
                         [`opportunities.${eid}.status`]: "submitted",
+                        [`opportunities.${eid}.verification_type`]: "file",
                         [`opportunities.${eid}.case`]: docRef.id,
                     });
                 })
@@ -151,24 +152,64 @@ function EventDetail({ data, uid, eid }) {
                 window.alert("Please enter a valid email.");
                 return;
             }
-            const caseid = "temp";
-            const verifyLink =
-                "https://rvhnhs.vercel.app/teacher/verify/" + caseid;
-            emailHtml = `<h2>A verification of particiption has been requested from ${first}, ${last}, ${task.title}, ${task.description}.</h2><h2>Please click the following link to verify ${first}'s participation: ${verifyLink}</h2>`;
-            await sendEmail(
-                values.email,
-                "Verification Needed: " +
-                    first +
-                    ", " +
-                    last +
-                    ", " +
-                    task.title,
-                "",
-                emailHtml
-            ).then(() => {
-                window.alert("Email Sent.");
-                // router.reload(window.location.pathname);
-            });
+
+            const emailCaseRef = db.collection("hours-emailed");
+            emailCaseRef
+                .add({
+                    first: first,
+                    last: last,
+                    eid: eid,
+                    event_title: data.title,
+                    tid: index,
+                    task_title: task.title,
+                    task_description: task.description,
+                    hours: task.hours,
+                    uid: uid,
+                    timestamp: new firebase.firestore.Timestamp.now(),
+                })
+                .then(function (docRef) {
+                    console.log("Case Created.");
+                    const userRef = db.collection("users").doc(uid);
+                    userRef
+                        .update({
+                            [`opportunities.${eid}.status`]: "submitted",
+                            [`opportunities.${eid}.verification_type`]: "email",
+                            [`opportunities.${eid}.case`]: docRef.id,
+                        })
+                        .then(() => {
+                            const verifyLink =
+                                "https://rvhnhs.vercel.app/teacher/verify/" +
+                                docRef.id;
+                            emailHtml = `<h2>A verification of particiption has been requested from ${first}, ${last}, ${task.title}, ${task.description}.</h2><h2>Please click the following link to verify ${first}'s participation: ${verifyLink}</h2>`;
+                            sendEmail(
+                                values.email,
+                                "Verification Needed: " +
+                                    first +
+                                    ", " +
+                                    last +
+                                    ", " +
+                                    task.title,
+                                "",
+                                emailHtml
+                            );
+                        })
+                        .then(() => {
+                            emailHtml = `<h2>A an email request regarding ${task.title}, ${task.description} has been sent to ${values.email}</h2>`;
+                            sendEmail(
+                                email,
+                                "Request Sent: " +
+                                    task.title +
+                                    " to " +
+                                    values.email,
+                                "",
+                                emailHtml
+                            );
+                        })
+                        .then(() => {
+                            window.alert("Email Sent.");
+                            router.reload(window.location.pathname);
+                        });
+                });
         }
 
         if (verify == "selection") {

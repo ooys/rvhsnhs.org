@@ -21,7 +21,7 @@ function withAuth(C, authlevel) {
             return 2;
         } else if (role === "member") {
             return 1;
-        } else if (role === "student") {
+        } else if (role === "student" || role === "faculty") {
             return 0.5;
         } else if (role === "visitor") {
             return 0.1;
@@ -31,20 +31,36 @@ function withAuth(C, authlevel) {
     }
 
     function CheckAuthLevel(curr, req, router) {
-        curr = toLevels(curr);
-        req = toLevels(req);
-        console.log(curr, req);
-        if (curr >= req) {
+        if ((curr === "faculty" || curr === "admin") && req === "faculty") {
             return (
                 <>
                     <C />
                 </>
             );
+        } else if (req != "faculty") {
+            curr = toLevels(curr);
+            req = toLevels(req);
+            console.log(curr, req);
+            if (curr >= req) {
+                return (
+                    <>
+                        <C />
+                    </>
+                );
+            } else {
+                router.push("/login/" + authlevel);
+                return (
+                    <div>
+                        Your authorization level of {curr} is not high enough
+                        for {req}!
+                    </div>
+                );
+            }
         } else {
-            router.push("/login/" + authlevel);
+            router.push("/login/" + "teacher");
             return (
                 <div>
-                    Your authorization level of {curr} is not high enough for{" "}
+                    Your authorization level of {curr} is not high enough for
                     {req}!
                 </div>
             );
