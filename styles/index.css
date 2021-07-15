@@ -817,8 +817,24 @@ video {
     display: hidden !important;
 }
 
-#verify-modal-content {
+.verify-modal-content {
     background-color: white;
+    border: 1px solid white;
+    text-align: center;
+    padding: 3vw 3vw 3vw 3vw;
+}
+
+.verify-modal-input {
+    border: 1px solid black;
+    width: stretch;
+}
+
+.verify-modal-title {
+    font-size: 1.5rem;
+}
+
+.verify-modal-description {
+    font-size: 1rem;
 }
 
 /* Verification Page */
@@ -876,7 +892,17 @@ video {
     background-color: red;
 }
 
-/* Splash Page */
+/* Email Verification Page */
+
+.verification-wrapper {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    text-align: center;
+}
+.verification-statement {
+    color: red;
+    font-size: 1.2rem;
+}
 
 /* About Us */
 
