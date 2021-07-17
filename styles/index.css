@@ -1116,3 +1116,14 @@ video {
     text-align: center;
     font-size: 0.8rem;
 }
+
+/* SWAL */
+
+.swal-button {
+    background-color: #2793fa;
+    transition: 0.3s all;
+}
+
+.swal-button:hover {
+    transition: 0.3s all;
+}

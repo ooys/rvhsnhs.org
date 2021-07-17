@@ -7,6 +7,7 @@ import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { useState, useRef } from "react";
 import sendEmail from "/components/email/sendEmail.js";
 import { useForm } from "react-hook-form";
+import swal from "sweetalert";
 
 initFirebase();
 const db = firebase.firestore();
@@ -71,8 +72,13 @@ function EventDetail({ data, uid, eid }) {
                     setVerify(false);
                     setProgress(0);
                     setDisable(true);
-                    window.alert("Verification Submitted.");
-                    router.reload(window.location.pathname);
+                    swal(
+                        "Submitted!",
+                        "Your verification image has been uploaded.",
+                        "success"
+                    ).then(() => {
+                        router.reload(window.location.pathname);
+                    });
                 });
         }
         if (type === "email") {
@@ -115,15 +121,17 @@ function EventDetail({ data, uid, eid }) {
                         }
                     );
                 } else {
-                    window.alert(
-                        "File size too large. Please submit a file smaller than 1MB."
+                    swal(
+                        "Oops!",
+                        "File size too large. Please submit a file smaller than 1MB.",
+                        "warning"
                     );
                 }
             } else {
-                window.alert("Please upload an image!");
+                swal("Oops!", "Please upload an image file.", "warning");
             }
         } else {
-            window.alert("Please choose a file to upload!");
+            swal("Oops!", "Please choose a file to upload.", "warning");
         }
     }
 
@@ -149,7 +157,7 @@ function EventDetail({ data, uid, eid }) {
         async function onSubmitForm(values) {
             console.log(values);
             if (!validateEmail(values.email)) {
-                window.alert("Please enter a valid email.");
+                swal("Oops!", "Please enter a valid email.", "warning");
                 return;
             }
 
@@ -206,8 +214,13 @@ function EventDetail({ data, uid, eid }) {
                             );
                         })
                         .then(() => {
-                            window.alert("Email Sent.");
-                            router.reload(window.location.pathname);
+                            swal(
+                                "Submitted!",
+                                "Your verification email has been sent.",
+                                "success"
+                            ).then(() => {
+                                router.reload(window.location.pathname);
+                            });
                         });
                 });
         }
@@ -478,10 +491,13 @@ function EventDetail({ data, uid, eid }) {
                     (element) => element === uid
                 )
             ) {
-                window.alert(
-                    "You have already signed up for this task! Refreshing page."
-                );
-                router.reload(window.location.pathname);
+                swal(
+                    "Oops!",
+                    "You have already signed up for this task! Refreshing page.",
+                    "warning"
+                ).then(() => {
+                    router.reload(window.location.pathname);
+                });
             }
             if (
                 currTasks[index].registrations.length <
@@ -489,10 +505,13 @@ function EventDetail({ data, uid, eid }) {
             ) {
                 currTasks[index].registrations.push(uid);
             } else {
-                window.alert(
-                    "All spots filled for this task! Refreshing page."
-                );
-                router.reload(window.location.pathname);
+                swal(
+                    "Oops!",
+                    "All spots filled for this task! Refreshing page.",
+                    "warning"
+                ).then(() => {
+                    router.reload(window.location.pathname);
+                });
             }
             return currTasks;
         });
@@ -538,14 +557,22 @@ function EventDetail({ data, uid, eid }) {
                                 );
                             })
                             .then(() => {
-                                window.alert("Registration approved.");
-                                router.reload(window.location.pathname);
+                                swal(
+                                    "Success!",
+                                    "Your registration has been approved.",
+                                    "success"
+                                ).then(() => {
+                                    router.reload(window.location.pathname);
+                                });
                             });
                     } else {
-                        window.alert(
-                            "All spots filled for this task! Refreshing page."
-                        );
-                        router.reload(window.location.pathname);
+                        swal(
+                            "Oops!",
+                            "All spots filled for this task! Refreshing page.",
+                            "warning"
+                        ).then(() => {
+                            router.reload(window.location.pathname);
+                        });
                     }
                 });
             });

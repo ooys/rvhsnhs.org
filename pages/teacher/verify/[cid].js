@@ -7,6 +7,7 @@ import sendEmail from "/components/email/sendEmail.js";
 import Navbar from "/components/Navbar.js";
 import Footer from "/components/Footer";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
+import swal from "sweetalert";
 
 initFirebase();
 const db = firebase.firestore();
@@ -59,7 +60,11 @@ function EmailHours() {
                         );
                     })
                     .then(() => {
-                        window.alert("Verification accepted.");
+                        swal(
+                            "Success!",
+                            "Verification has been accepted.",
+                            "success"
+                        );
                         router.reload(window.location.pathname);
                     });
             });

@@ -7,6 +7,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { useRouter } from "next/router";
 import withAuth from "/components/auth/withAuth.js";
 import sendEmail from "/components/email/sendEmail.js";
+import swal from "sweetalert";
 
 initFirebase();
 const db = firebase.firestore();
@@ -78,8 +79,10 @@ function CreateOpportunity() {
                 );
             })
             .then(() => {
-                window.alert(
-                    "Event " + values.title + " successfully created."
+                swal(
+                    "Opportunity Added!",
+                    "Event " + values.title + " successfully created.",
+                    "success"
                 );
                 router.push("/member/opportunities");
             });
