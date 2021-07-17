@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
 import withAuth from "/components/auth/withAuth.js";
 import sendEmail from "/components/email/sendEmail.js";
+import swal from "sweetalert";
 
 initFirebase();
 const db = firebase.firestore();
@@ -62,7 +63,11 @@ function Hours() {
                             );
                         })
                         .then(() => {
-                            window.alert("Verification accepted.");
+                            swal(
+                                "Success!",
+                                "Member hours verified.",
+                                "success"
+                            );
                             router.reload(window.location.pathname);
                         });
                 });
