@@ -34,7 +34,7 @@ function FindTutor() {
                                     onClick={() => {
                                         swal(
                                             "LCPS Google Account Needed!",
-                                            "Please login to our portal with the tutee's LCPS Google Account to access the registration form.",
+                                            "Riverside NHS Tutoring is only available for students currently enrolled in LCPS. Please login to our portal with the tutee's LCPS Google Account to access the registration site.",
                                             "warning"
                                         ).then(() => {
                                             router.push("/student/findtutor");
