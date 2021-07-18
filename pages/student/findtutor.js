@@ -7,7 +7,9 @@ function TuteeApply() {
     return (
         <>
             <Navbar />
-            <div className="page-wrapper" id="tutee-apply"></div>
+            <div className="page-wrapper" id="tutee-apply">
+                <div className="page-header">Find a tutoring</div>
+            </div>
             <Footer />
         </>
     );

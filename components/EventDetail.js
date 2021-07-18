@@ -14,8 +14,6 @@ const db = firebase.firestore();
 const fs = firebase.storage();
 
 function EventDetail({ data, uid, eid }) {
-    // console.log(data);
-    // console.log(uid);
     const router = useRouter();
     const profileRef = db.collection("users").doc(uid);
     const [value, loading, error] = useDocumentDataOnce(profileRef);

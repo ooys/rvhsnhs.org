@@ -70,8 +70,8 @@ function Routes(user) {
                 <Link href="/about">
                     <a className="navbar-item">About</a>
                 </Link>
-                <Link href="/apply">
-                    <a className="navbar-item">Apply</a>
+                <Link href="/findtutor">
+                    <a className="navbar-item">Find Tutor</a>
                 </Link>
                 <Link href="/member">
                     <a className="navbar-item">Member Portal</a>

@@ -1043,6 +1043,49 @@ video {
 
 /* Find Tutor Page */
 
+.findtutor-about-section-text {
+    padding-left: 5vw;
+}
+
+.findtutor-steps {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 1.5rem;
+}
+
+.rc-steps-item-title {
+    font-family: "Touche";
+    font-size: 1.5rem;
+    color: #2793fa !important;
+}
+
+.rc-steps-item-description {
+    font-size: 1rem;
+    color: black !important;
+}
+
+.rc-steps-item .rc-steps-item-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.4rem;
+    font-size: 1.2rem;
+    border: 2px solid;
+    border-color: #2793fa;
+    margin-right: 1.2rem;
+}
+.rc-steps-item-tail {
+    top: 2.5rem !important;
+    padding: 0 0.4rem !important;
+    border-color: black !important;
+}
+.rc-steps-item-tail:after {
+    background-color: #2793fa !important;
+}
+
+.rc-steps-item .rc-steps-item-icon > .rc-steps-icon {
+    color: #2793fa;
+}
+
 .tutor-button-wrapper {
     padding-top: 2vw;
 }
@@ -1097,6 +1140,12 @@ video {
     padding-bottom: 5vw;
 }
 
+.tutor-stats-header {
+    font-size: 2rem;
+    text-align: center;
+    padding-top: 5vw;
+}
+
 .tutor-stats-title {
     font-family: "Touche";
     font-weight: bold;
@@ -1118,6 +1167,11 @@ video {
 }
 
 /* SWAL */
+
+.swal-modal {
+    padding-left: 2.5rem;
+    padding-right: 2rem;
+}
 
 .swal-button {
     background-color: #2793fa;
