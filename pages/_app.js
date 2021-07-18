@@ -1,3 +1,5 @@
+import "rc-steps/assets/index.css";
+import "rc-steps/assets/iconfont.css";
 import "../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import "../node_modules/bulma/css/bulma.css";
 import "../styles/index.css";
