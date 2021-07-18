@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Oxygen&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
-@import url("https://db.onlinewebfonts.com/c/6ff35b8857ed1d3bf6a3cc93164ff962?family=Touche");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@300&display=swap");
 
 body {
@@ -928,7 +928,7 @@ video {
 }
 
 .about-section-title {
-    font-family: "Touche";
+    font-family: "Montserrat";
     font-weight: bold;
     text-align: center;
     font-size: 3rem;
@@ -952,7 +952,7 @@ video {
 }
 
 .about-section-header {
-    font-family: "Touche";
+    font-family: "Montserrat";
     font-weight: bold;
     font-size: 3rem;
     color: #2793fa;
@@ -1054,7 +1054,7 @@ video {
 }
 
 .rc-steps-item-title {
-    font-family: "Touche";
+    font-family: "Montserrat";
     font-size: 1.5rem;
     color: #2793fa !important;
 }
@@ -1147,7 +1147,7 @@ video {
 }
 
 .tutor-stats-title {
-    font-family: "Touche";
+    font-family: "Montserrat";
     font-weight: bold;
     font-size: 3rem;
     color: #2793fa;
