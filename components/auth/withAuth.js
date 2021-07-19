@@ -85,11 +85,11 @@ function withAuth(C, authlevel) {
             const profileRef = db.collection("users").doc(user.uid);
             const [value, loading2, error2] = useDocumentDataOnce(profileRef);
             if (loading2) {
-                return <>Authorized, fetching more data...</>;
+                return <></>;
             }
             if (error2 != undefined || value == undefined) {
                 // console.log("error");
-                return <div>Unauthorized, back to login!</div>;
+                return <></>;
             } else {
                 // console.log(value.role);
                 return CheckAuthLevel(value.role, authlevel, router);
