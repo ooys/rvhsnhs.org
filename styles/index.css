@@ -1123,11 +1123,6 @@ video {
     padding-left: 10vw;
 }
 
-.books-image {
-    margin-top: 5vw;
-    animation: float 6s ease-in-out infinite;
-}
-
 .black-bg {
     background-color: black;
     height: 40rem;
@@ -1164,6 +1159,58 @@ video {
 .rank-text-small {
     text-align: center;
     font-size: 0.8rem;
+}
+
+/* Tutee Form */
+
+.tutee-apply-section-wrapper {
+    margin-top: 8vw;
+    margin-bottom: 3vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.field-title {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #2793fa;
+}
+
+.field-title-hr {
+    background-color: black;
+    margin-top: 1rem;
+}
+
+.tutee-submit-button {
+    background-color: white;
+    color: #2793fa;
+    border-color: #2793fa;
+    border-width: 2px;
+    transition: 0.3s all;
+    font-weight: bold;
+}
+.tutee-submit-button:hover {
+    background-color: #2793fa;
+    color: white;
+    border-color: #2793fa;
+    border-width: 2px;
+    transition: 0.3s all;
+}
+.tutee-cancel-button {
+    background-color: white;
+    color: red;
+    border-color: red;
+    border-width: 2px;
+    transition: 0.3s all;
+    font-weight: bold;
+}
+.tutee-cancel-button:hover {
+    background-color: red;
+    color: white;
+    border-color: red;
+    border-width: 2px;
+    transition: 0.3s all;
 }
 
 /* SWAL */
