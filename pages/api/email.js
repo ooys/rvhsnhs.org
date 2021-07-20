@@ -19,6 +19,11 @@ export default function (req, res) {
         subject: `${req.body.title}`,
         text: req.body.message,
         html: `${req.body.html}`,
+        attachments: {
+            filename: "nhs_white.png",
+            path: "./public/images/nhs_white.png",
+            cid: "nhswhite",
+        },
     };
     transporter.sendMail(mailData, function (err, info) {
         if (err) {
