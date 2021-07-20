@@ -21,7 +21,7 @@ export default function (req, res) {
         html: `${req.body.html}`,
         attachments: {
             filename: "nhs_white.png",
-            path: "./public/images/nhs_white.png",
+            path: "/images/nhs_white.png",
             cid: "nhswhite",
         },
     };
