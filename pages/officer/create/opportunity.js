@@ -28,18 +28,18 @@ function CreateOpportunity() {
 
     async function onSubmitForm(values) {
         let emailBody = "";
-        let emailHtml = `<h2>A new volunteer opportunity has been listed on the website! Visit https://rvhnhs.vercel.app/ to register.</h2><br></br><h3>Event: ${values.title}</h3><h3>Date: ${values.date}</h3><h3>Time: ${values.starttime} - ${values.endtime}</h3><h3>Location: ${values.location}</h3><h3>Details: ${values.desc}</h3><h3>Tasks:</h3>`;
+        let emailHtml = `A new volunteer opportunity has opened! Visit https://rvhnhs.vercel.app/ to register. <br> <br> Date: ${values.date} <br> Time: ${values.starttime} - ${values.endtime} <br>Location: ${values.location} <br> <br> Description: ${values.desc} <br><br> Tasks:<br>`;
         let tasklist = values.tasks;
         Array.from(
             tasklist.map((element) => {
                 element["registrations"] = [];
                 emailHtml =
                     emailHtml +
-                    `<h3>${element.title}</h3><h3>${element.description}</h3><h3>Positions Open: ${element["max-registrants"]}</h3><h3>Hours: ${element.hours}</h3><br></br>`;
+                    `&nbsp;&nbsp;&nbsp;&nbsp;<b>${element.title}</b><br>&nbsp;&nbsp;&nbsp;&nbsp;${element.description}<br>&nbsp;&nbsp;&nbsp;&nbsp;Positions Open: ${element["max-registrants"]}<br>&nbsp;&nbsp;&nbsp;&nbsp;Hours: ${element.hours}<br><br>`;
                 return element;
             })
         );
-
+        emailHtml += `We hope to see you there!`;
         const eventRef = db.collection("opportunities");
 
         await eventRef
@@ -74,7 +74,7 @@ function CreateOpportunity() {
                 sendEmail(
                     "member",
                     "New NHS Opportunity: " + values.title,
-                    "",
+                    "New Opportunity: " + values.title + "!",
                     emailHtml
                 );
             })

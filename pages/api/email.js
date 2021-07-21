@@ -20,14 +20,14 @@ export default function (req, res) {
         secure: true,
     });
 
-    transporter.set("oauth2_provision_cb", (user, renew, callback) => {
-        let accessToken = userTokens[user];
-        if (!accessToken) {
-            return callback(new Error("Unknown user"));
-        } else {
-            return callback(null, accessToken);
-        }
-    });
+    // transporter.set("oauth2_provision_cb", (user, renew, callback) => {
+    //     let accessToken = userTokens[user];
+    //     if (!accessToken) {
+    //         return callback(new Error("Unknown user"));
+    //     } else {
+    //         return callback(null, accessToken);
+    //     }
+    // });
 
     const mailData = {
         from: process.env.EMAIL,
@@ -36,7 +36,7 @@ export default function (req, res) {
         bcc: req.body.bcc,
         subject: `${req.body.title}`,
         text: req.body.message,
-        html: `${req.body.html}`,
+        html: `${req.body.emailBody}`,
         // attachments: {
         //     filename: "nhs_white.png",
         //     path: "/images/nhs_white.png",
