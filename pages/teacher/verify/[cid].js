@@ -51,11 +51,11 @@ function EmailHours() {
                         caseRef.delete();
                     })
                     .then(() => {
-                        let emailHtml = `<h2>Your volunteer hours for ${value.event_title}, ${value.task_title}, ${value.task_description} has been verified.</h2>`;
+                        let emailHtml = `Your volunteer hours for ${value.event_title}, ${value.task_title} has been approved. Congratulations on being an upstanding volunteer, we appreciate your dedication to NHS!.`;
                         sendEmail(
                             email,
                             "Verified: " + value.event_title,
-                            "",
+                            "Approved!",
                             emailHtml
                         );
                     })
@@ -109,7 +109,7 @@ function EmailHours() {
                         </div>
                         <div className="verification-statement column is-full">
                             I am a certified organizer of the event above, and I
-                            adknowledge the student's participation in this
+                            acknowledge the student's participation in this
                             event.
                         </div>
                         <div className="verification-button-wrapper column is-full">
