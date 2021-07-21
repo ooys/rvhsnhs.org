@@ -5,12 +5,30 @@ export default function (req, res) {
     const transporter = nodemailer.createTransport({
         port: 465,
         host: "smtp.gmail.com",
+        // auth: {
+        //     user: process.env.EMAIL,
+        //     pass: process.env.PASSWORD,
+        // },
         auth: {
+            type: "OAuth2",
             user: process.env.EMAIL,
-            pass: process.env.PASSWORD,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            refreshToken: process.env.REFRESH_TOKEN,
+            accessToken: process.env.ACCESS_TOKEN,
         },
         secure: true,
     });
+
+    transporter.set("oauth2_provision_cb", (user, renew, callback) => {
+        let accessToken = userTokens[user];
+        if (!accessToken) {
+            return callback(new Error("Unknown user"));
+        } else {
+            return callback(null, accessToken);
+        }
+    });
+
     const mailData = {
         from: process.env.EMAIL,
         to: req.body.to,
