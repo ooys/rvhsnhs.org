@@ -54,11 +54,11 @@ function Hours() {
                             caseRef.doc(id).delete();
                         })
                         .then(() => {
-                            emailHtml = `<h2>Your volunteer hours for ${values.event_title}, ${values.task_title}, ${values.task_description} has been verified.</h2>`;
+                            emailHtml = `Your volunteer hours for <b>${values.event_title}</b>, <b>${values.task_title}</b>, has been approved. Congratulations on being an upstanding volunteer, we appreciate your dedication to NHS!`;
                             sendEmail(
                                 email,
-                                "Verified: " + values.event_title,
-                                "",
+                                "Approved: " + values.event_title,
+                                "Approved!",
                                 emailHtml
                             );
                         })

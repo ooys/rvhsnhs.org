@@ -57,11 +57,11 @@ function EventDetail({ data, uid, eid }) {
                     });
                 })
                 .then(() => {
-                    emailHtml = `<h2>Your photo verification submission for ${data.title}, ${task.title}, ${task.description} has been received.</h2>`;
+                    emailHtml = `Your photo verification submission for <b>${data.title}</b>, <b>${task.title}</b>, has been received. You will receive a verification email once the submission has been approved.`;
                     sendEmail(
                         email,
                         "Receipt: Verification Photo for " + data.title,
-                        "",
+                        "Received!",
                         emailHtml
                     );
                 })
@@ -186,7 +186,7 @@ function EventDetail({ data, uid, eid }) {
                             const verifyLink =
                                 "https://rvhnhs.vercel.app/teacher/verify/" +
                                 docRef.id;
-                            emailHtml = `<h2>A verification of particiption has been requested from ${first}, ${last}, ${task.title}, ${task.description}.</h2><h2>Please click the following link to verify ${first}'s participation: ${verifyLink}</h2>`;
+                            emailHtml = `A verification of particiption has been requested from <b>${first}</b> <b>${last}</b> for his/her participation in <b>${data.title}</b>, <b>${task.title}</b>.Please click the following link to verify <b>${first}</b>'s participation: ${verifyLink}`;
                             sendEmail(
                                 values.email,
                                 "Verification Needed: " +
@@ -195,19 +195,19 @@ function EventDetail({ data, uid, eid }) {
                                     last +
                                     ", " +
                                     task.title,
-                                "",
+                                "Verification Needed!",
                                 emailHtml
                             );
                         })
                         .then(() => {
-                            emailHtml = `<h2>A an email request regarding ${task.title}, ${task.description} has been sent to ${values.email}</h2>`;
+                            emailHtml = `A an email request regarding your participation in <b>${data.title}</b>, <b>${task.title}</b> has been sent to <b>${values.email}</b>. You will receive a verification email once the submission has been approved.`;
                             sendEmail(
                                 email,
                                 "Request Sent: " +
                                     task.title +
                                     " to " +
                                     values.email,
-                                "",
+                                "Verification Request Sent!",
                                 emailHtml
                             );
                         })
@@ -359,7 +359,7 @@ function EventDetail({ data, uid, eid }) {
                                         <span className="help is-danger">
                                             {errors.email?.type ===
                                                 "required" &&
-                                                "Title is required."}
+                                                "A valid email is required."}
                                         </span>
                                     </div>
                                 </div>
@@ -543,14 +543,14 @@ function EventDetail({ data, uid, eid }) {
                                 },
                             })
                             .then(() => {
-                                emailHtml = `<h2>You are registered for ${data.title}, ${data.tasks[index].title}.</h2>`;
+                                emailHtml = `Thank you for registering for <b>${data.title}</b>, <b>${data.tasks[index].title}</b>! Take this email as your confirmation. Make sure you attend <b>${data.title}</b> on <b>${data.date}</b> from <b>${data["start-time"]}</b> to <b>${data["end-time"]}</b> at <b>${data.location}</b>. Don't forget to submit a verification <a href="https://rvhnhs.vercel.app/member/opportunities/${eid}">here</a> after event completion.`;
                                 sendEmail(
                                     email,
                                     "Registered: " +
                                         data.title +
                                         ", " +
                                         data.tasks[index].title,
-                                    "",
+                                    "Registered!",
                                     emailHtml
                                 );
                             })
