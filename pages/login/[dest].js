@@ -55,7 +55,13 @@ function SignIn() {
             .doc(firebase.auth().currentUser.uid);
         profileRef.get().then((docSnapshot) => {
             if (!docSnapshot.exists) {
-                createProfile(profile);
+                createProfile(profile).then(() => {
+                    profileRef.get().then((doc) => {
+                        router.push("/" + doc.data().role);
+                    });
+                });
+            } else {
+                router.push("/" + docSnapshot.data().role);
             }
         });
     }
