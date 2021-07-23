@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
+import sendEmail from "/components/email/sendEmail.js";
+import swal from "sweetalert";
 
 initFirebase();
 const db = firebase.firestore();
@@ -29,8 +31,21 @@ function TuteeApply() {
     const isBlank = (value) => value.substring(0, 6) != "Select";
 
     let tutorsubject = watch("subject");
+
+    const sessions = [
+        ["Monday Morning", "1a"],
+        ["Monday Afternoon", "1b"],
+        ["Tuesday Morning", "2a"],
+        ["Tuesday Afternoon", "2b"],
+        ["Wednesday Morning", "3a"],
+        ["Wednesday Afternoon", "3b"],
+        ["Thursday Morning", "4a"],
+        ["Thursday Afternoon", "4b"],
+        ["Friday Morning", "5a"],
+        ["Friday Afternoon", "5b"],
+    ];
+
     function TutorCourse() {
-        console.log(tutorsubject);
         if (tutorsubject == undefined) {
             return null;
         } else {
@@ -229,18 +244,6 @@ function TuteeApply() {
     }
 
     function Availability() {
-        const sessions = [
-            ["Monday Morning", "1a"],
-            ["Monday Afternoon", "1b"],
-            ["Tuesday Morning", "2a"],
-            ["Tuesday Afternoon", "2b"],
-            ["Wednesday Morning", "3a"],
-            ["Wednesday Afternoon", "3b"],
-            ["Thursday Morning", "4a"],
-            ["Thursday Afternoon", "4b"],
-            ["Friday Morning", "5a"],
-            ["Friday Afternoon", "5b"],
-        ];
         return (
             <div className="field">
                 <label className="label">
@@ -270,6 +273,63 @@ function TuteeApply() {
 
     async function onSubmitForm(values) {
         console.log(values);
+        let exterior = [];
+        sessions.forEach((session) => {
+            if (values[session[1]]) {
+                exterior.push(session[0]);
+            }
+        });
+        console.log(exterior);
+
+        const tuteeRef = db.collection("tutee-requests");
+        await tuteeRef
+            .add({
+                tutee: {
+                    first: values.first,
+                    last: values.last,
+                    email: values.email,
+                    school: {
+                        name: values.school,
+                        grade: values.grade,
+                        subject: values.subject,
+                        course: values.course,
+                        teacher: {
+                            first: values.teacherfirst,
+                            last: values.teacherlast,
+                            email: values.teacheremail,
+                        },
+                        counseloremail: values.counseloremail,
+                    },
+                },
+                parent: {
+                    first: values.parentfirst,
+                    last: values.parentlast,
+                    email: values.parentemail,
+                },
+                termlength: values.termlength,
+                availability: {
+                    studyhall: values.studyhall,
+                    exterior: exterior,
+                },
+                timestamp: new firebase.firestore.Timestamp.now(),
+            })
+            .then(() => {
+                let emailHtml = `You have registered for tutoring in <b>${values.subject}</b> with Riverside NHS. A follow-up email will be sent once you are paired with our tutor!`;
+                sendEmail(
+                    values.email + "," + values.parentemail,
+                    "Registered: Riverside NHS Tutoring",
+                    "Success!",
+                    emailHtml
+                );
+            })
+            .then(() => {
+                swal(
+                    "Success!",
+                    "Tutoring application has been submitted. We have sent you a confirmation email.",
+                    "success"
+                );
+                router.push("/findtutor");
+            });
     }
 
     if (loading) {
@@ -277,6 +337,7 @@ function TuteeApply() {
     }
     if (error != undefined || data == undefined) {
         // console.log("error");
+        router.push("/student/findtutor");
         return <div>Error!</div>;
     } else {
         return (
