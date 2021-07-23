@@ -1228,3 +1228,44 @@ video {
 .swal-button:hover {
     transition: 0.3s all;
 }
+
+/* Tutor Select */
+
+#tutor-index {
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.tutee-list {
+    margin-top: 5vw;
+}
+
+.tutee-card-wrapper {
+    border: 1px solid #2793fa;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1.2rem;
+    padding-bottom: 2rem;
+}
+
+.tutee-card-wrapper:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2),
+        0 24px 80px 0 rgba(0, 0, 0, 0.19);
+    transition: all 0.3s;
+}
+.tutee-card-title {
+    font-family: "Montserrat";
+    font-size: 1.2rem;
+    color: #2793fa;
+}
+.tutee-card-body {
+    font-size: 1rem;
+}
+
+.tutee-card-tag {
+    margin-left: 0.5rem;
+    border: 1px solid #2793fa;
+}
