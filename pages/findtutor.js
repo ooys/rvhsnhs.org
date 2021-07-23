@@ -40,7 +40,7 @@ function FindTutor() {
                                             router.push("/student/findtutor");
                                         });
                                     }}>
-                                    Get started
+                                    Apply here
                                     <span className="hero-button-icon">
                                         <FontAwesomeIcon
                                             icon={
