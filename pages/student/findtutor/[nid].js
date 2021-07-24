@@ -307,6 +307,7 @@ function TuteeApply() {
                     email: values.parentemail,
                 },
                 termlength: values.termlength,
+                comments: values.comments,
                 availability: {
                     studyhall: values.studyhall,
                     exterior: exterior,
@@ -835,28 +836,30 @@ function TuteeApply() {
                                 </label>
                             </div>
                             <Availability />
-                            {/* <div className="field">
-                            <label className="label">
-                                Before/After School Availability
-                                <div className="control">
-                                    <label className="label"></label>
-                                    <input
-                                        className="checkbox"
-                                        type="checkbox"
-                                        {...register(
-                                            "tuesdayafternoon",
-                                            {}
-                                        )}></input>
-                                    {"    "}Monday Morning
-                                    <br></br>
-                                    <span className="help">
-                                        Morning sessions are from 8:15 AM - 9:00
-                                        AM<br></br>Afternoon sessions are from
-                                        4:15 PM to 5:15 PM
-                                    </span>
-                                </div>
-                            </label>
-                        </div> */}
+                            <br></br>
+                            <div className="field-title">
+                                Additional Information
+                            </div>
+                            <hr className="field-title-hr"></hr>
+                            <div className="field">
+                                <label className="label">
+                                    Additional Information
+                                    <div className="control">
+                                        <textarea
+                                            class="textarea"
+                                            placeholder="Write here..."
+                                            {...register(
+                                                "comments",
+                                                {}
+                                            )}></textarea>
+                                        <span className="help">
+                                            Special requests, preferences, or
+                                            anything that you would like us to
+                                            know would go here!
+                                        </span>
+                                    </div>
+                                </label>
+                            </div>
                             <br></br>
                             <div className="field-title">Form Submission</div>
                             <hr className="field-title-hr"></hr>

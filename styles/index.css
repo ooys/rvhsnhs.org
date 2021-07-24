@@ -1269,3 +1269,28 @@ video {
     margin-left: 0.5rem;
     border: 1px solid #2793fa;
 }
+
+.tutee-card-tags a:hover {
+    text-decoration: none;
+}
+
+.tutee-card-button-wrapper {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.tutee-card-accept {
+    padding: 0.4rem 1.2rem 0.4rem 1.2rem;
+    color: #2793fa;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 2px solid #2793fa;
+    border-radius: 0.3rem;
+    transition: 0.3s all;
+}
+
+.tutee-card-accept:hover {
+    background-color: #2793fa;
+    color: white;
+    border-color: #2793fa;
+}
