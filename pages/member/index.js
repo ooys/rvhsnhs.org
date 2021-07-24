@@ -68,7 +68,7 @@ function Member() {
                             <div className="column total-column-3 is-bg-light"></div>
                             <div className="column total-column-4 is-bg-light"></div>
                         </div>
-                        <div className="column member-current-section is-full is-bg-off-white is-multiline">
+                        <div className="column member-current-section is-10 is-offset-1 is-bg-off-white is-multiline">
                             <div className="column member-graph-container is-three-fifths is-bg-light"></div>
                             <div className="column member-current-rank is-bg-light"></div>
                         </div>
