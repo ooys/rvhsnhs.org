@@ -60,6 +60,39 @@ function Member() {
         <div className="member">
             <Navbar user="member" />
             <div className="page-wrapper" id="member">
+                <div className="columns columns-wrapper is-multiline">
+                    <div className="column member-main-section is-full is-bg-off-white">
+                        <div className="column totals-column is-10 is-offset-1 is-bg-off-white is-multiline">
+                            <div className="column total-column-1 is-bg-light"></div>
+                            <div className="column total-column-2 is-bg-light"></div>
+                            <div className="column total-column-3 is-bg-light"></div>
+                            <div className="column total-column-4 is-bg-light"></div>
+                        </div>
+                        <div className="column member-current-section is-full is-bg-off-white is-multiline">
+                            <div className="column member-graph-container is-three-fifths is-bg-light"></div>
+                            <div className="column member-current-rank is-bg-light"></div>
+                        </div>
+                        <div className="column featured-opportunities-text-container is-10 is-offset-1 is-bg-off-white">
+                            Featured Opportunities
+                        </div>
+                        <div className="column featured-opportunities is-10 is-offset-1 is-bg-off-white">
+                            <div className=" member-left-slideshow-arrow is-1">
+                                <img
+                                    src="/images/slideshow_arrows/left-arrow.svg"
+                                    alt=""></img>
+                            </div>
+                            <div className="column featured-opportunity-1 is-bg-light"></div>
+                            <div className="column featured-opportunity-2 is-bg-light"></div>
+                            <div className="column featured-opportunity-3 is-bg-light"></div>
+                            <div className="column featured-opportunity-4 is-bg-light"></div>
+                            <div className=" member-right-slideshow-arrow is-1">
+                                <img
+                                    src="/images/slideshow_arrows/right-arrow.svg"
+                                    alt=""></img>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <img src="/images/mainpage.png" alt=""></img>
             </div>
             <Footer />
