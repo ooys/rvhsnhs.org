@@ -10,6 +10,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import swal from "sweetalert";
+import sendEmail from "/components/email/sendEmail.js";
 
 initFirebase();
 const db = firebase.firestore();
@@ -22,7 +24,114 @@ function TutorSelect() {
     const [user, loading2, error2] = useAuthState(auth);
     const [verify, setVerify] = useState("false");
 
-    function TuteeApproveModal({ tuteeData, docId }) {
+    function acceptTutee(tuteeData, docId, uid) {
+        const tuteeRef = db.collection("tutee-requests").doc(docId);
+        const tutorRef = db.collection("tutor-requests").doc(docId);
+        const userRef = db.collection("users").doc(uid);
+        userRef.get().then((userDoc) => {
+            const userData = userDoc.data();
+            let pairPending = 0;
+            let pairActive = 0;
+            let pairCompleted = 0;
+            Object.keys(userData.tutoring).map((keyName) => {
+                if (
+                    userData.tutoring[keyName].status.toString() === "requested"
+                ) {
+                    pairPending++;
+                } else if (
+                    userData.tutoring[keyName].status.toString() === "active"
+                ) {
+                    pairActive++;
+                } else if (
+                    userData.tutoring[keyName].status.toString() === "completed"
+                ) {
+                    pairCompleted++;
+                }
+            });
+            tuteeRef.get().then((docSnapshot) => {
+                if (docSnapshot.exists) {
+                    tuteeRef.delete().then(() => {
+                        tutorRef
+                            .set({
+                                tutee: tuteeData.tutee,
+                                availability: tuteeData.availability,
+                                parent: tuteeData.parent,
+                                termlength: tuteeData.termlength,
+                                comments: tuteeData.comments,
+                                [`timestamp.tutee`]: tuteeData.timestamp,
+                                [`timestamp.tutor`]:
+                                    new firebase.firestore.Timestamp.now(),
+                                tutor: {
+                                    uid: uid,
+                                    first: userData.first,
+                                    last: userData.last,
+                                    email: userData.email,
+                                    grade: userData.grade,
+                                },
+                                tutorstatus: {
+                                    pending: pairPending,
+                                    active: pairActive,
+                                    completed: pairCompleted,
+                                    completedhours: userData.hours.tutoring,
+                                },
+                            })
+                            .then(() => {
+                                userRef
+                                    .update({
+                                        [`tutoring.${docId}.status`]:
+                                            "requested",
+                                        [`tutoring.${docId}.first`]:
+                                            tuteeData.tutee.first,
+                                        [`tutoring.${docId}.last`]:
+                                            tuteeData.tutee.last,
+                                        [`tutoring.${docId}.email`]:
+                                            tuteeData.tutee.email,
+                                        [`tutoring.${docId}.school`]:
+                                            tuteeData.tutee.school.name,
+                                        [`tutoring.${docId}.grade`]:
+                                            tuteeData.tutee.school.grade,
+                                        [`tutoring.${docId}.subject`]:
+                                            tuteeData.tutee.school.subject,
+                                        [`tutoring.${docId}.course`]:
+                                            tuteeData.tutee.school.course,
+                                        [`tutoring.${docId}.termlength`]:
+                                            tuteeData.termlength,
+                                    })
+                                    .then(() => {
+                                        const emailHtml = `We have received your pairing request for tutee <b>${tuteeData.tutee.first}</b> <b>${tuteeData.tutee.last}</b>. You will receive a follow-up email once the pairing has been approved.`;
+                                        sendEmail(
+                                            userData.email,
+                                            "Receipt: Pairing Request for " +
+                                                tuteeData.tutee.first,
+                                            "Received!",
+                                            emailHtml
+                                        );
+                                    })
+                                    .then(() => {
+                                        swal(
+                                            "Success!",
+                                            "Your tutor pairing request has been submitted.",
+                                            "success"
+                                        ).then(() => {
+                                            router.push("/member/tutoring");
+                                        });
+                                    });
+                            });
+                    });
+                } else {
+                    swal(
+                        "Oops!",
+                        "Looks like we can't find the tutee anymore. Refreshing page...",
+                        "warning"
+                    ).then(() => {
+                        router.reload(window.location.pathname);
+                    });
+                }
+            });
+        });
+    }
+
+    function TuteeApproveModal({ tuteeData, docId, uid }) {
         if (verify == docId) {
             return (
                 <div className={"modal is-active"} id="tutee-approve-modal">
@@ -103,7 +212,7 @@ function TutorSelect() {
                             <a
                                 className="tutee-modal-accept"
                                 onClick={() => {
-                                    console.log("Accepted" + docId);
+                                    acceptTutee(tuteeData, docId, uid);
                                 }}>
                                 Submit
                                 <span className="hero-button-icon">
@@ -158,6 +267,7 @@ function TutorSelect() {
                                 <TuteeApproveModal
                                     tuteeData={tuteeData}
                                     docId={tutee.id}
+                                    uid={user.uid}
                                 />
                                 <div
                                     key={index}
@@ -227,7 +337,9 @@ function TutorSelect() {
                                                     {tuteeData.availability.exterior.map(
                                                         (time, index) => {
                                                             return (
-                                                                <a className="tag tutee-card-tag">
+                                                                <a
+                                                                    key={index}
+                                                                    className="tag tutee-card-tag">
                                                                     {time}
                                                                 </a>
                                                             );
