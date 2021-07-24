@@ -1231,7 +1231,7 @@ video {
 
 /* Tutor Select */
 
-#tutor-index {
+#find-tutee {
     margin-left: 5vw;
     margin-right: 5vw;
 }
@@ -1293,4 +1293,80 @@ video {
     background-color: #2793fa;
     color: white;
     border-color: #2793fa;
+}
+
+.tutee-approve-modal-content {
+    background-color: white;
+    border: 1px solid white;
+    text-align: center;
+    padding: 3vw 3vw 3vw 3vw;
+}
+
+.tutee-approve-modal-title {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #2793fa;
+}
+
+.tutee-approve-modal-title hr {
+    background-color: black;
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+}
+
+.tutee-modal {
+    padding-left: 3vw;
+    padding-right: 3vw;
+    text-align: left;
+}
+
+.warning-text {
+    padding-left: 3vw;
+    padding-right: 3vw;
+    color: red;
+    margin-bottom: 2rem;
+}
+
+.tutee-approve-modal-actions {
+    width: 100%;
+    text-align: center;
+}
+
+.tutee-modal-accept {
+    padding: 0.4rem 1.2rem 0.4rem 1.2rem;
+    color: green;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 2px solid green;
+    border-radius: 0.3rem;
+    transition: 0.3s all;
+}
+
+.tutee-modal-accept:hover {
+    background-color: green;
+    color: white;
+    border-color: green;
+}
+
+.tutee-modal-cancel {
+    margin-left: 20%;
+    padding: 0.4rem 1.2rem 0.4rem 1.2rem;
+    color: red;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 2px solid red;
+    border-radius: 0.3rem;
+    transition: 0.3s all;
+}
+.tutee-modal-cancel:hover {
+    background-color: red;
+    color: white;
+    border-color: red;
+}
+
+/* Tutor Home */
+#tutor-home {
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
