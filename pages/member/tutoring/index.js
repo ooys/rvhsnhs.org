@@ -6,6 +6,8 @@ import Footer from "/components/Footer";
 import withAuth from "/components/auth/withAuth.js";
 import { useRouter } from "next/router";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 initFirebase();
 const db = firebase.firestore();
@@ -38,62 +40,98 @@ function TutorSelect() {
                             <div
                                 key={index}
                                 className="column is-full tutee-card-wrapper">
-                                <div className="columns is-multiline is-mobile tutee-card is-gapless">
-                                    <div className="column is-full tutee-card-title">
-                                        {tuteeData.tutee.first +
-                                            ", " +
-                                            tuteeData.tutee.last}
-                                    </div>
-                                    <div className="column is-half tutee-card-body">
-                                        <div className="columns tutee-card-left is-multiline is-gapless">
-                                            <div className="column is-full tutee-card-left-text">
-                                                {tuteeData.tutee.school.name}
+                                <div className="columns tutee-card-spacer">
+                                    <div className="column is-9 tutee-card-info">
+                                        <div className="columns is-multiline is-mobile tutee-card is-gapless">
+                                            <div className="column is-full tutee-card-title">
+                                                {tuteeData.tutee.first +
+                                                    " " +
+                                                    tuteeData.tutee.last}
                                             </div>
-                                            <div className="column is-full tutee-card-left-text">
-                                                {"Grade " +
-                                                    tuteeData.tutee.school
-                                                        .grade}
+                                            <div className="column is-half tutee-card-body">
+                                                <div className="columns tutee-card-left is-multiline is-gapless">
+                                                    <div className="column is-full tutee-card-left-text">
+                                                        {
+                                                            tuteeData.tutee
+                                                                .school.name
+                                                        }
+                                                    </div>
+                                                    <div className="column is-full tutee-card-left-text">
+                                                        {"Grade " +
+                                                            tuteeData.tutee
+                                                                .school.grade}
+                                                    </div>
+                                                    <div className="column is-full tutee-card-left-text">
+                                                        {tuteeData.termlength}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="column is-full tutee-card-left-text">
-                                                {tuteeData.termlength}
+                                            <div className="column is-half tutee-card-body">
+                                                <div className="columns tutee-card-left is-multiline is-gapless">
+                                                    <div className="column is-full tutee-card-left-text">
+                                                        <b>
+                                                            {
+                                                                tuteeData.tutee
+                                                                    .school
+                                                                    .subject
+                                                            }
+                                                        </b>
+                                                    </div>
+                                                    <div className="column is-full tutee-card-left-text">
+                                                        {
+                                                            tuteeData.tutee
+                                                                .school.course
+                                                        }
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div className="column is-half tutee-card-body">
-                                        <div className="columns tutee-card-left is-multiline is-gapless">
-                                            <div className="column is-full tutee-card-left-text">
-                                                <b>
-                                                    {
-                                                        tuteeData.tutee.school
-                                                            .subject
+                                            <div className="column is-full tutee-card-tags">
+                                                Availabilities:{" "}
+                                                {tuteeData.availability.studyhall.toString() ===
+                                                "None" ? null : (
+                                                    <a className="tag tutee-card-tag">
+                                                        {
+                                                            tuteeData
+                                                                .availability
+                                                                .studyhall
+                                                        }
+                                                    </a>
+                                                )}
+                                                {tuteeData.availability.exterior.map(
+                                                    (time, index) => {
+                                                        return (
+                                                            <a className="tag tutee-card-tag">
+                                                                {time}
+                                                            </a>
+                                                        );
                                                     }
-                                                </b>
+                                                )}
                                             </div>
-                                            <div className="column is-full tutee-card-left-text">
-                                                {tuteeData.tutee.school.course}
+                                            <div className="column is-full tutee-card-tags">
+                                                {tuteeData.comments.toString() ===
+                                                "" ? null : (
+                                                    <>
+                                                        <br></br>Comments:{" "}
+                                                        {tuteeData.comments}
+                                                    </>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="column is-full tutee-card-tags">
-                                        Availabilities:{" "}
-                                        {tuteeData.availability.studyhall.toString() ===
-                                        "None" ? null : (
-                                            <span className="tag tutee-card-tag">
-                                                {
-                                                    tuteeData.availability
-                                                        .studyhall
-                                                }
-                                            </span>
-                                        )}
-                                        {tuteeData.availability.exterior.map(
-                                            (time, index) => {
-                                                return (
-                                                    <span className="tag tutee-card-tag">
-                                                        {time}
+                                    <div className="column is-3 tutee-card-action">
+                                        <div className="columns is-centered is-vcentered is-multiline tutee-card-action-wrapper">
+                                            <div className="column tutee-card-button-wrapper">
+                                                <a className="tutee-card-accept">
+                                                    Tutor
+                                                    <span className="hero-button-icon">
+                                                        <FontAwesomeIcon
+                                                            icon={
+                                                                faArrowRight
+                                                            }></FontAwesomeIcon>
                                                     </span>
-                                                );
-                                            }
-                                        )}
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
