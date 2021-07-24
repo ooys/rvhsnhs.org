@@ -84,7 +84,7 @@ function Hours() {
         return (
             <>
                 <Navbar user="officer" />
-                <div className="page-wrapper" id="admin-group">
+                <div className="page-wrapper" id="verify-hours">
                     <div className="verificiation-title">
                         <p>
                             {snapshot.docs.length - 1} submission(s) pending
