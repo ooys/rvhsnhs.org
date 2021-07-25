@@ -129,8 +129,12 @@ function SignIn() {
         if (["visitor", "faculty", "student"].includes(profileInfo.role)) {
             await userRef.set(
                 {
-                    first: profile.given_name,
-                    last: profile.family_name,
+                    first:
+                        profile.given_name.charAt(0).toUpperCase() +
+                        profile.given_name.slice(1).toLowerCase(),
+                    last:
+                        profile.family_name.charAt(0).toUpperCase() +
+                        profile.family_name.slice(1).toLowerCase(),
                     email: profile.email,
                     role: profileInfo.role,
                     badges: [],
@@ -142,8 +146,12 @@ function SignIn() {
         } else {
             await userRef.set(
                 {
-                    first: profile.given_name,
-                    last: profile.family_name,
+                    first:
+                        profile.given_name.charAt(0).toUpperCase() +
+                        profile.given_name.slice(1).toLowerCase(),
+                    last:
+                        profile.family_name.charAt(0).toUpperCase() +
+                        profile.family_name.slice(1).toLowerCase(),
                     sid: profileInfo.sid,
                     email: profile.email,
                     role: profileInfo.role,
@@ -155,6 +163,7 @@ function SignIn() {
                     grade: profileInfo.grade,
                     admingroup: profileInfo.admingroup,
                     opportunities: {},
+                    tutoring: {},
                     badges: ["beta_tester"],
                     profilePicture: profile.picture,
                     firstLogin: new firebase.firestore.Timestamp.now(),
