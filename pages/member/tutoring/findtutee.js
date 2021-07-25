@@ -58,9 +58,10 @@ function TutorSelect() {
                                 parent: tuteeData.parent,
                                 termlength: tuteeData.termlength,
                                 comments: tuteeData.comments,
-                                [`timestamp.tutee`]: tuteeData.timestamp,
-                                [`timestamp.tutor`]:
-                                    new firebase.firestore.Timestamp.now(),
+                                timestamp: {
+                                    tutee: tuteeData.timestamp,
+                                    tutor: new firebase.firestore.Timestamp.now(),
+                                },
                                 tutor: {
                                     uid: uid,
                                     first: userData.first,
@@ -248,15 +249,6 @@ function TutorSelect() {
     }
 
     function DisplayTutees({ tutees }) {
-        const subjects = [
-            "English",
-            "Social Sciences & History",
-            "Mathematics",
-            "Science",
-            "World Languages",
-            "Arts",
-            "Music",
-        ];
         return (
             <div className="columns is-multiline tutee-list">
                 {tutees.docs.map((tutee, index) => {

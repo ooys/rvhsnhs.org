@@ -285,6 +285,7 @@ function TuteeApply() {
         await tuteeRef
             .add({
                 tutee: {
+                    uid: nid,
                     first: values.first,
                     last: values.last,
                     email: values.email,
