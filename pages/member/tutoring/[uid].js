@@ -1,13 +1,12 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import initFirebase from "/services/firebase.js";
-import Navbar from "/components/Navbar.js";
-import Footer from "/components/Footer";
 import withAuth from "/components/auth/withAuth.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
+import withFrame from "/components/Frame.js";
 
 initFirebase();
 const db = firebase.firestore();
@@ -119,28 +118,27 @@ function TutorHome() {
     } else {
         return (
             <>
-                <Navbar user="member" />
-                <div className="tall-page-wrapper" id="tutor-home">
-                    <div className="columns is-multiline tutor-dashbord">
-                        <div className="column is-full find-tutee-button-wrapper">
-                            <a
-                                className="find-tutee-button"
-                                onClick={() => {
-                                    router.push("/member/tutoring/findtutee");
-                                }}>
-                                Find Tutee
-                            </a>
-                        </div>
-
-                        <div className="column is-full">
-                            <DisplayTutees tutees={data.tutoring} />
-                        </div>
+                <div className="columns is-multiline tutor-list">
+                    {/* <div className="column is-full find-tutee-button-wrapper">
+                        <a
+                            className="find-tutee-button"
+                            onClick={() => {
+                                router.push("/member/tutoring/findtutee");
+                            }}>
+                            Find Tutee
+                        </a>
+                    </div> */}
+                    <div className="column is-full tutor-list-title">
+                        Your Tutees
+                        <hr className="tutor-list-hr"></hr>
+                    </div>
+                    <div className="column is-full">
+                        <DisplayTutees tutees={data.tutoring} />
                     </div>
                 </div>
-                <Footer />
             </>
         );
     }
 }
 
-export default withAuth(TutorHome, "member");
+export default withAuth(withFrame(TutorHome, "Dashboard"), "member");
