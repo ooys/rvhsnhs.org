@@ -156,25 +156,6 @@ function Member() {
                             <div className="column member-graph-container is-three-fifths is-bg-light"></div>
                             <div className="column member-current-rank is-bg-light"></div>
                         </div>
-                        <div className="column featured-opportunities-text-container is-10 is-offset-1 is-bg-off-white">
-                            Featured Opportunities
-                        </div>
-                        <div className="columns featured-opportunities is-10 is-offset-1 is-bg-off-white">
-                            <div className=" member-left-slideshow-arrow is-1">
-                                <img
-                                    src="/images/slideshow_arrows/left-arrow.svg"
-                                    alt=""></img>
-                            </div>
-                            <div className="column featured-opportunity-1 is-bg-light is-10-mobile is-offset-1-mobile"></div>
-                            <div className="column featured-opportunity-2 is-bg-light is-10-mobile is-offset-1-mobile"></div>
-                            <div className="column featured-opportunity-3 is-bg-light is-10-mobile is-offset-1-mobile"></div>
-                            <div className="column featured-opportunity-4 is-bg-light is-10-mobile is-offset-1-mobile"></div>
-                            <div className=" member-right-slideshow-arrow is-1">
-                                <img
-                                    src="/images/slideshow_arrows/right-arrow.svg"
-                                    alt=""></img>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -1312,6 +1312,8 @@ video {
 
 .totals-column {
     margin-top: 1vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 .total-column-1 {
@@ -1329,6 +1331,7 @@ video {
 }
 
 .current-mixed-hours-progress {
+    text-align: center;
 }
 
 .current-mixed-hours-number {
@@ -1364,10 +1367,11 @@ video {
 }
 
 .member-current-section {
-    height: 35vh;
+    height: 65vh;
     margin-left: 10vw;
     margin-right: 10vw;
     margin-top: 1vw;
+    margin-bottom: 3vh;
 }
 
 .member-graph-container {
@@ -1375,7 +1379,7 @@ video {
     border-radius: 5px;
     margin-left: 2vw;
     margin-right: 5vw;
-    margin-bottom: 1vh;
+    margin-bottom: 3vh;
 }
 
 .member-current-rank {
@@ -1383,7 +1387,7 @@ video {
     border-radius: 5px;
     margin-left: 0vw;
     margin-right: 2vw;
-    margin-bottom: 1vh;
+    margin-bottom: 3vh;
 }
 
 .featured-opportunities-text-container {
