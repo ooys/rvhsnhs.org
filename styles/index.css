@@ -11,6 +11,10 @@ body {
     margin-top: 3.2rem;
 }
 
+.tall-page-wrapper {
+    margin-top: 4rem;
+}
+
 /* Footer */
 .footer-container {
     margin-top: 3.2rem;
@@ -1266,6 +1270,7 @@ video {
 }
 .tutee-card-body {
     font-size: 1rem;
+    color: #4a4a4a;
 }
 
 .tutee-card-tag {
@@ -1411,4 +1416,68 @@ video {
     background-color: red;
     color: white;
     border-color: red;
+}
+
+/* Tutoring Dashbord */
+
+.tutee-card-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Montserrat";
+    font-size: 1.5rem;
+    color: black;
+}
+
+.status-is-active {
+    color: green;
+}
+
+.status-is-pending {
+    color: orange;
+}
+
+.status-is-completed {
+    color: red;
+}
+
+.tutee-card-continue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4a4a4a;
+    transition: 0.3s all;
+}
+
+.tutee-card-wrapper:hover .tutee-card-continue {
+    color: #2793fa;
+    transition: 0.3s all;
+}
+
+.tutee-card-is-locked {
+    pointer-events: none;
+}
+
+.tutee-card-chevron-is-hidden {
+    display: none;
+}
+
+.find-tutee-button-wrapper {
+    padding-left: none;
+}
+
+.find-tutee-button {
+    padding: 0.4rem 1.2rem 0.4rem 1.2rem;
+    color: #2793fa;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 2px solid #2793fa;
+    border-radius: 0.3rem;
+    transition: 0.3s all;
+}
+
+.find-tutee-button:hover {
+    background-color: #2793fa;
+    color: white;
+    border-color: #2793fa;
 }
