@@ -1305,17 +1305,13 @@ video {
 }
 
 .member-main-section {
-    height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
 }
 
 .totals-column {
-    height: 20vh;
-    display: flex;
     margin-top: 1vw;
-    flex-direction: row;
 }
 
 .total-column-1 {
@@ -1323,6 +1319,24 @@ video {
     margin-right: 1vw;
     box-shadow: 1px 1px 2px 2px #e4e4e4;
     border-radius: 5px;
+    margin-bottom: 1vh;
+}
+
+.mixed-hours-icon {
+    height: 6vh;
+    margin-top: 4vh;
+    margin-left: 25px;
+}
+
+.current-mixed-hours-progress {
+}
+
+.current-mixed-hours-number {
+    font-size: 200%;
+}
+
+.progress-bar-icon {
+    height: 1vh;
 }
 
 .total-column-2 {
@@ -1330,6 +1344,7 @@ video {
     margin-right: 1vw;
     box-shadow: 1px 1px 2px 2px #e4e4e4;
     border-radius: 5px;
+    margin-bottom: 1vh;
 }
 
 .total-column-3 {
@@ -1337,6 +1352,7 @@ video {
     margin-right: 1vw;
     box-shadow: 1px 1px 2px 2px #e4e4e4;
     border-radius: 5px;
+    margin-bottom: 1vh;
 }
 
 .total-column-4 {
@@ -1344,15 +1360,14 @@ video {
     margin-right: 1vw;
     box-shadow: 1px 1px 2px 2px #e4e4e4;
     border-radius: 5px;
+    margin-bottom: 1vh;
 }
 
 .member-current-section {
     height: 35vh;
     margin-left: 10vw;
     margin-right: 10vw;
-    display: flex;
     margin-top: 1vw;
-    flex-direction: row;
 }
 
 .member-graph-container {
@@ -1360,6 +1375,7 @@ video {
     border-radius: 5px;
     margin-left: 2vw;
     margin-right: 5vw;
+    margin-bottom: 1vh;
 }
 
 .member-current-rank {
@@ -1367,14 +1383,15 @@ video {
     border-radius: 5px;
     margin-left: 0vw;
     margin-right: 2vw;
+    margin-bottom: 1vh;
 }
 
 .featured-opportunities-text-container {
     height: 5vh;
-    display: flex;
     margin-top: 1vw;
     text-align: center;
-    font-size: 1.2vw;
+    font-size: 100%;
+
     justify-content: center;
 }
 
@@ -1382,8 +1399,6 @@ video {
     height: 22vh;
     margin-top: 1vw;
     margin-bottom: 1vw;
-    display: flex;
-    flex-direction: row;
 }
 
 .member-left-slideshow-arrow {
@@ -1403,6 +1418,7 @@ video {
     border-radius: 5px;
     margin-left: 1vw;
     margin-right: 1vw;
+    margin-bottom: 1vh;
 }
 
 .featured-opportunity-2 {
@@ -1410,6 +1426,7 @@ video {
     border-radius: 5px;
     margin-left: 1vw;
     margin-right: 1vw;
+    margin-bottom: 1vh;
 }
 
 .featured-opportunity-3 {
@@ -1417,6 +1434,7 @@ video {
     border-radius: 5px;
     margin-left: 1vw;
     margin-right: 1vw;
+    margin-bottom: 1vh;
 }
 
 .featured-opportunity-4 {
@@ -1424,6 +1442,7 @@ video {
     border-radius: 5px;
     margin-left: 1vw;
     margin-right: 1vw;
+    margin-bottom: 1vh;
 }
 .tutee-approve-modal-content {
     background-color: white;
