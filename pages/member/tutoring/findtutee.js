@@ -4,6 +4,7 @@ import initFirebase from "/services/firebase.js";
 import Navbar from "/components/Navbar.js";
 import Footer from "/components/Footer";
 import withAuth from "/components/auth/withAuth.js";
+import withFrame from "/components/Frame.js";
 import { useRouter } from "next/router";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -391,14 +392,23 @@ function TutorSelect() {
     } else {
         return (
             <>
-                <Navbar user="member" />
-                <div className="page-wrapper" id="find-tutee">
-                    <DisplayTutees tutees={snapshot} />
+                <div className="columns is-multiline tutor-list">
+                    <div className="column is-full tutor-list-title">
+                        Unpaired Tutees
+                        <hr className="tutor-list-hr"></hr>
+                    </div>
+                    <div className="column is-full">
+                        <DisplayTutees tutees={snapshot} />
+                    </div>
                 </div>
-                <Footer />
+                {/* <Navbar user="member" />
+                <div className="page-wrapper" id="find-tutee"> */}
+
+                {/* </div>
+                <Footer /> */}
             </>
         );
     }
 }
 
-export default withAuth(TutorSelect, "member");
+export default withAuth(withFrame(TutorSelect, "Find Tutee"), "member");

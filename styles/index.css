@@ -1240,9 +1240,9 @@ video {
     margin-right: 5vw;
 }
 
-.tutee-list {
+/* .tutee-list {
     margin-top: 5vw;
-}
+} */
 
 .tutee-card-wrapper {
     border: 1px solid #2793fa;
@@ -1418,7 +1418,21 @@ video {
     border-color: red;
 }
 
-/* Tutoring Dashbord */
+/* Tutoring Dashboard */
+
+.tutor-list-title {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #2793fa;
+    margin-bottom: 1rem;
+}
+
+.tutor-list-hr {
+    background-color: #aaaaaa;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
 
 .tutee-card-status {
     display: flex;
@@ -1480,4 +1494,41 @@ video {
     background-color: #2793fa;
     color: white;
     border-color: #2793fa;
+}
+
+/* Frame */
+
+.frame-wrapper {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 5rem;
+}
+
+.frame-toolbar {
+    border-right: 2px solid #aaaaaa;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.toolbar-title {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #4a4a4a;
+}
+
+.toolbar-element {
+    color: #4a4a4a;
+    border-radius: 0.4rem;
+    transition: 0.2s all;
+}
+
+.toolbar-element:hover {
+    color: #2793fa;
+    transition: 0.3s all;
+}
+
+.element-selected {
+    background-color: #d4e3fe;
+    color: #2793fa;
 }
