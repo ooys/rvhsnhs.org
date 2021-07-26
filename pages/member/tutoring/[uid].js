@@ -48,7 +48,7 @@ function TutorHome() {
                                 }
                                 onClick={() => {
                                     router.push(
-                                        "/member/tutoring/pair/" + keyId
+                                        "/member/tutoring/tutee/" + keyId
                                     );
                                 }}>
                                 <div className="columns tutee-card-spacer">
@@ -125,15 +125,6 @@ function TutorHome() {
         return (
             <>
                 <div className="columns is-multiline tutor-list">
-                    {/* <div className="column is-full find-tutee-button-wrapper">
-                        <a
-                            className="find-tutee-button"
-                            onClick={() => {
-                                router.push("/member/tutoring/findtutee");
-                            }}>
-                            Find Tutee
-                        </a>
-                    </div> */}
                     <div className="column is-full tutor-list-title">
                         Your Tutees
                         <hr className="tutor-list-hr"></hr>
