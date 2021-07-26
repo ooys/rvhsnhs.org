@@ -58,6 +58,7 @@ function TutorSelect() {
                                 availability: tuteeData.availability,
                                 parent: tuteeData.parent,
                                 termlength: tuteeData.termlength,
+                                format: tuteeData.format,
                                 comments: tuteeData.comments,
                                 timestamp: {
                                     tutee: tuteeData.timestamp,
@@ -98,6 +99,8 @@ function TutorSelect() {
                                             tuteeData.tutee.school.course,
                                         [`tutoring.${docId}.termlength`]:
                                             tuteeData.termlength,
+                                        [`tutoring.${docId}.format`]:
+                                            tuteeData.format,
                                     })
                                     .then(() => {
                                         const emailHtml = `We have received your pairing request for tutee <b>${tuteeData.tutee.first}</b> <b>${tuteeData.tutee.last}</b>. You will receive a follow-up email once the pairing has been approved.`;
@@ -165,6 +168,13 @@ function TutorSelect() {
                                     </div>
                                     <div className="column is-full tutee-card-left-text">
                                         {tuteeData.termlength}
+                                    </div>
+
+                                    <div className="column is-full tutee-card-left-text">
+                                        {tuteeData.format.toString() ===
+                                        "No Preference"
+                                            ? "In Person/Virtual"
+                                            : tuteeData.format}
                                     </div>
                                 </div>
                             </div>
@@ -291,6 +301,12 @@ function TutorSelect() {
                                                             {
                                                                 tuteeData.termlength
                                                             }
+                                                        </div>
+                                                        <div className="column is-full tutee-card-left-text">
+                                                            {tuteeData.format.toString() ===
+                                                            "No Preference"
+                                                                ? "In Person/Virtual"
+                                                                : tuteeData.format}
                                                         </div>
                                                     </div>
                                                 </div>

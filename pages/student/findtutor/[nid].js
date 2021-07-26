@@ -309,6 +309,7 @@ function TuteeApply() {
                 },
                 termlength: values.termlength,
                 comments: values.comments,
+                format: values.format,
                 availability: {
                     studyhall: values.studyhall,
                     exterior: exterior,
@@ -790,6 +791,47 @@ function TuteeApply() {
                                                 "required" &&
                                                 "A term length is required."}
                                             {errors.termlength?.type ===
+                                                "validate" &&
+                                                "A term length is required."}
+                                        </span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div className="field">
+                                <label className="label">
+                                    Tutoring Format
+                                    <div className="control">
+                                        <label className="label"></label>
+                                        <div className="select">
+                                            <select
+                                                {...register("format", {
+                                                    required: true,
+                                                    validate: isBlank,
+                                                })}>
+                                                <option>
+                                                    Select Preference
+                                                </option>
+                                                <option>In Person</option>
+                                                <option>Virtual</option>
+                                                <option>No Preference</option>
+                                            </select>
+                                        </div>
+                                        <span className="help is-danger">
+                                            All in person tutoring sessions are
+                                            hosted at Riverside High School. If
+                                            the student could not be present,
+                                            please select "Virtual".
+                                        </span>
+                                        <span className="help">
+                                            If student is available for both in
+                                            person and virtual tutoring, please
+                                            select "No Preference".
+                                        </span>
+                                        <span className="help is-danger">
+                                            {errors.format?.type ===
+                                                "required" &&
+                                                "A term length is required."}
+                                            {errors.format?.type ===
                                                 "validate" &&
                                                 "A term length is required."}
                                         </span>

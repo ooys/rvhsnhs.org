@@ -78,6 +78,12 @@ function TutorHome() {
                                                     <div className="column is-full tutee-card-left-text">
                                                         {tuteeData.termlength}
                                                     </div>
+                                                    <div className="column is-full tutee-card-left-text">
+                                                        {tuteeData.format.toString() ===
+                                                        "No Preference"
+                                                            ? "In Person/Virtual"
+                                                            : tuteeData.format}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="column is-half tutee-card-body">
