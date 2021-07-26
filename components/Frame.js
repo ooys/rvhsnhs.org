@@ -3,7 +3,41 @@ import Navbar from "/components/Navbar.js";
 import Footer from "/components/Footer";
 import Link from "next/link";
 function withFrame(C, currPage) {
-    function ToolbarElement({ page, route }) {
+    function getTuteeId() {
+        // get tutee id from location.pathname
+        const pathname = window.location.pathname;
+        var indices = [];
+        var idx = pathname.indexOf("/");
+        while (idx != -1) {
+            indices.push(idx);
+            idx = pathname.indexOf("/", idx + 1);
+        }
+        if (indices.length === 4) {
+            return pathname.substring(pathname.lastIndexOf("/") + 1);
+        } else {
+            return pathname.substring(indices[3] + 1, indices[4]);
+        }
+    }
+
+    function ToolbarTitle({ page, isHidden }) {
+        if (typeof isHidden != "undefined") {
+            if (!isHidden.includes(currPage)) {
+                return null;
+            }
+        }
+        return (
+            <div className="column is-full toolbar-title toolbar-is-hidden">
+                {page}
+            </div>
+        );
+    }
+
+    function ToolbarElement({ page, route, isHidden }) {
+        if (typeof isHidden != "undefined") {
+            if (!isHidden.includes(currPage)) {
+                return null;
+            }
+        }
         if (currPage === page) {
             return (
                 <Link href={route}>
@@ -34,6 +68,33 @@ function withFrame(C, currPage) {
                     <ToolbarElement
                         page="Find Tutee"
                         route="/member/tutoring/findtutee"
+                    />
+                    <ToolbarTitle
+                        page="Tutee"
+                        isHidden={["Information", "Plan Sessions", "Feedback"]}
+                    />
+                    <ToolbarElement
+                        page="Information"
+                        route={"/member/tutoring/tutee/" + getTuteeId()}
+                        isHidden={["Information", "Plan Sessions", "Feedback"]}
+                    />
+                    <ToolbarElement
+                        page="Plan Sessions"
+                        route={
+                            "/member/tutoring/tutee/" +
+                            getTuteeId() +
+                            "/plansessions"
+                        }
+                        isHidden={["Information", "Plan Sessions", "Feedback"]}
+                    />
+                    <ToolbarElement
+                        page="Feedback"
+                        route={
+                            "/member/tutoring/tutee/" +
+                            getTuteeId() +
+                            "/feedback"
+                        }
+                        isHidden={["Information", "Plan Sessions", "Feedback"]}
                     />
                 </div>
             </>
