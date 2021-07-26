@@ -345,7 +345,7 @@ function TutorSelect() {
     function TuteeFilter() {
         return (
             <div className="columns is-gapless is-multiline tutee-filter">
-                <div className="column is-full filter-title">Filter By:</div>
+                <div className="column is-full filter-title">Filter</div>
                 <div className="column is-full filter-element">
                     Format
                     {formatFilter.map((format, index) => {
@@ -537,7 +537,16 @@ function TutorSelect() {
                                                         Availabilities:{" "}
                                                         {tuteeData.availability.studyhall.toString() ===
                                                         "None" ? null : (
-                                                            <a className="tag tutee-card-tag">
+                                                            <a
+                                                                className="tag tutee-card-tag"
+                                                                onClick={() => {
+                                                                    toggleFilter(
+                                                                        tuteeData
+                                                                            .availability
+                                                                            .studyhall,
+                                                                        "availability"
+                                                                    );
+                                                                }}>
                                                                 {
                                                                     tuteeData
                                                                         .availability
@@ -552,6 +561,12 @@ function TutorSelect() {
                                                                         key={
                                                                             index
                                                                         }
+                                                                        onClick={() => {
+                                                                            toggleFilter(
+                                                                                time,
+                                                                                "availability"
+                                                                            );
+                                                                        }}
                                                                         className="tag tutee-card-tag">
                                                                         {time}
                                                                     </a>

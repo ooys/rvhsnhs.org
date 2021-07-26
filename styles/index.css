@@ -1425,7 +1425,6 @@ video {
     font-weight: bold;
     font-size: 1.5rem;
     color: #2793fa;
-    margin-bottom: 1rem;
 }
 
 .tutor-list-hr {
@@ -1494,6 +1493,16 @@ video {
     background-color: #2793fa;
     color: white;
     border-color: #2793fa;
+}
+
+.tutee-filter {
+    padding-bottom: 1rem;
+}
+
+.filter-title {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .filter-tag {
