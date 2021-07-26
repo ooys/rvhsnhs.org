@@ -42,6 +42,7 @@ function Tutoring() {
                             availability: pairData.availability,
                             comments: pairData.comments,
                             termlength: pairData.termlength,
+                            format: pairData.format,
                             timestamp: {
                                 tutee: pairData.timestamp.tutee,
                                 tutor: pairData.timestamp.tutor,
@@ -67,6 +68,7 @@ function Tutoring() {
                                         pairData.tutee.school.course,
                                     [`tutor.${pid}.termlength`]:
                                         pairData.termlength,
+                                    [`tutor.${pid}.format`]: pairData.format,
                                 })
                                 .then(() => {
                                     tutorRef
@@ -159,6 +161,12 @@ function Tutoring() {
                                                             {
                                                                 pairData.termlength
                                                             }
+                                                        </div>
+                                                        <div className="column is-full tutee-card-left-text">
+                                                            {pairData.format.toString() ===
+                                                            "No Preference"
+                                                                ? "In Person/Virtual"
+                                                                : pairData.format}
                                                         </div>
                                                     </div>
                                                 </div>
