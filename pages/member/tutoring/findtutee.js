@@ -24,6 +24,51 @@ function TutorSelect() {
     const [snapshot, loading, error] = useCollectionOnce(tuteeRef);
     const [user, loading2, error2] = useAuthState(auth);
     const [verify, setVerify] = useState("false");
+    const [filter, setFilter] = useState({
+        format: [],
+        termLength: [],
+        subject: [],
+        availability: [],
+    });
+
+    const formatFilter = ["Virtual", "In Person"];
+    const termLengthFilter = ["Short Term", "Long Term"];
+    const subjectFilter = [
+        "English",
+        "Social Sciences & History",
+        "Mathematics",
+        "Science",
+        "World Languages",
+        "Arts",
+        "Music",
+    ];
+    const availabilityFilter = [
+        "Block 1",
+        "Block 2",
+        "Block 3",
+        "Block 4",
+        "Block 5",
+        "Block 6",
+        "Block 7",
+        "Block 8",
+        "Monday Morning",
+        "Monday Afternoon",
+        "Tuesday Morning",
+        "Tuesday Afternoon",
+        "Wednesday Morning",
+        "Wednesday Afternoon",
+        "Thursday Morning",
+        "Thursday Afternoon",
+        "Friday Morning",
+        "Friday Afternoon",
+    ];
+
+    const allFilters = [
+        formatFilter,
+        termLengthFilter,
+        subjectFilter,
+        availabilityFilter,
+    ];
 
     function acceptTutee(tuteeData, docId, uid) {
         const tuteeRef = db.collection("tutee-requests").doc(docId);
@@ -259,136 +304,303 @@ function TutorSelect() {
         }
     }
 
+    function toggleFilter(value, type) {
+        if (value.length > 0) {
+            if (filter[type].indexOf(value) == -1) {
+                // update entire filter by adding filter[type] with value
+                filter[type].push(value);
+                setFilter({ ...filter });
+            } else {
+                //remove value from filter[type]
+                filter[type].splice(filter[type].indexOf(value), 1);
+                setFilter({ ...filter });
+            }
+        }
+    }
+
+    function FilterTag({ name, type }) {
+        if (filter[type].indexOf(name) > -1) {
+            return (
+                <a
+                    className="tag filter-tag tag-is-selected"
+                    onClick={() => {
+                        toggleFilter(name, type);
+                    }}>
+                    {name}
+                </a>
+            );
+        } else {
+            return (
+                <a
+                    className="tag filter-tag"
+                    onClick={() => {
+                        toggleFilter(name, type);
+                    }}>
+                    {name}
+                </a>
+            );
+        }
+    }
+
+    function TuteeFilter() {
+        return (
+            <div className="columns is-gapless is-multiline tutee-filter">
+                <div className="column is-full filter-title">Filter By:</div>
+                <div className="column is-full filter-element">
+                    Format
+                    {formatFilter.map((format, index) => {
+                        return (
+                            <>
+                                <FilterTag
+                                    key={index}
+                                    name={format}
+                                    type={"format"}
+                                />
+                            </>
+                        );
+                    })}
+                </div>
+                <div className="column is-full filter-element">
+                    Term Length
+                    {termLengthFilter.map((format, index) => {
+                        return (
+                            <>
+                                <FilterTag
+                                    key={index}
+                                    name={format}
+                                    type={"termLength"}
+                                />
+                            </>
+                        );
+                    })}
+                </div>
+                <div className="column is-full filter-element">
+                    Subject
+                    {subjectFilter.map((format, index) => {
+                        return (
+                            <>
+                                <FilterTag
+                                    key={index}
+                                    name={format}
+                                    type={"subject"}
+                                />
+                            </>
+                        );
+                    })}
+                </div>
+                <div className="column is-full filter-element">
+                    Availability
+                    {availabilityFilter.map((format, index) => {
+                        return (
+                            <>
+                                <FilterTag
+                                    key={index}
+                                    name={format}
+                                    type={"availability"}
+                                />
+                            </>
+                        );
+                    })}
+                </div>
+            </div>
+        );
+    }
+
+    // OR gate for all filters within type
+    // AND gate for all filter types
+    function isFiltered(tuteeData) {
+        let canReturn2 = true;
+        Object.keys(filter).forEach((key) => {
+            if (filter[key].length > 0) {
+                let canReturn = false;
+                filter[key].forEach((element) => {
+                    if (key.toString() === "format") {
+                        if (
+                            tuteeData.format.toString() === element ||
+                            tuteeData.format.toString() === "No Preference"
+                        ) {
+                            canReturn = true;
+                        }
+                    }
+                    if (key.toString() === "termLength") {
+                        if (tuteeData.termlength.toString() === element) {
+                            canReturn = true;
+                        }
+                    }
+                    if (key.toString() === "subject") {
+                        if (
+                            tuteeData.tutee.school.subject.toString() ===
+                            element
+                        ) {
+                            canReturn = true;
+                        }
+                    }
+                    if (key.toString() === "availability") {
+                        if (
+                            tuteeData.availability.studyhall.toString() ===
+                                element ||
+                            tuteeData.availability.exterior.some(
+                                (time) => time.toString() === element
+                            )
+                        ) {
+                            canReturn = true;
+                        }
+                    }
+                });
+                if (!canReturn) {
+                    canReturn2 = false;
+                }
+            }
+        });
+        return canReturn2;
+    }
+
     function DisplayTutees({ tutees }) {
         return (
             <div className="columns is-multiline tutee-list">
                 {tutees.docs.map((tutee, index) => {
                     if (tutee.id != "master") {
                         let tuteeData = tutee.data();
-                        return (
-                            <>
-                                <TuteeApproveModal
-                                    tuteeData={tuteeData}
-                                    docId={tutee.id}
-                                    uid={user.uid}
-                                />
-                                <div
-                                    key={index}
-                                    className="column is-full tutee-card-wrapper">
-                                    <div className="columns tutee-card-spacer">
-                                        <div className="column is-9 tutee-card-info">
-                                            <div className="columns is-multiline is-mobile tutee-card is-gapless">
-                                                <div className="column is-full tutee-card-title">
-                                                    {tuteeData.tutee.first +
-                                                        " " +
-                                                        tuteeData.tutee.last}
-                                                </div>
-                                                <div className="column is-half tutee-card-body">
-                                                    <div className="columns tutee-card-left is-multiline is-gapless">
-                                                        <div className="column is-full tutee-card-left-text">
-                                                            {
-                                                                tuteeData.tutee
-                                                                    .school.name
-                                                            }
-                                                        </div>
-                                                        <div className="column is-full tutee-card-left-text">
-                                                            {"Grade " +
-                                                                tuteeData.tutee
-                                                                    .school
-                                                                    .grade}
-                                                        </div>
-                                                        <div className="column is-full tutee-card-left-text">
-                                                            {
-                                                                tuteeData.termlength
-                                                            }
-                                                        </div>
-                                                        <div className="column is-full tutee-card-left-text">
-                                                            {tuteeData.format.toString() ===
-                                                            "No Preference"
-                                                                ? "In Person/Virtual"
-                                                                : tuteeData.format}
-                                                        </div>
+                        if (isFiltered(tuteeData)) {
+                            return (
+                                <>
+                                    <TuteeApproveModal
+                                        tuteeData={tuteeData}
+                                        docId={tutee.id}
+                                        uid={user.uid}
+                                    />
+                                    <div
+                                        key={index}
+                                        className="column is-full tutee-card-wrapper">
+                                        <div className="columns tutee-card-spacer">
+                                            <div className="column is-9 tutee-card-info">
+                                                <div className="columns is-multiline is-mobile tutee-card is-gapless">
+                                                    <div className="column is-full tutee-card-title">
+                                                        {tuteeData.tutee.first +
+                                                            " " +
+                                                            tuteeData.tutee
+                                                                .last}
                                                     </div>
-                                                </div>
-                                                <div className="column is-half tutee-card-body">
-                                                    <div className="columns tutee-card-left is-multiline is-gapless">
-                                                        <div className="column is-full tutee-card-left-text">
-                                                            <b>
+                                                    <div className="column is-half tutee-card-body">
+                                                        <div className="columns tutee-card-left is-multiline is-gapless">
+                                                            <div className="column is-full tutee-card-left-text">
                                                                 {
                                                                     tuteeData
                                                                         .tutee
                                                                         .school
-                                                                        .subject
+                                                                        .name
                                                                 }
-                                                            </b>
-                                                        </div>
-                                                        <div className="column is-full tutee-card-left-text">
-                                                            {
-                                                                tuteeData.tutee
-                                                                    .school
-                                                                    .course
-                                                            }
+                                                            </div>
+                                                            <div className="column is-full tutee-card-left-text">
+                                                                {"Grade " +
+                                                                    tuteeData
+                                                                        .tutee
+                                                                        .school
+                                                                        .grade}
+                                                            </div>
+                                                            <div className="column is-full tutee-card-left-text">
+                                                                {
+                                                                    tuteeData.termlength
+                                                                }
+                                                            </div>
+                                                            <div className="column is-full tutee-card-left-text">
+                                                                {tuteeData.format.toString() ===
+                                                                "No Preference"
+                                                                    ? "In Person/Virtual"
+                                                                    : tuteeData.format}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className="column is-full tutee-card-tags">
-                                                    Availabilities:{" "}
-                                                    {tuteeData.availability.studyhall.toString() ===
-                                                    "None" ? null : (
-                                                        <a className="tag tutee-card-tag">
-                                                            {
-                                                                tuteeData
-                                                                    .availability
-                                                                    .studyhall
+                                                    <div className="column is-half tutee-card-body">
+                                                        <div className="columns tutee-card-left is-multiline is-gapless">
+                                                            <div className="column is-full tutee-card-left-text">
+                                                                <b>
+                                                                    {
+                                                                        tuteeData
+                                                                            .tutee
+                                                                            .school
+                                                                            .subject
+                                                                    }
+                                                                </b>
+                                                            </div>
+                                                            <div className="column is-full tutee-card-left-text">
+                                                                {
+                                                                    tuteeData
+                                                                        .tutee
+                                                                        .school
+                                                                        .course
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="column is-full tutee-card-tags">
+                                                        Availabilities:{" "}
+                                                        {tuteeData.availability.studyhall.toString() ===
+                                                        "None" ? null : (
+                                                            <a className="tag tutee-card-tag">
+                                                                {
+                                                                    tuteeData
+                                                                        .availability
+                                                                        .studyhall
+                                                                }
+                                                            </a>
+                                                        )}
+                                                        {tuteeData.availability.exterior.map(
+                                                            (time, index) => {
+                                                                return (
+                                                                    <a
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        className="tag tutee-card-tag">
+                                                                        {time}
+                                                                    </a>
+                                                                );
                                                             }
-                                                        </a>
-                                                    )}
-                                                    {tuteeData.availability.exterior.map(
-                                                        (time, index) => {
-                                                            return (
-                                                                <a
-                                                                    key={index}
-                                                                    className="tag tutee-card-tag">
-                                                                    {time}
-                                                                </a>
-                                                            );
-                                                        }
-                                                    )}
-                                                </div>
-                                                <div className="column is-full tutee-card-tags">
-                                                    {tuteeData.comments.toString() ===
-                                                    "" ? null : (
-                                                        <>
-                                                            <br></br>Comments:{" "}
-                                                            {tuteeData.comments}
-                                                        </>
-                                                    )}
+                                                        )}
+                                                    </div>
+                                                    <div className="column is-full tutee-card-tags">
+                                                        {tuteeData.comments.toString() ===
+                                                        "" ? null : (
+                                                            <>
+                                                                <br></br>
+                                                                Comments:{" "}
+                                                                {
+                                                                    tuteeData.comments
+                                                                }
+                                                            </>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="column is-3 tutee-card-action">
-                                            <div className="columns is-centered is-vcentered is-multiline tutee-card-action-wrapper">
-                                                <div className="column tutee-card-button-wrapper">
-                                                    <a
-                                                        className="tutee-card-accept"
-                                                        onClick={() => {
-                                                            setVerify(tutee.id);
-                                                        }}>
-                                                        Tutor
-                                                        <span className="hero-button-icon">
-                                                            <FontAwesomeIcon
-                                                                icon={
-                                                                    faArrowRight
-                                                                }></FontAwesomeIcon>
-                                                        </span>
-                                                    </a>
+                                            <div className="column is-3 tutee-card-action">
+                                                <div className="columns is-centered is-vcentered is-multiline tutee-card-action-wrapper">
+                                                    <div className="column tutee-card-button-wrapper">
+                                                        <a
+                                                            className="tutee-card-accept"
+                                                            onClick={() => {
+                                                                setVerify(
+                                                                    tutee.id
+                                                                );
+                                                            }}>
+                                                            Tutor
+                                                            <span className="hero-button-icon">
+                                                                <FontAwesomeIcon
+                                                                    icon={
+                                                                        faArrowRight
+                                                                    }></FontAwesomeIcon>
+                                                            </span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </>
-                        );
+                                </>
+                            );
+                        } else {
+                            return null;
+                        }
                     }
                 })}
             </div>
@@ -414,14 +626,12 @@ function TutorSelect() {
                         <hr className="tutor-list-hr"></hr>
                     </div>
                     <div className="column is-full">
+                        <TuteeFilter />
+                    </div>
+                    <div className="column is-full">
                         <DisplayTutees tutees={snapshot} />
                     </div>
                 </div>
-                {/* <Navbar user="member" />
-                <div className="page-wrapper" id="find-tutee"> */}
-
-                {/* </div>
-                <Footer /> */}
             </>
         );
     }

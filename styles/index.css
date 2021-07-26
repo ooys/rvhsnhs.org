@@ -1496,6 +1496,22 @@ video {
     border-color: #2793fa;
 }
 
+.filter-tag {
+    margin-left: 0.5rem;
+    border: 1px solid #2793fa;
+    transition: 0.3s all;
+}
+
+.filter-element a:hover {
+    text-decoration: none;
+}
+
+.tag-is-selected {
+    background-color: #2793fa !important;
+    color: white !important;
+    transition: 0.3s all;
+}
+
 /* Frame */
 
 .frame-wrapper {
