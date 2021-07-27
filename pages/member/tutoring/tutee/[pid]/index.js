@@ -125,6 +125,16 @@ function TutorPair() {
                     <div className="column is-full">
                         <TuteeInfo tuteeData={data} />
                     </div>
+                    <div className="column is-full tutor-list-title">
+                        Sessions Registered
+                        <hr className="tutor-list-hr"></hr>
+                    </div>
+                    <div className="column is-full"></div>
+                    <div className="column is-full tutor-list-title">
+                        Sessions Completed
+                        <hr className="tutor-list-hr"></hr>
+                    </div>
+                    <div className="column is-full"></div>
                 </div>
             </>
         );
