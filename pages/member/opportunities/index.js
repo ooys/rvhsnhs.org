@@ -2,8 +2,7 @@ import withAuth from "/components/auth/withAuth.js";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import initFirebase from "/services/firebase.js";
-import Navbar from "/components/Navbar.js";
-import Footer from "/components/Footer";
+import withFrame from "/components/Frame.js";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
 
@@ -15,7 +14,7 @@ function Event({ opportunity }) {
     return (
         <>
             <a
-                className="column is-three-fifths is-offset-one-fifth event"
+                className="column is-full event"
                 key={opportunity.eid}
                 onClick={() => {
                     router.push("/member/opportunities/" + opportunity.eid);
@@ -41,13 +40,10 @@ function Events() {
     } else {
         const opportunities = data.ongoing;
         return (
-            <div className="events-wrapper">
-                <span className="events-title">Hours Opportunities</span>
-                <div className="columns is-multiline is-4 is-variable is-mobile events">
-                    {opportunities.map((opportunity, index) => {
-                        return <Event key={index} opportunity={opportunity} />;
-                    })}
-                </div>
+            <div className="columns is-multiline is-mobile events">
+                {opportunities.map((opportunity, index) => {
+                    return <Event key={index} opportunity={opportunity} />;
+                })}
             </div>
         );
     }
@@ -55,14 +51,16 @@ function Events() {
 
 function Opportunities() {
     return (
-        <div className="opportunities">
-            <Navbar user="member" />
-            <div className="page-wrapper" id="opportunities">
+        <div className="columns is-multiline tutor-list">
+            <div className="column is-full tutor-list-title">
+                Hours Opportunities
+                <hr className="tutor-list-hr"></hr>
+            </div>
+            <div className="column is-full">
                 <Events />
             </div>
-            <Footer />
         </div>
     );
 }
 
-export default withAuth(Opportunities, "member");
+export default withAuth(withFrame(Opportunities, "Find Opportunity"), "member");

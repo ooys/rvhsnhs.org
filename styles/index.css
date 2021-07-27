@@ -305,10 +305,10 @@ body {
 /* Opportunities */
 
 .events-title {
-    font-size: 2rem;
-    margin-top: 5rem;
-    display: flex;
-    justify-content: center;
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #2793fa;
 }
 .event {
     margin-top: 3vw;
