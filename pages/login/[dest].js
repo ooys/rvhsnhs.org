@@ -19,22 +19,6 @@ const db = firebase.firestore();
 function SignIn() {
     const router = useRouter();
 
-    // function redirect() {
-    //     const profileRef = db
-    //         .collection("users")
-    //         .doc(firebase.auth().currentUser.uid);
-    //     const [value, loading2, error2] = useDocumentDataOnce(profileRef);
-    //     if (loading2) {
-    //         return <>Authorized, fetching more data...</>;
-    //     }
-    //     if (error2 != undefined || value == undefined) {
-    //         // console.log("error");
-    //         return <div>Unauthorized, back to login!</div>;
-    //     } else {
-    //         // console.log(value.role);
-    //         return <div>{value.role}</div>;
-    //     }
-    // }
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider).then((results) => {

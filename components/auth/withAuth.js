@@ -6,6 +6,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
+import swal from "sweetalert";
 
 initFirebase();
 const auth = firebase.auth();
@@ -48,7 +49,14 @@ function withAuth(C, authlevel) {
                     </>
                 );
             } else {
-                router.push("/login/" + authlevel);
+                auth.signOut();
+                swal(
+                    "Unauthorized!",
+                    "Sorry, you are not authorized to view this page.",
+                    "error"
+                ).then(() => {
+                    router.push("/" + authlevel);
+                });
                 return (
                     <div>
                         Your authorization level of {curr} is not high enough
@@ -57,7 +65,8 @@ function withAuth(C, authlevel) {
                 );
             }
         } else {
-            router.push("/login/" + "teacher");
+            auth.signOut();
+            router.push("/" + "teacher");
             return (
                 <div>
                     Your authorization level of {curr} is not high enough for

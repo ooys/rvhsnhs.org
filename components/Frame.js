@@ -19,9 +19,9 @@ function withFrame(C, currPage) {
         }
     }
 
-    function ToolbarTitle({ page, isHidden }) {
-        if (typeof isHidden != "undefined") {
-            if (!isHidden.includes(currPage)) {
+    function ToolbarTitle({ page, isNotHidden }) {
+        if (typeof isNotHidden != "undefined") {
+            if (!isNotHidden.includes(currPage)) {
                 return null;
             }
         }
@@ -32,9 +32,9 @@ function withFrame(C, currPage) {
         );
     }
 
-    function ToolbarElement({ page, route, isHidden }) {
-        if (typeof isHidden != "undefined") {
-            if (!isHidden.includes(currPage)) {
+    function ToolbarElement({ page, route, isNotHidden }) {
+        if (typeof isNotHidden != "undefined") {
+            if (!isNotHidden.includes(currPage)) {
                 return null;
             }
         }
@@ -76,12 +76,20 @@ function withFrame(C, currPage) {
                     />
                     <ToolbarTitle
                         page="Tutee"
-                        isHidden={["Information", "Plan Sessions", "Feedback"]}
+                        isNotHidden={[
+                            "Information",
+                            "Plan Sessions",
+                            "Feedback",
+                        ]}
                     />
                     <ToolbarElement
                         page="Information"
                         route={"/member/tutoring/tutee/" + getTuteeId()}
-                        isHidden={["Information", "Plan Sessions", "Feedback"]}
+                        isNotHidden={[
+                            "Information",
+                            "Plan Sessions",
+                            "Feedback",
+                        ]}
                     />
                     <ToolbarElement
                         page="Plan Sessions"
@@ -90,7 +98,11 @@ function withFrame(C, currPage) {
                             getTuteeId() +
                             "/plansessions"
                         }
-                        isHidden={["Information", "Plan Sessions", "Feedback"]}
+                        isNotHidden={[
+                            "Information",
+                            "Plan Sessions",
+                            "Feedback",
+                        ]}
                     />
                     <ToolbarElement
                         page="Feedback"
@@ -99,7 +111,93 @@ function withFrame(C, currPage) {
                             getTuteeId() +
                             "/feedback"
                         }
-                        isHidden={["Information", "Plan Sessions", "Feedback"]}
+                        isNotHidden={[
+                            "Information",
+                            "Plan Sessions",
+                            "Feedback",
+                        ]}
+                    />
+                    <ToolbarTitle
+                        page="Officer"
+                        isNotHidden={[
+                            "Admin Group",
+                            "Verify Hours",
+                            "Verify Tutoring",
+                            "Moderator Dashboard",
+                            "Create Opportunity",
+                            "Create Session",
+                        ]}
+                    />
+                    <ToolbarElement
+                        page="Admin Group"
+                        route={"/officer/admingroup"}
+                        isNotHidden={[
+                            "Admin Group",
+                            "Verify Hours",
+                            "Verify Tutoring",
+                            "Moderator Dashboard",
+                            "Create Opportunity",
+                            "Create Session",
+                        ]}
+                    />
+                    <ToolbarElement
+                        page="Verify Hours"
+                        route={"/officer/verify/hours"}
+                        isNotHidden={[
+                            "Admin Group",
+                            "Verify Hours",
+                            "Verify Tutoring",
+                            "Moderator Dashboard",
+                            "Create Opportunity",
+                            "Create Session",
+                        ]}
+                    />
+                    <ToolbarElement
+                        page="Verify Tutoring"
+                        route={"/officer/verify/tutoring"}
+                        isNotHidden={[
+                            "Admin Group",
+                            "Verify Hours",
+                            "Verify Tutoring",
+                            "Moderator Dashboard",
+                            "Create Opportunity",
+                            "Create Session",
+                        ]}
+                    />
+                    <ToolbarTitle
+                        page="Moderator"
+                        isNotHidden={[
+                            "Moderator Dashboard",
+                            "Create Opportunity",
+                            "Create Session",
+                        ]}
+                    />
+                    <ToolbarElement
+                        page="Moderator Dashboard"
+                        route={"/moderator/"}
+                        isNotHidden={[
+                            "Moderator Dashboard",
+                            "Create Opportunity",
+                            "Create Session",
+                        ]}
+                    />
+                    <ToolbarElement
+                        page="Create Opportunity"
+                        route={"/moderator/create/opportunity"}
+                        isNotHidden={[
+                            "Moderator Dashboard",
+                            "Create Opportunity",
+                            "Create Session",
+                        ]}
+                    />
+                    <ToolbarElement
+                        page="Create Session"
+                        route={"/moderator/create/session"}
+                        isNotHidden={[
+                            "Moderator Dashboard",
+                            "Create Opportunity",
+                            "Create Session",
+                        ]}
                     />
                 </div>
             </>
