@@ -6,6 +6,7 @@ import Footer from "/components/Footer.js";
 import { useRouter } from "next/router";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
 import withAuth from "/components/auth/withAuth.js";
+import withFrame from "/components/Frame.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import sendEmail from "/components/email/sendEmail.js";
@@ -396,15 +397,11 @@ function Tutoring() {
     } else {
         console.log(snapshot.docs[0].id);
         return (
-            <>
-                <Navbar user="officer" />
-                <div className="page-wrapper" id="verify-tutoring">
-                    <DisplayPair pairs={snapshot} />
-                </div>
-                <Footer />
-            </>
+            <div>
+                <DisplayPair pairs={snapshot} />
+            </div>
         );
     }
 }
 
-export default withAuth(Tutoring, "moderator");
+export default withAuth(withFrame(Tutoring, "Verify Tutoring"), "moderator");
