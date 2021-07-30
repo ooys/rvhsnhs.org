@@ -105,7 +105,7 @@ function CreateSession() {
                     sessions: firebase.firestore.FieldValue.arrayRemove({
                         date: sessionData.date,
                         time_start: sessionData.time_start,
-                        time_end: sessionData.time_end,
+                        time_end: sessionDat,
                         format: sessionData.format,
                         location: sessionData.location,
                         max_pairs: sessionData.max_pairs,
@@ -341,7 +341,7 @@ function CreateSession() {
                                         docId={session.id}
                                         docData={sessionData}
                                     />
-                                    <div className="column is-full">
+                                    <div className="column is-full session-card session-is-locked">
                                         <div className="columns is-gapless is-multiline is-mobile">
                                             <div className="column is-6">
                                                 <div className="columns is-gapless is-multiline">
@@ -407,7 +407,14 @@ function CreateSession() {
                             );
                         } else if (sessionDate <= currDate && time === "past") {
                             return (
-                                <div className="column is-full">
+                                <a
+                                    className="column is-full session-card"
+                                    onClick={() => {
+                                        router.push(
+                                            "/moderator/create/session/" +
+                                                session.id
+                                        );
+                                    }}>
                                     <div className="columns is-gapless is-multiline is-mobile">
                                         <div className="column is-6">
                                             <div className="columns is-gapless is-multiline">
@@ -449,7 +456,7 @@ function CreateSession() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             );
                         } else return null;
                     }
