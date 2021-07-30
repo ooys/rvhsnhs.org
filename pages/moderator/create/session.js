@@ -7,6 +7,9 @@ import { useCollectionOnce } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
 import { useForm, useFieldArray } from "react-hook-form";
 import swal from "sweetalert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 initFirebase();
 const db = firebase.firestore();
@@ -27,6 +30,7 @@ function CreateSession() {
         control,
         name: "sessions",
     });
+    const [verify, setVerify] = useState("false");
 
     const isBlank = (value) => value.substring(0, 6) != "Select";
 
@@ -92,7 +96,88 @@ function CreateSession() {
               ][dayOfWeek];
     }
 
-    function DeleteSession() {}
+    function deleteSession(sessionId, sessionData) {
+        const sessionRef = db.collection("tutor-sessions").doc(sessionId);
+        sessionRef.delete().then(() => {
+            const masterRef = db.collection("tutor-sessions").doc("master");
+            masterRef
+                .update({
+                    sessions: firebase.firestore.FieldValue.arrayRemove({
+                        date: sessionData.date,
+                        time_start: sessionData.time_start,
+                        time_end: sessionData.time_end,
+                        format: sessionData.format,
+                        location: sessionData.location,
+                        max_pairs: sessionData.max_pairs,
+                        sessionId: sessionId,
+                        status: "Vacant",
+                    }),
+                })
+                .then(() => {
+                    swal(
+                        "Success!",
+                        "Session has been removed.",
+                        "success"
+                    ).then(() => {
+                        router.reload(window.location.pathname);
+                    });
+                });
+        });
+    }
+
+    function DeleteSessionModal({ docId, docData }) {
+        if (verify == docId) {
+            return (
+                <div className={"modal is-active"} id="tutee-approve-modal">
+                    <div
+                        className="modal-background"
+                        onClick={() => {
+                            setVerify("false");
+                        }}></div>
+                    <div className="modal-content tutee-approve-modal-content columns is-multiline">
+                        <div className="warning-text">
+                            Are you sure you want to delete this session? Once
+                            deleted, the registrations will all be cleared.
+                            Please double check all fields before proceeding.
+                        </div>
+                        <div className="tutee-approve-modal-actions">
+                            <a
+                                className="tutee-modal-accept"
+                                onClick={() => {
+                                    deleteSession(docId, docData);
+                                }}>
+                                Delete
+                                <span className="hero-button-icon">
+                                    <FontAwesomeIcon
+                                        icon={faArrowRight}></FontAwesomeIcon>
+                                </span>
+                            </a>
+                            <a
+                                className="tutee-modal-cancel"
+                                onClick={() => {
+                                    setVerify("false");
+                                }}>
+                                Cancel
+                                <span className="hero-button-icon">
+                                    <FontAwesomeIcon
+                                        icon={faArrowRight}></FontAwesomeIcon>
+                                </span>
+                            </a>
+                        </div>
+                        <br></br>
+                    </div>
+                    <button
+                        className="modal-close is-large"
+                        aria-label="close"
+                        onClick={() => {
+                            setVerify("false");
+                        }}></button>
+                </div>
+            );
+        } else {
+            return null;
+        }
+    }
 
     function SessionEdit() {
         return (
@@ -104,102 +189,105 @@ function CreateSession() {
                         <label className="label">
                             {fields.map(({ id }, index) => {
                                 return (
-                                    <div className="control" key={id}>
-                                        <label className="label session-label">
-                                            <label className="label">
-                                                Date
-                                                <input
-                                                    className="input"
-                                                    type="date"
-                                                    name={`sessions[${index}].date`}
-                                                    {...register(
-                                                        `sessions[${index}].date`
-                                                    )}></input>
-                                            </label>
-                                            <label className="label">
-                                                Start Time
-                                                <input
-                                                    className="input"
-                                                    type="time"
-                                                    name={`sessions[${index}].starttime`}
-                                                    {...register(
-                                                        `sessions[${index}].starttime`
-                                                    )}></input>
-                                            </label>
-                                            <label className="label">
-                                                End Time
-                                                <input
-                                                    className="input"
-                                                    type="time"
-                                                    name={`sessions[${index}].endtime`}
-                                                    {...register(
-                                                        `sessions[${index}].endtime`
-                                                    )}></input>
-                                            </label>
+                                    <>
+                                        <div className="control" key={id}>
+                                            <label className="label session-label">
+                                                <label className="label">
+                                                    Date
+                                                    <input
+                                                        className="input"
+                                                        type="date"
+                                                        name={`sessions[${index}].date`}
+                                                        {...register(
+                                                            `sessions[${index}].date`
+                                                        )}></input>
+                                                </label>
+                                                <label className="label">
+                                                    Start Time
+                                                    <input
+                                                        className="input"
+                                                        type="time"
+                                                        name={`sessions[${index}].starttime`}
+                                                        {...register(
+                                                            `sessions[${index}].starttime`
+                                                        )}></input>
+                                                </label>
+                                                <label className="label">
+                                                    End Time
+                                                    <input
+                                                        className="input"
+                                                        type="time"
+                                                        name={`sessions[${index}].endtime`}
+                                                        {...register(
+                                                            `sessions[${index}].endtime`
+                                                        )}></input>
+                                                </label>
 
-                                            <label className="label">
-                                                Format
-                                                <div className="control">
-                                                    <label className="label"></label>
-                                                    <div className="select">
-                                                        <select
-                                                            name={`sessions[${index}].format`}
-                                                            {...register(
-                                                                `sessions[${index}].format`,
-                                                                {
-                                                                    required: true,
-                                                                    validate:
-                                                                        isBlank,
-                                                                }
-                                                            )}>
-                                                            <option>
-                                                                Select Format
-                                                            </option>
-                                                            <option>
-                                                                Virtual
-                                                            </option>
-                                                            <option>
-                                                                In Person
-                                                            </option>
-                                                        </select>
+                                                <label className="label">
+                                                    Format
+                                                    <div className="control">
+                                                        <label className="label"></label>
+                                                        <div className="select">
+                                                            <select
+                                                                name={`sessions[${index}].format`}
+                                                                {...register(
+                                                                    `sessions[${index}].format`,
+                                                                    {
+                                                                        required: true,
+                                                                        validate:
+                                                                            isBlank,
+                                                                    }
+                                                                )}>
+                                                                <option>
+                                                                    Select
+                                                                    Format
+                                                                </option>
+                                                                <option>
+                                                                    Virtual
+                                                                </option>
+                                                                <option>
+                                                                    In Person
+                                                                </option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </label>
+                                                <label className="label">
+                                                    Location
+                                                    <input
+                                                        className="input"
+                                                        type="text"
+                                                        name={`sessions[${index}].location`}
+                                                        {...register(
+                                                            `sessions[${index}].location`
+                                                        )}></input>
+                                                </label>
+                                                <label className="label">
+                                                    Max Pairs
+                                                    <input
+                                                        className="input"
+                                                        type="number"
+                                                        min={1}
+                                                        step={1}
+                                                        name={`sessions[${index}].max_pairs`}
+                                                        {...register(
+                                                            `sessions[${index}].max_pairs`
+                                                        )}></input>
+                                                </label>
+                                                <label className="label">
+                                                    <div
+                                                        className="button is-danger"
+                                                        type="button"
+                                                        value="Delete"
+                                                        onClick={() =>
+                                                            remove(index)
+                                                        }>
+                                                        Remove
+                                                    </div>
+                                                </label>
                                             </label>
-                                            <label className="label">
-                                                Location
-                                                <input
-                                                    className="input"
-                                                    type="text"
-                                                    name={`sessions[${index}].location`}
-                                                    {...register(
-                                                        `sessions[${index}].location`
-                                                    )}></input>
-                                            </label>
-                                            <label className="label">
-                                                Max Pairs
-                                                <input
-                                                    className="input"
-                                                    type="number"
-                                                    min={1}
-                                                    step={1}
-                                                    name={`sessions[${index}].max_pairs`}
-                                                    {...register(
-                                                        `sessions[${index}].max_pairs`
-                                                    )}></input>
-                                            </label>
-                                            <label className="label">
-                                                <div
-                                                    className="button is-danger"
-                                                    type="button"
-                                                    value="Delete"
-                                                    onClick={() =>
-                                                        remove(index)
-                                                    }>
-                                                    Remove
-                                                </div>
-                                            </label>
-                                        </label>
-                                    </div>
+                                        </div>
+                                    </>
                                 );
                             })}
                         </label>
@@ -248,57 +336,74 @@ function CreateSession() {
                         const sessionDate = new Date(sessionData.date);
                         if (sessionDate > currDate && time === "future") {
                             return (
-                                <div className="column is-full">
-                                    <div className="columns is-gapless is-multiline is-mobile">
-                                        <div className="column is-6">
-                                            <div className="columns is-gapless is-multiline">
-                                                <div className="column is-full">
-                                                    {sessionData.date}
-                                                    {" " +
-                                                        getDayOfWeek(
-                                                            sessionData.date
-                                                        )
-                                                            .substring(0, 3)
-                                                            .toUpperCase()}
-                                                </div>
-                                                <div className="column is-full">
-                                                    {sessionData["time_start"] +
-                                                        " - " +
-                                                        sessionData["time_end"]}
-                                                </div>
-                                                <div className="column is-full">
-                                                    {sessionData.format}
-                                                </div>
-                                                <div className="column is-full">
-                                                    {sessionData.location}
+                                <>
+                                    <DeleteSessionModal
+                                        docId={session.id}
+                                        docData={sessionData}
+                                    />
+                                    <div className="column is-full">
+                                        <div className="columns is-gapless is-multiline is-mobile">
+                                            <div className="column is-6">
+                                                <div className="columns is-gapless is-multiline">
+                                                    <div className="column is-full">
+                                                        {sessionData.date}
+                                                        {" " +
+                                                            getDayOfWeek(
+                                                                sessionData.date
+                                                            )
+                                                                .substring(0, 3)
+                                                                .toUpperCase()}
+                                                    </div>
+                                                    <div className="column is-full">
+                                                        {sessionData[
+                                                            "time_start"
+                                                        ] +
+                                                            " - " +
+                                                            sessionData[
+                                                                "time_end"
+                                                            ]}
+                                                    </div>
+                                                    <div className="column is-full">
+                                                        {sessionData.format}
+                                                    </div>
+                                                    <div className="column is-full">
+                                                        {sessionData.location}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="column is-6">
-                                            <div className="columns is-gapless is-multiline">
-                                                <div className="column is-full">
-                                                    Max Pairs:{" "}
-                                                    {sessionData["max_pairs"]}
-                                                </div>
-                                                <div className="column is-full">
-                                                    Pairs Registered:{" "}
-                                                    {
-                                                        sessionData.registrants
-                                                            .length
-                                                    }
-                                                </div>
-                                                <div className="column is-full">
-                                                    <a
-                                                        onClick={() => {
-                                                            DeleteSession();
-                                                        }}>
-                                                        Delete Session
-                                                    </a>
+                                            <div className="column is-6">
+                                                <div className="columns is-gapless is-multiline">
+                                                    <div className="column is-full">
+                                                        Max Pairs:{" "}
+                                                        {
+                                                            sessionData[
+                                                                "max_pairs"
+                                                            ]
+                                                        }
+                                                    </div>
+                                                    <div className="column is-full">
+                                                        Pairs Registered:{" "}
+                                                        {
+                                                            sessionData
+                                                                .registrants
+                                                                .length
+                                                        }
+                                                    </div>
+                                                    <div className="column is-full">
+                                                        <a
+                                                            onClick={() => {
+                                                                setVerify(
+                                                                    session.id
+                                                                );
+                                                            }}>
+                                                            Delete Session
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </>
                             );
                         } else if (sessionDate <= currDate && time === "past") {
                             return (
