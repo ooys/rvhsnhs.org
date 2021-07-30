@@ -1557,3 +1557,40 @@ video {
     background-color: #d4e3fe;
     color: #2793fa;
 }
+
+/* Create Sessions */
+.session-card {
+    border: 1px solid #2793fa;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1.2rem;
+    padding-bottom: 1.5rem;
+    transition: all 0.3s;
+    color: #4a4a4a;
+}
+
+.session-card:hover {
+    transform: translateY(-5px);
+    /* box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2),
+        0 24px 80px 0 rgba(0, 0, 0, 0.19); */
+    background-color: #f1f1e6;
+    transition: all 0.3s;
+}
+
+.session-is-locked {
+    pointer-events: none;
+}
+
+.pair-list-title {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #4a4a4a;
+}
+
+.pair-card {
+    border: 1px solid #2793fa;
+    background-color: white;
+}
