@@ -134,58 +134,104 @@ function TutorPair() {
 
     function registerSession(sessionId, pairData, sessionData) {
         const registerRef = db.collection("tutor-sessions").doc(sessionId);
-        registerRef
-            .update({
-                registrants: firebase.firestore.FieldValue.arrayUnion({
-                    pair_id: pid,
-                    status: "registered",
-                    tutee: {
-                        email: pairData.tutee.email,
-                        first: pairData.tutee.first,
-                        last: pairData.tutee.last,
-                        uid: pairData.tutee.uid,
-                    },
-                    tutor: {
-                        email: pairData.tutor.email,
-                        first: pairData.tutor.first,
-                        last: pairData.tutor.last,
-                        uid: pairData.tutor.uid,
-                    },
-                }),
-            })
-            .then(() => {
-                const pairRef = db.collection("tutor-pairs").doc(pid);
-                pairRef
-                    .update({
-                        sessions: firebase.firestore.FieldValue.arrayUnion({
-                            sessionId: sessionId,
-                            status: "registered",
-                            date: sessionData.date,
-                            time_start: sessionData.time_start,
-                            time_end: sessionData.time_end,
-                            location: sessionData.location,
-                            format: sessionData.format,
-                        }),
-                    })
-                    .then(() => {
-                        const emailHtml = `You have registered for the tutoring session on ${sessionData.date} from ${sessionData.time_start} to ${sessionData.time_end}. Please make sure to arrive at location: ${sessionData.location} on time to be checked in by a faculty facilitator.`;
-                        sendEmail(
-                            pairData.tutee.email + "," + pairData.tutor.email,
-                            "Tutoring: Session Registered on " +
-                                sessionData.date,
-                            "Session Registered!",
-                            emailHtml
-                        ).then(() => {
-                            swal(
-                                "Success!",
-                                "You have successfully registered for the session.",
-                                "success"
-                            ).then(() => {
-                                router.reload(window.location.pathname);
+        registerRef.get().then((snapshot) => {
+            if (snapshot.exists) {
+                const snapshotData = snapshot.data();
+                // check if tutee uid or tutor uid are not found in any of the snapshotData registrants
+                if (
+                    !(
+                        snapshotData.registrants.some(
+                            (s) => s.tutee.uid === pairData.tutee.uid
+                        ) ||
+                        snapshotData.registrants.some(
+                            (s) => s.tutor.uid === pairData.tutor.uid
+                        )
+                    )
+                ) {
+                    if (
+                        snapshotData.registrants.length < snapshotData.max_pairs
+                    ) {
+                        registerRef
+                            .update({
+                                registrants:
+                                    firebase.firestore.FieldValue.arrayUnion({
+                                        pair_id: pid,
+                                        status: "registered",
+                                        tutee: {
+                                            email: pairData.tutee.email,
+                                            first: pairData.tutee.first,
+                                            last: pairData.tutee.last,
+                                            uid: pairData.tutee.uid,
+                                        },
+                                        tutor: {
+                                            email: pairData.tutor.email,
+                                            first: pairData.tutor.first,
+                                            last: pairData.tutor.last,
+                                            uid: pairData.tutor.uid,
+                                        },
+                                    }),
+                            })
+                            .then(() => {
+                                const pairRef = db
+                                    .collection("tutor-pairs")
+                                    .doc(pid);
+                                pairRef
+                                    .update({
+                                        sessions:
+                                            firebase.firestore.FieldValue.arrayUnion(
+                                                {
+                                                    sessionId: sessionId,
+                                                    status: "registered",
+                                                    date: sessionData.date,
+                                                    time_start:
+                                                        sessionData.time_start,
+                                                    time_end:
+                                                        sessionData.time_end,
+                                                    location:
+                                                        sessionData.location,
+                                                    format: sessionData.format,
+                                                }
+                                            ),
+                                    })
+                                    .then(() => {
+                                        const emailHtml = `You have registered for the tutoring session on ${sessionData.date} from ${sessionData.time_start} to ${sessionData.time_end}. Please make sure to arrive at location: ${sessionData.location} on time to be checked in by a faculty facilitator.`;
+                                        sendEmail(
+                                            pairData.tutee.email +
+                                                "," +
+                                                pairData.tutor.email,
+                                            "Tutoring: Session Registered on " +
+                                                sessionData.date,
+                                            "Session Registered!",
+                                            emailHtml
+                                        ).then(() => {
+                                            swal(
+                                                "Success!",
+                                                "You have successfully registered for the session.",
+                                                "success"
+                                            ).then(() => {
+                                                router.reload(
+                                                    window.location.pathname
+                                                );
+                                            });
+                                        });
+                                    });
                             });
-                        });
-                    });
-            });
+                    } else {
+                        swal(
+                            "Error!",
+                            "The session is full! Please register another session instead.",
+                            "error"
+                        );
+                    }
+                } else {
+                    swal(
+                        "Error!",
+                        "You have already registered for this session.",
+                        "error"
+                    );
+                }
+            }
+        });
     }
 
     function FutureSessions({ data, tuteeData }) {
@@ -219,22 +265,16 @@ function TutorPair() {
                                             {session.location}
                                         </div>
                                         <div className="column is-2">
-                                            {session.status === "Vacant" ? (
-                                                <a
-                                                    onClick={() => {
-                                                        registerSession(
-                                                            session.sessionId,
-                                                            tuteeData,
-                                                            session
-                                                        );
-                                                    }}>
-                                                    Register
-                                                </a>
-                                            ) : (
-                                                <div className="text-is-danger">
-                                                    Full
-                                                </div>
-                                            )}
+                                            <a
+                                                onClick={() => {
+                                                    registerSession(
+                                                        session.sessionId,
+                                                        tuteeData,
+                                                        session
+                                                    );
+                                                }}>
+                                                Register
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -306,7 +346,10 @@ function TutorPair() {
                                             <div className="text-is-success">
                                                 Completed
                                             </div>
-                                        ) : sessionDate > currDate ? (
+                                        ) : new Date(
+                                              sessionDate.getTime() +
+                                                  24 * 60 * 60 * 1000
+                                          ) > currDate ? (
                                             <div className="text-is-warning">
                                                 Registered
                                             </div>

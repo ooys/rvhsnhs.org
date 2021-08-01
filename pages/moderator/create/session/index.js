@@ -54,9 +54,9 @@ function CreateSession() {
                 time_end: doc.endtime,
                 format: doc.format,
                 location: doc.location,
-                max_pairs: doc.max_pairs,
+                // max_pairs: doc.max_pairs,
                 sessionId: docRef.id,
-                status: "Vacant",
+                // status: "Vacant",
             });
         });
         batch.commit().then(() => {
@@ -108,9 +108,9 @@ function CreateSession() {
                         time_end: sessionDat,
                         format: sessionData.format,
                         location: sessionData.location,
-                        max_pairs: sessionData.max_pairs,
+                        // max_pairs: sessionData.max_pairs,
                         sessionId: sessionId,
-                        status: "Vacant",
+                        // status: "Vacant",
                     }),
                 })
                 .then(() => {
