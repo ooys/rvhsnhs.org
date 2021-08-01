@@ -484,7 +484,7 @@ function CreateSession() {
                         <SessionEdit />
                     </div>
                     <div className="column is-full tutor-list-title">
-                        Past Sessions
+                        Modify Sessions
                         <hr className="tutor-list-hr"></hr>
                     </div>
                     <div className="column is-full">
