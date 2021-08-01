@@ -23,10 +23,11 @@ function FindTutor() {
                                     Need a tutor?
                                 </div>
                                 <div className="about-section-body">
-                                    Riverside High School runs the most
-                                    successful tutoring program in Loudoun
-                                    County. You are 4 steps away from meeting an
-                                    experienced high school tutor.
+                                    Riverside High School National Honor Society
+                                    runs one of the the most successful tutoring
+                                    programs in Loudoun County. You are only 4
+                                    steps away from pairing with an experienced
+                                    high school tutor.
                                 </div>
                                 <br></br>
                                 <a
@@ -57,7 +58,7 @@ function FindTutor() {
                                     />
                                     <Step
                                         title="Tutor Matching"
-                                        description="This step is all on us! We will anonymously pair you up with one of our Riverside NHS tutors."
+                                        description="This step is all on us! We will pair you up with one of our Riverside NHS tutors."
                                     />
                                     <Step
                                         title="Scheduling Sessions"

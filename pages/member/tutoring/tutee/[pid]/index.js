@@ -5,15 +5,38 @@ import withAuth from "/components/auth/withAuth.js";
 import withFrame from "/components/Frame.js";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import sendEmail from "/components/email/sendEmail.js";
+import swal from "sweetalert";
 
 initFirebase();
 const db = firebase.firestore();
+
+const currDate = new Date().setHours(0, 0, 0, 0);
+
+function getDayOfWeek(date) {
+    const dayOfWeek = new Date(date).getDay();
+    return isNaN(dayOfWeek)
+        ? null
+        : [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday",
+          ][dayOfWeek];
+}
 
 function TutorPair() {
     const router = useRouter();
     const { pid } = router.query;
     const userRef = db.collection("tutor-pairs").doc(pid);
     const [data, loading, error] = useDocumentDataOnce(userRef);
+    const sessionsRef = db.collection("tutor-sessions").doc("master");
+    const [data2, loading2, error2] = useDocumentDataOnce(sessionsRef);
+    const [verify, setVerify] = useState(false);
 
     function TuteeInfo({ tuteeData }) {
         return (
@@ -109,10 +132,208 @@ function TutorPair() {
         );
     }
 
-    if (loading) {
+    function registerSession(sessionId, pairData, sessionData) {
+        const registerRef = db.collection("tutor-sessions").doc(sessionId);
+        registerRef
+            .update({
+                registrants: firebase.firestore.FieldValue.arrayUnion({
+                    pair_id: pid,
+                    status: "registered",
+                    tutee: {
+                        email: pairData.tutee.email,
+                        first: pairData.tutee.first,
+                        last: pairData.tutee.last,
+                        uid: pairData.tutee.uid,
+                    },
+                    tutor: {
+                        email: pairData.tutor.email,
+                        first: pairData.tutor.first,
+                        last: pairData.tutor.last,
+                        uid: pairData.tutor.uid,
+                    },
+                }),
+            })
+            .then(() => {
+                const pairRef = db.collection("tutor-pairs").doc(pid);
+                pairRef
+                    .update({
+                        sessions: firebase.firestore.FieldValue.arrayUnion({
+                            sessionId: sessionId,
+                            status: "registered",
+                            date: sessionData.date,
+                            time_start: sessionData.time_start,
+                            time_end: sessionData.time_end,
+                            location: sessionData.location,
+                            format: sessionData.format,
+                        }),
+                    })
+                    .then(() => {
+                        const emailHtml = `You have registered for the tutoring session on ${sessionData.date} from ${sessionData.time_start} to ${sessionData.time_end}. Please make sure to arrive at location: ${sessionData.location} on time to be checked in by a faculty facilitator.`;
+                        sendEmail(
+                            pairData.tutee.email + "," + pairData.tutor.email,
+                            "Tutoring: Session Registered on " +
+                                sessionData.date,
+                            "Session Registered!",
+                            emailHtml
+                        ).then(() => {
+                            swal(
+                                "Success!",
+                                "You have successfully registered for the session.",
+                                "success"
+                            ).then(() => {
+                                router.reload(window.location.pathname);
+                            });
+                        });
+                    });
+            });
+    }
+
+    function FutureSessions({ data, tuteeData }) {
+        return (
+            <div className="columns is-multiline">
+                {data.sessions.map((session) => {
+                    // if session id is not in the list of sessions in tuteeData.sessions, return
+                    if (
+                        !tuteeData.sessions.some(
+                            (s) => s.sessionId === session.sessionId
+                        )
+                    ) {
+                        const sessionDate = new Date(session.date);
+                        if (sessionDate > currDate) {
+                            return (
+                                <div className="column is-full session-card">
+                                    <div className="columns is-gapless is-multiline">
+                                        <div className="column is-2">
+                                            {session.date}
+                                            {" " + getDayOfWeek(session.date)}
+                                        </div>
+                                        <div className="column is-2">
+                                            {session["time_start"] +
+                                                " - " +
+                                                session["time_end"]}
+                                        </div>
+                                        <div className="column is-2">
+                                            {session.format}
+                                        </div>
+                                        <div className="column is-4">
+                                            {session.location}
+                                        </div>
+                                        <div className="column is-2">
+                                            {session.status === "Vacant" ? (
+                                                <a
+                                                    onClick={() => {
+                                                        registerSession(
+                                                            session.sessionId,
+                                                            tuteeData,
+                                                            session
+                                                        );
+                                                    }}>
+                                                    Register
+                                                </a>
+                                            ) : (
+                                                <div className="text-is-danger">
+                                                    Full
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        }
+                    }
+                })}
+            </div>
+        );
+    }
+
+    function FutureSessionsModal({ data, tuteeData }) {
+        if (verify) {
+            return (
+                <div className={"modal is-active"} id="session-register-modal">
+                    <div
+                        className="modal-background"
+                        onClick={() => {
+                            setVerify(false);
+                        }}></div>
+                    <div
+                        className="modal-content session-register-modal-content columns is-multiline"
+                        id="selection-modal-content">
+                        <div className="verify-modal-title column is-full">
+                            Upcoming Sessions
+                            <hr className="verify-modal-line"></hr>
+                        </div>
+                        <div className="column is-full">
+                            <FutureSessions data={data} tuteeData={tuteeData} />
+                        </div>
+                    </div>
+                    <button
+                        className="modal-close is-large"
+                        aria-label="close"
+                        onClick={() => {
+                            setVerify(false);
+                        }}></button>
+                </div>
+            );
+        } else return null;
+    }
+
+    function SessionsDisplay({ data, status }) {
+        return (
+            <div className="columns is-multiline">
+                {data.map((session) => {
+                    if (status === session.status) {
+                        const sessionDate = new Date(session.date);
+                        return (
+                            <div className="column is-full session-card">
+                                <div className="columns is-gapless is-multiline">
+                                    <div className="column is-2">
+                                        {session.date}
+                                        {" " + getDayOfWeek(session.date)}
+                                    </div>
+                                    <div className="column is-2">
+                                        {session["time_start"] +
+                                            " - " +
+                                            session["time_end"]}
+                                    </div>
+                                    <div className="column is-2">
+                                        {session.format}
+                                    </div>
+                                    <div className="column is-4">
+                                        {session.location}
+                                    </div>
+                                    <div className="column is-2">
+                                        {status === "completed" ? (
+                                            <div className="text-is-success">
+                                                Completed
+                                            </div>
+                                        ) : sessionDate > currDate ? (
+                                            <div className="text-is-warning">
+                                                Registered
+                                            </div>
+                                        ) : (
+                                            <div className="text-is-danger">
+                                                Missed
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    }
+                })}
+            </div>
+        );
+    }
+
+    if (loading || loading2) {
         return <div>Loading...</div>;
     }
-    if (error != undefined || data == undefined) {
+    if (
+        error != undefined ||
+        error2 != undefined ||
+        data == undefined ||
+        data2 == undefined
+    ) {
         return null;
     } else {
         return (
@@ -129,12 +350,29 @@ function TutorPair() {
                         Sessions Registered
                         <hr className="tutor-list-hr"></hr>
                     </div>
-                    <div className="column is-full"></div>
+                    <div className="column is-full">
+                        <SessionsDisplay
+                            data={data.sessions}
+                            status={"registered"}
+                        />
+                        <FutureSessionsModal data={data2} tuteeData={data} />
+                        <a
+                            onClick={() => {
+                                setVerify(true);
+                            }}>
+                            Register Sessions
+                        </a>
+                    </div>
                     <div className="column is-full tutor-list-title">
                         Sessions Completed
                         <hr className="tutor-list-hr"></hr>
                     </div>
-                    <div className="column is-full"></div>
+                    <div className="column is-full">
+                        <SessionsDisplay
+                            data={data.sessions}
+                            status={"completed"}
+                        />
+                    </div>
                 </div>
             </>
         );

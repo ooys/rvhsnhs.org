@@ -24,41 +24,78 @@ function getDayOfWeek(date) {
           ][dayOfWeek];
 }
 
-function PairCards({ sessionData }) {
-    return (
-        <div className="columns is-multiline pair-list">
-            <div className="column is-full pair-list-title">
-                <div className="columns is-mobile">
-                    <div className="column is-4">Tutor</div>
-                    <div className="column is-4">Tutee</div>
-                    <div className="column is-4">Actions</div>
-                </div>
-            </div>
-            {sessionData.registrants.map((pair) => {
-                return (
-                    <div className="column is-full pair-card">
-                        <div className="columns is-mobile">
-                            <div className="column is-4">
-                                {pair.tutor.first} {pair.tutor.last}
-                            </div>
-                            <div className="column is-4">
-                                {pair.tutee.first} {pair.tutee.last}
-                            </div>
-                            <div className="column is-4">
-                                <a
-                                    onClick={() => {
-                                        console.log("Verify" + pair.pair_id);
-                                    }}>
-                                    Check in
-                                </a>
-                            </div>
-                        </div>
+const currDate = new Date().setHours(0, 0, 0, 0);
+
+function PairCards({ sessionData, status }) {
+    if (status === "registered") {
+        return (
+            <div className="columns is-multiline pair-list">
+                <div className="column is-full pair-list-title">
+                    <div className="columns is-mobile">
+                        <div className="column is-4">Tutor</div>
+                        <div className="column is-4">Tutee</div>
+                        <div className="column is-4">Actions</div>
                     </div>
-                );
-            })}
-            <div>Add Pair</div>
-        </div>
-    );
+                </div>
+                {sessionData.registrants.map((pair) => {
+                    if (pair.status === "registered") {
+                        return (
+                            <div className="column is-full pair-card">
+                                <div className="columns is-mobile">
+                                    <div className="column is-4">
+                                        {pair.tutor.first} {pair.tutor.last}
+                                    </div>
+                                    <div className="column is-4">
+                                        {pair.tutee.first} {pair.tutee.last}
+                                    </div>
+                                    <div className="column is-4">
+                                        <a
+                                            onClick={() => {
+                                                console.log(
+                                                    "Verify" + pair.pair_id
+                                                );
+                                            }}>
+                                            Check in
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    } else return null;
+                })}
+                <div className="column is-full pair-add">Add Pair</div>
+            </div>
+        );
+    } else if (status === "present") {
+        return (
+            <div className="columns is-multiline pair-list">
+                <div className="column is-full pair-list-title">
+                    <div className="columns is-mobile">
+                        <div className="column is-4">Tutor</div>
+                        <div className="column is-4">Tutee</div>
+                        <div className="column is-4">Actions</div>
+                    </div>
+                </div>
+                {sessionData.registrants.map((pair) => {
+                    if (pair.status === "present") {
+                        return (
+                            <div className="column is-full pair-card">
+                                <div className="columns is-mobile">
+                                    <div className="column is-4">
+                                        {pair.tutor.first} {pair.tutor.last}
+                                    </div>
+                                    <div className="column is-4">
+                                        {pair.tutee.first} {pair.tutee.last}
+                                    </div>
+                                    <div className="column is-4">Present</div>
+                                </div>
+                            </div>
+                        );
+                    } else return null;
+                })}
+            </div>
+        );
+    }
 }
 
 function SessionCard({ sessionData }) {
@@ -129,7 +166,14 @@ function SessionInfo() {
                         <hr className="tutor-list-hr"></hr>
                     </div>
                     <div className="column is-full">
-                        <PairCards sessionData={data} />
+                        <PairCards sessionData={data} status={"registered"} />
+                    </div>
+                    <div className="column is-full tutor-list-title">
+                        Marked Present
+                        <hr className="tutor-list-hr"></hr>
+                    </div>
+                    <div className="column is-full">
+                        <PairCards sessionData={data} status={"present"} />
                     </div>
                 </div>
             </>
