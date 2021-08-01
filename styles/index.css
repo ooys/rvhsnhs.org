@@ -1594,3 +1594,22 @@ video {
     border: 1px solid #2793fa;
     background-color: white;
 }
+
+/* Register Session */
+
+.session-register-modal-content {
+    background-color: white;
+    border: 1px solid white;
+    padding: 3vw 3vw 3vw 3vw;
+    width: 90vw;
+}
+
+.text-is-success {
+    color: green;
+}
+.text-is-warning {
+    color: darkorange;
+}
+.text-is-danger {
+    color: red;
+}

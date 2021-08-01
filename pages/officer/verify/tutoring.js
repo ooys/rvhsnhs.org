@@ -49,6 +49,7 @@ function Tutoring() {
                                 tutor: pairData.timestamp.tutor,
                                 officer: new firebase.firestore.Timestamp.now(),
                             },
+                            sessions: [],
                         })
                         .then(() => {
                             tuteeRef

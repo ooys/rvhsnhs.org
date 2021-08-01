@@ -76,33 +76,12 @@ function withFrame(C, currPage) {
                     />
                     <ToolbarTitle
                         page="Tutee"
-                        isNotHidden={[
-                            "Information",
-                            "Plan Sessions",
-                            "Feedback",
-                        ]}
+                        isNotHidden={["Information", "Feedback"]}
                     />
                     <ToolbarElement
                         page="Information"
                         route={"/member/tutoring/tutee/" + getTuteeId()}
-                        isNotHidden={[
-                            "Information",
-                            "Plan Sessions",
-                            "Feedback",
-                        ]}
-                    />
-                    <ToolbarElement
-                        page="Plan Sessions"
-                        route={
-                            "/member/tutoring/tutee/" +
-                            getTuteeId() +
-                            "/plansessions"
-                        }
-                        isNotHidden={[
-                            "Information",
-                            "Plan Sessions",
-                            "Feedback",
-                        ]}
+                        isNotHidden={["Information", "Feedback"]}
                     />
                     <ToolbarElement
                         page="Feedback"
@@ -111,11 +90,7 @@ function withFrame(C, currPage) {
                             getTuteeId() +
                             "/feedback"
                         }
-                        isNotHidden={[
-                            "Information",
-                            "Plan Sessions",
-                            "Feedback",
-                        ]}
+                        isNotHidden={["Information", "Feedback"]}
                     />
                     <ToolbarTitle
                         page="Officer"
