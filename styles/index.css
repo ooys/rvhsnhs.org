@@ -1579,9 +1579,9 @@ video {
     transition: all 0.3s;
 }
 
-.session-is-locked {
+/* .session-is-locked {
     pointer-events: none;
-}
+} */
 
 .pair-list-title {
     font-family: "Montserrat";

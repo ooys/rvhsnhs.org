@@ -194,26 +194,50 @@ function TutorPair() {
                                             ),
                                     })
                                     .then(() => {
-                                        const emailHtml = `You have registered for the tutoring session on ${sessionData.date} from ${sessionData.time_start} to ${sessionData.time_end}. Please make sure to arrive at location: ${sessionData.location} on time to be checked in by a faculty facilitator.`;
-                                        sendEmail(
-                                            pairData.tutee.email +
-                                                "," +
-                                                pairData.tutor.email,
-                                            "Tutoring: Session Registered on " +
-                                                sessionData.date,
-                                            "Session Registered!",
-                                            emailHtml
-                                        ).then(() => {
-                                            swal(
-                                                "Success!",
-                                                "You have successfully registered for the session.",
-                                                "success"
-                                            ).then(() => {
-                                                router.reload(
-                                                    window.location.pathname
-                                                );
+                                        const userRef = db
+                                            .collection("users")
+                                            .doc(pairData.tutor.uid);
+                                        userRef
+                                            .update({
+                                                [`tutoring.${pid}.sessions`]:
+                                                    firebase.firestore.FieldValue.arrayUnion(
+                                                        {
+                                                            sessionId:
+                                                                sessionId,
+                                                            date: sessionData.date,
+                                                            time_start:
+                                                                sessionData.time_start,
+                                                            time_end:
+                                                                sessionData.time_end,
+                                                            location:
+                                                                sessionData.location,
+                                                            format: sessionData.format,
+                                                        }
+                                                    ),
+                                            })
+                                            .then(() => {
+                                                const emailHtml = `You have registered for the tutoring session on ${sessionData.date} from ${sessionData.time_start} to ${sessionData.time_end}. Please make sure to arrive at location: ${sessionData.location} on time to be checked in by a faculty facilitator.`;
+                                                sendEmail(
+                                                    pairData.tutee.email +
+                                                        "," +
+                                                        pairData.tutor.email,
+                                                    "Tutoring: Session Registered on " +
+                                                        sessionData.date,
+                                                    "Session Registered!",
+                                                    emailHtml
+                                                ).then(() => {
+                                                    swal(
+                                                        "Success!",
+                                                        "You have successfully registered for the session.",
+                                                        "success"
+                                                    ).then(() => {
+                                                        router.reload(
+                                                            window.location
+                                                                .pathname
+                                                        );
+                                                    });
+                                                });
                                             });
-                                        });
                                     });
                             });
                     } else {

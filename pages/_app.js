@@ -2,6 +2,7 @@ import "rc-steps/assets/index.css";
 import "rc-steps/assets/iconfont.css";
 import "../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import "../node_modules/bulma/css/bulma.css";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../styles/index.css";
 import Router from "next/router";
 import NProgress from "nprogress"; //nprogress module
