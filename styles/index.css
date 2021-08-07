@@ -1613,3 +1613,17 @@ video {
 .text-is-danger {
     color: red;
 }
+
+/* Calendar */
+
+.calendar-chapter-meeting {
+    background-color: orange !important;
+}
+
+.calendar-opportunity {
+    background-color: #0e447b !important;
+}
+
+.calendar-tutoring {
+    background-color: green !important;
+}
