@@ -5,7 +5,7 @@ const localizer = momentLocalizer(moment);
 
 const customEventPropGetter = (event) => {
     if (event.specialType) {
-        return { className: event.specialType };
+        return { className: "calendar-" + event.specialType };
     } else return {};
 };
 
