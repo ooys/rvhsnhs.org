@@ -10,14 +10,58 @@ function Index() {
 
     const images = [
         {
-            original: "https://picsum.photos/id/1018/1000/600/",
-            description: "National Honor Society Induction Ceremony, 2021",
+            original:
+                "https://lh3.googleusercontent.com/klBTzw-SwXWEfogayyBCmP-xFpZAFLOA1rIa9lL7wNF0PPlpHuOZaWIsrBK87Ni2lq8NcOqbvE39QiaXD5M6ih6C1gNHMISoChUYBdCQvZIB_eiDnOnDja3cvkOhidJlkuYFV8NC",
+            description:
+                "November 24, 2018 - NHS commemoration of 12 new inductees into the Tri M Society, the Riverside High School Music Honor Society.",
         },
         {
-            original: "https://picsum.photos/id/1015/1000/600/",
+            original:
+                "https://lh4.googleusercontent.com/lKcotPH4ZawhGtFHJuFSZ1prk4K3oArlDGT0_k2SksiFv7ZWEQTu08ggeiqI1u6YwXtB1HuH87iZCsx3BosDOc5pafzUY0Pip1VTxVYkcZbGSGbd23whhzjQAxBacYhA59M9Di_S",
+            description:
+                "May 25, 2018 - Initiating the start of the 2018 NHS Color Run, runners dash from the start line hoping to gain a lead in the race for charity. To date, Riverside High School has operated three successful Color Run campaigns, raising thousands of dollars for various charities.",
         },
         {
-            original: "https://picsum.photos/id/1019/1000/600/",
+            original:
+                "https://lh4.googleusercontent.com/XmiBH7wf5Tfo3RE4VIzEJRxjetNL0RtQE63KFw58flZNcaBdKOFu0PmdOHU-ON5x_pvuOKwOy1SsNlCo8y66Bu_xQoyn4-Q3EwYLl4j9r96DxIUZQPsrBt3QU2hPjoYjDZvXs6N8",
+            description:
+                "February 22, 2018 - NHS rallied for appreciation of Riverside High School Bus drivers through making posters and cards to show their appreciation and support for the people who get us to and from school safely every day.",
+        },
+        {
+            original:
+                "https://lh6.googleusercontent.com/GxRyJ8nc-MerzKUeJc1cv0_t_-JHKMiPJQa9qKUJgmBrGOc0HaeMMiVviCJ9-PlwFta-yoUqU3ldM3MtIQRGLSSY0DbJBIHIMcfgvDEgyHSIWHsqH9QDXmu9VzgA8GFkj35bO16Y",
+            description:
+                "November 3, 2018 - NHS commemoration of new inductees into the Art Honor Society. New inductees displayed excellence of character as well as significant achievement in their art classes at Riverside High School.",
+        },
+        {
+            original:
+                "https://lh5.googleusercontent.com/De6mLKzG49FO5yOMCmVjzKQT9MVMXvID0rof2QFCOMqRS6xf4E7rpc9m-dlIhakKFpujUx7ZkOPADkCGyYV1pG86_tE5VljVZRBXXqO_MaXrKIj9ngXQRnCf4zY5BrAhcx-BJ19W",
+            description:
+                "November 9, 2018 - NHS commemorated the induction of 164 new members into the National Honor Society of 2018. Each applicant demonstrated their commitment and their outstanding charater in the community.",
+        },
+        {
+            original:
+                "https://lh6.googleusercontent.com/Ktpcw4-RlODA-9YWrW__7epmxu1HE0W4S0g-F24422pXpU_zR16GIJOqDV06Bo5G5S7W2ht3Kec-mGOcddet0H-XxGL_SL3WCzNo-Q1GfZ6QCMPYVAx_nMK3-OpoeRGmyBarfJ6r",
+            description:
+                "December 16, 2019 - The Annual Holiday Party Group Service Project is dedicated to giving gifts to families in need. In 2019, NHS completed its 3rd successful Holiday Party, helping over 50 families in the Loudoun community.",
+        },
+        {
+            original:
+                "https://lh3.googleusercontent.com/rnGKk7ce7O6WmaWzonR401oHNQhPrTXSmtMJhh8HcUuz0MMUMgcUDmVwR7fXJ33qBGuTV5dy1T8NxOxvODThYauVUeIZpOTbE-SwAylRCex2ybjJrjfqCQs9m-OzZAbHnqPdcxEE",
+            description:
+                "December 16, 2019 - Santa handing out gifts to kids at the Holiday Party Group Service Project",
+        },
+        {
+            original:
+                "https://lh4.googleusercontent.com/d_GGbUJRxCh0ZmUCTobhbHUkPSF7P1WqJye1xbscj6JT6Rb0VDC3sYcGPper-W3K2w6twQZapqVo_Iekopr4Bd0EksmmyN9VhiQbjg9vwFcwQ8_8fTr0irU5YTvz5tWy2kiAW9Xz",
+            description:
+                "October 13, 2018 - Racing towards the finish, front runners charge towards the finish line to complete the race against cancer. With over 100 registrants, the Riverside Run for the Cure campaign was a huge success.",
+        },
+        {
+            original:
+                "https://lh5.googleusercontent.com/W4DVr_Ou5PQH7an1kX2UiS0vJIPMtjxzZHRMQTp4T9sZkr5eIPKdDtX1bI8qajYfbBzntfyHmvo3biE8ttLF7rDsNbkazO4i5yjmLXqzx6zNfU8UtvrGBeK9yBF6-VUHKcrCNx1C",
+            description:
+                "October 13, 2018 - Run for the Cure runners celebrated the successful completion of their united race against cancer.",
         },
     ];
 

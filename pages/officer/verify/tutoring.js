@@ -6,6 +6,7 @@ import Footer from "/components/Footer.js";
 import { useRouter } from "next/router";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
 import withAuth from "/components/auth/withAuth.js";
+import withFrame from "/components/Frame.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import sendEmail from "/components/email/sendEmail.js";
@@ -14,12 +15,103 @@ import swal from "sweetalert";
 initFirebase();
 const db = firebase.firestore();
 
-function Hours() {
+function Tutoring() {
     const router = useRouter();
     const caseRef = db.collection("tutor-requests");
     const [snapshot, loading, error] = useCollectionOnce(caseRef);
     let emailHtml = "";
     let email = "";
+
+    function pairAction(pairData, pid, action) {
+        if (action === "approve") {
+            caseRef
+                .doc(pid)
+                .delete()
+                .then(() => {
+                    const pairRef = db.collection("tutor-pairs").doc(pid);
+                    const tuteeRef = db
+                        .collection("users")
+                        .doc(pairData.tutee.uid);
+                    const tutorRef = db
+                        .collection("users")
+                        .doc(pairData.tutor.uid);
+                    pairRef
+                        .set({
+                            tutee: pairData.tutee,
+                            tutor: pairData.tutor,
+                            parent: pairData.parent,
+                            availability: pairData.availability,
+                            comments: pairData.comments,
+                            termlength: pairData.termlength,
+                            format: pairData.format,
+                            timestamp: {
+                                tutee: pairData.timestamp.tutee,
+                                tutor: pairData.timestamp.tutor,
+                                officer: new firebase.firestore.Timestamp.now(),
+                            },
+                            sessions: [],
+                        })
+                        .then(() => {
+                            tuteeRef
+                                .update({
+                                    [`tutor.${pid}.first`]:
+                                        pairData.tutor.first,
+                                    [`tutor.${pid}.last`]: pairData.tutor.last,
+                                    [`tutor.${pid}.email`]:
+                                        pairData.tutor.email,
+                                    [`tutor.${pid}.uid`]: pairData.tutor.uid,
+                                    [`tutor.${pid}.school`]:
+                                        "Riverside High School",
+                                    [`tutor.${pid}.grade`]:
+                                        pairData.tutor.grade,
+                                    [`tutor.${pid}.subject`]:
+                                        pairData.tutee.school.subject,
+                                    [`tutor.${pid}.course`]:
+                                        pairData.tutee.school.course,
+                                    [`tutor.${pid}.termlength`]:
+                                        pairData.termlength,
+                                    [`tutor.${pid}.format`]: pairData.format,
+                                })
+                                .then(() => {
+                                    tutorRef
+                                        .update({
+                                            [`tutoring.${pid}.status`]:
+                                                "active",
+                                        })
+                                        .then(() => {
+                                            const emailHtml = `Tutee <b>${pairData.tutee.first}</b> <b>${pairData.tutee.last}</b>. You will receive a follow-up email once the pairing has been approved.`;
+                                            sendEmail(
+                                                pairData.tutee.email +
+                                                    "," +
+                                                    pairData.tutor.email +
+                                                    "," +
+                                                    pairData.parent.email +
+                                                    "," +
+                                                    pairData.tutee.school
+                                                        .counseloremail,
+                                                "Tutoring: Tutor Paired " +
+                                                    pairData.tutee.first +
+                                                    " " +
+                                                    pairData.tutee.last,
+                                                "Tutor Pairing Established!",
+                                                emailHtml
+                                            ).then(() => {
+                                                swal(
+                                                    "Pairing Approved!",
+                                                    "You have approved the pairing.",
+                                                    "success"
+                                                ).then(() => {
+                                                    router.reload(
+                                                        window.location.pathname
+                                                    );
+                                                });
+                                            });
+                                        });
+                                });
+                        });
+                });
+        }
+    }
 
     function DisplayPair({ pairs }) {
         const subjects = [
@@ -38,11 +130,6 @@ function Hours() {
                         let pairData = pair.data();
                         return (
                             <>
-                                {/* <TuteeApproveModal
-                                    pairData={pairData}
-                                    docId={tutee.id}
-                                    uid={user.uid}
-                                /> */}
                                 <div
                                     key={index}
                                     className="column is-full tutee-card-wrapper">
@@ -76,6 +163,12 @@ function Hours() {
                                                             {
                                                                 pairData.termlength
                                                             }
+                                                        </div>
+                                                        <div className="column is-full tutee-card-left-text">
+                                                            {pairData.format.toString() ===
+                                                            "No Preference"
+                                                                ? "In Person/Virtual"
+                                                                : pairData.format}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -197,7 +290,7 @@ function Hours() {
                                                                     .grade}
                                                         </div>
                                                         <div className="column is-full tutee-card-left-text">
-                                                            {"Student Email " +
+                                                            {"Student Email: " +
                                                                 pairData.tutor
                                                                     .email}
                                                         </div>
@@ -251,8 +344,10 @@ function Hours() {
                                                     <a
                                                         className="pair-card-approve"
                                                         onClick={() => {
-                                                            console.log(
-                                                                pair.id
+                                                            pairAction(
+                                                                pairData,
+                                                                pair.id,
+                                                                "approve"
                                                             );
                                                         }}>
                                                         Approve
@@ -268,10 +363,10 @@ function Hours() {
                                                     <a
                                                         className="pair-card-reject"
                                                         onClick={() => {
-                                                            setVerify(
-                                                                console.log(
-                                                                    pair.id
-                                                                )
+                                                            pairAction(
+                                                                pairData,
+                                                                pair.id,
+                                                                "reject"
                                                             );
                                                         }}>
                                                         Reject
@@ -303,15 +398,11 @@ function Hours() {
     } else {
         console.log(snapshot.docs[0].id);
         return (
-            <>
-                <Navbar user="officer" />
-                <div className="page-wrapper" id="verify-tutoring">
-                    <DisplayPair pairs={snapshot} />
-                </div>
-                <Footer />
-            </>
+            <div>
+                <DisplayPair pairs={snapshot} />
+            </div>
         );
     }
 }
 
-export default withAuth(Hours, "moderator");
+export default withAuth(withFrame(Tutoring, "Verify Tutoring"), "moderator");

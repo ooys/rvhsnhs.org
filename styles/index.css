@@ -11,6 +11,10 @@ body {
     margin-top: 3.2rem;
 }
 
+.tall-page-wrapper {
+    margin-top: 4rem;
+}
+
 /* Footer */
 .footer-container {
     margin-top: 3.2rem;
@@ -301,10 +305,10 @@ body {
 /* Opportunities */
 
 .events-title {
-    font-size: 2rem;
-    margin-top: 5rem;
-    display: flex;
-    justify-content: center;
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #2793fa;
 }
 .event {
     margin-top: 3vw;
@@ -1236,9 +1240,9 @@ video {
     margin-right: 5vw;
 }
 
-.tutee-list {
+/* .tutee-list {
     margin-top: 5vw;
-}
+} */
 
 .tutee-card-wrapper {
     border: 1px solid #2793fa;
@@ -1266,6 +1270,7 @@ video {
 }
 .tutee-card-body {
     font-size: 1rem;
+    color: #4a4a4a;
 }
 
 .tutee-card-tag {
@@ -1561,4 +1566,200 @@ video {
     background-color: red;
     color: white;
     border-color: red;
+}
+
+/* Tutoring Dashboard */
+
+.tutor-list-title {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #2793fa;
+}
+
+.tutor-list-hr {
+    background-color: #aaaaaa;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.tutee-card-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Montserrat";
+    font-size: 1.5rem;
+    color: black;
+}
+
+.status-is-active {
+    color: green;
+}
+
+.status-is-pending {
+    color: orange;
+}
+
+.status-is-completed {
+    color: red;
+}
+
+.tutee-card-continue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4a4a4a;
+    transition: 0.3s all;
+}
+
+.tutee-card-wrapper:hover .tutee-card-continue {
+    color: #2793fa;
+    transition: 0.3s all;
+}
+
+.tutee-card-is-locked {
+    pointer-events: none;
+}
+
+.tutee-card-chevron-is-hidden {
+    display: none;
+}
+
+.find-tutee-button-wrapper {
+    padding-left: none;
+}
+
+.find-tutee-button {
+    padding: 0.4rem 1.2rem 0.4rem 1.2rem;
+    color: #2793fa;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 2px solid #2793fa;
+    border-radius: 0.3rem;
+    transition: 0.3s all;
+}
+
+.find-tutee-button:hover {
+    background-color: #2793fa;
+    color: white;
+    border-color: #2793fa;
+}
+
+.tutee-filter {
+    padding-bottom: 1rem;
+}
+
+.filter-title {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.filter-tag {
+    margin-left: 0.5rem;
+    border: 1px solid #2793fa;
+    transition: 0.3s all;
+}
+
+.filter-element a:hover {
+    text-decoration: none;
+}
+
+.tag-is-selected {
+    background-color: #2793fa !important;
+    color: white !important;
+    transition: 0.3s all;
+}
+
+/* Frame */
+
+.frame-wrapper {
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 5rem;
+}
+
+.frame-toolbar {
+    border-right: 2px solid #aaaaaa;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.toolbar-title {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #4a4a4a;
+}
+
+.toolbar-element {
+    color: #4a4a4a;
+    border-radius: 0.4rem;
+    transition: 0.2s all;
+}
+
+.toolbar-element:hover {
+    color: #2793fa;
+    transition: 0.3s all;
+}
+
+.element-selected {
+    background-color: #d4e3fe;
+    color: #2793fa;
+}
+
+/* Create Sessions */
+.session-card {
+    border: 1px solid #2793fa;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1.2rem;
+    padding-bottom: 1.5rem;
+    transition: all 0.3s;
+    color: #4a4a4a;
+}
+
+.session-card:hover {
+    transform: translateY(-5px);
+    /* box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2),
+        0 24px 80px 0 rgba(0, 0, 0, 0.19); */
+    background-color: #f1f1e6;
+    transition: all 0.3s;
+}
+
+.session-is-locked {
+    pointer-events: none;
+}
+
+.pair-list-title {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #4a4a4a;
+}
+
+.pair-card {
+    border: 1px solid #2793fa;
+    background-color: white;
+}
+
+/* Register Session */
+
+.session-register-modal-content {
+    background-color: white;
+    border: 1px solid white;
+    padding: 3vw 3vw 3vw 3vw;
+    width: 90vw;
+}
+
+.text-is-success {
+    color: green;
+}
+.text-is-warning {
+    color: darkorange;
+}
+.text-is-danger {
+    color: red;
 }
