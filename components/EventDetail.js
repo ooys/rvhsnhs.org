@@ -608,6 +608,8 @@ function EventDetail({ data, uid, eid }) {
                                     task_title: data.tasks[index].title,
                                     status: "registered",
                                     date: data.date,
+                                    time_start: data["start-time"],
+                                    time_end: data["end-time"],
                                     hours: data.tasks[index].hours,
                                     timestamp:
                                         new firebase.firestore.Timestamp.now(),

@@ -59,16 +59,17 @@ function withFrame(C, currPage) {
         return (
             <>
                 <div className="columns is-multiline frame-toolbar">
+                    <ToolbarTitle page="Member" />
+                    <ToolbarElement page="Dashboard" route="/member" />
                     <ToolbarTitle page="Opportunities" />
                     <ToolbarElement
                         page="Find Opportunity"
                         route="/member/opportunities"
                     />
                     <ToolbarTitle page="Tutoring" />
-                    <ToolbarElement page="Dashboard" route="/member/tutoring" />
                     <ToolbarElement
-                        page="Calendar"
-                        route="/member/tutoring/calendar"
+                        page="Tutoring Dashboard"
+                        route="/member/tutoring"
                     />
                     <ToolbarElement
                         page="Find Tutee"
