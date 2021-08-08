@@ -1303,6 +1303,156 @@ video {
     border-color: #2793fa;
 }
 
+/* Member Index */
+
+.is-bg-off-white {
+    background-color: #f6f7fb;
+}
+
+.member-main-section {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.totals-column {
+    margin-top: 1vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.total-column-1 {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    box-shadow: 1px 1px 2px 2px #e4e4e4;
+    border-radius: 5px;
+    margin-bottom: 1vh;
+}
+
+.mixed-hours-icon {
+    height: 6vh;
+    margin-top: 4vh;
+    margin-left: 25px;
+}
+
+.current-mixed-hours-progress {
+    text-align: center;
+}
+
+.current-mixed-hours-number {
+    font-size: 200%;
+}
+
+.progress-bar-icon {
+    height: 1vh;
+}
+
+.total-column-2 {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    box-shadow: 1px 1px 2px 2px #e4e4e4;
+    border-radius: 5px;
+    margin-bottom: 1vh;
+}
+
+.total-column-3 {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    box-shadow: 1px 1px 2px 2px #e4e4e4;
+    border-radius: 5px;
+    margin-bottom: 1vh;
+}
+
+.total-column-4 {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    box-shadow: 1px 1px 2px 2px #e4e4e4;
+    border-radius: 5px;
+    margin-bottom: 1vh;
+}
+
+.member-current-section {
+    height: 65vh;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 1vw;
+    margin-bottom: 3vh;
+}
+
+.member-graph-container {
+    box-shadow: 1px 1px 2px 2px #e4e4e4;
+    border-radius: 5px;
+    margin-left: 2vw;
+    margin-right: 5vw;
+    margin-bottom: 3vh;
+}
+
+.member-current-rank {
+    box-shadow: 1px 1px 2px 2px #e4e4e4;
+    border-radius: 5px;
+    margin-left: 0vw;
+    margin-right: 2vw;
+    margin-bottom: 3vh;
+}
+
+.featured-opportunities-text-container {
+    height: 5vh;
+    margin-top: 1vw;
+    text-align: center;
+    font-size: 100%;
+
+    justify-content: center;
+}
+
+.featured-opportunities {
+    height: 22vh;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
+.member-left-slideshow-arrow {
+    width: 2vw;
+    display: flex;
+    vertical-align: middle;
+}
+
+.member-right-slideshow-arrow {
+    width: 2vw;
+    display: flex;
+    vertical-align: middle;
+}
+
+.featured-opportunity-1 {
+    box-shadow: 1px 1px 2px 2px #e4e4e4;
+    border-radius: 5px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vh;
+}
+
+.featured-opportunity-2 {
+    box-shadow: 1px 1px 2px 2px #e4e4e4;
+    border-radius: 5px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vh;
+}
+
+.featured-opportunity-3 {
+    box-shadow: 1px 1px 2px 2px #e4e4e4;
+    border-radius: 5px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vh;
+}
+
+.featured-opportunity-4 {
+    box-shadow: 1px 1px 2px 2px #e4e4e4;
+    border-radius: 5px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vh;
+}
 .tutee-approve-modal-content {
     background-color: white;
     border: 1px solid white;
@@ -1612,6 +1762,50 @@ video {
 }
 .text-is-danger {
     color: red;
+}
+
+/* Badges Page */
+
+.badges-section-header {
+    text-align: center;
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 3rem;
+    color: #2793fa;
+}
+
+.badges-section-body {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.badge-list {
+
+}
+
+.listed-badge {
+    text-align: center;
+}
+
+.badge-pic {
+    height: 15vh;
+}
+
+.listed-badge-name {
+    text-align: center;
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #000;
+}
+
+.listed-badge-wrapper {
+    padding: 0 !important;
+    transition: all 0.3s;
+}
+.listed-badge-wrapper:hover {
+    transform: translateY(-5px);
+    transition: all 0.3s;
 }
 
 /* Calendar */

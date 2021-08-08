@@ -26,4 +26,5 @@ function MemberRouter() {
     }
 }
 
+
 export default withAuth(MemberRouter, "member");
