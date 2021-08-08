@@ -1763,3 +1763,47 @@ video {
 .text-is-danger {
     color: red;
 }
+
+/* Badges Page */
+
+.badges-section-header {
+    text-align: center;
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 3rem;
+    color: #2793fa;
+}
+
+.badges-section-body {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.badge-list {
+
+}
+
+.listed-badge {
+    text-align: center;
+}
+
+.badge-pic {
+    height: 15vh;
+}
+
+.listed-badge-name {
+    text-align: center;
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #000;
+}
+
+.listed-badge-wrapper {
+    padding: 0 !important;
+    transition: all 0.3s;
+}
+.listed-badge-wrapper:hover {
+    transform: translateY(-5px);
+    transition: all 0.3s;
+}
