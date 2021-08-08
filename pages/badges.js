@@ -13,37 +13,58 @@ function Badges() {
     function BadgeModal({ name, title, src, desc, color }) {
         if (active === name) {
             return (
-                <div className={"modal is-active"} id="badge-modal">
-                    <div
-                        className="modal-background"
+                <>
+                    <a
+                        className="column listed-badge-wrapper"
                         onClick={() => {
-                            setActive("");
-                        }}></div>
-                    <div className="modal-content" id="badge-modal-content">
-                        <div className="columns is-mobile is-variable is-4 modal-wrapper">
-                            <div className="column is-one-third modal-picture">
-                                <img
-                                    className={"modal-badge " + color}
-                                    src={src}
-                                    alt={title}></img>
-                            </div>
-                            <div className="column is-two-thirds modal-text">
-                                <div className="modal-title">{title}</div>
-                                <hr></hr>
-                                <div className="modal-desc">{desc}</div>
+                            setActive(name);
+                        }}>
+                        <img className="badge-pic" src={src} alt={title}></img>
+                    </a>
+                    <div className="listed-badge-name">{title}</div>
+                    <div className={"modal is-active"} id="badge-modal">
+                        <div
+                            className="modal-background"
+                            onClick={() => {
+                                setActive("");
+                            }}></div>
+                        <div className="modal-content" id="badge-modal-content">
+                            <div className="columns is-mobile is-variable is-4 modal-wrapper">
+                                <div className="column is-one-third modal-picture">
+                                    <img
+                                        className={"modal-badge " + color}
+                                        src={src}
+                                        alt={title}></img>
+                                </div>
+                                <div className="column is-two-thirds modal-text">
+                                    <div className="modal-title">{title}</div>
+                                    <hr></hr>
+                                    <div className="modal-desc">{desc}</div>
+                                </div>
                             </div>
                         </div>
+                        <button
+                            className="modal-close is-large"
+                            aria-label="close"
+                            onClick={() => {
+                                setActive("");
+                            }}></button>
                     </div>
-                    <button
-                        className="modal-close is-large"
-                        aria-label="close"
-                        onClick={() => {
-                            setActive("");
-                        }}></button>
-                </div>
+                </>
             );
         } else {
-            return <></>;
+            return (
+                <>
+                    <a
+                        className="column listed-badge-wrapper"
+                        onClick={() => {
+                            setActive(name);
+                        }}>
+                        <img className="badge-pic" src={src} alt={title}></img>
+                    </a>
+                    <div className="listed-badge-name">{title}</div>
+                </>
+            );
         }
     }
 
@@ -114,20 +135,10 @@ function Badges() {
                                 <br></br>
                                 <div className="columns badge-list is-multiline">
                                     <div className="column listed-badge is-one-third">
-                                        <a
-                                            className="column listed-badge-wrapper"
-                                            onClick={() => {
-                                                setActive("officer");
-                                            }}>
-                                            <img
-                                                className="badge-pic"
-                                                src="/images/badges/officer.svg"
-                                                alt="Officer"></img>
-                                        </a>
                                         <Badge name={"officer"} />
-                                        <div className="listed-badge-name">
-                                            Officer
-                                        </div>
+                                    </div>
+                                    <div className="column listed-badge is-one-third">
+                                        <Badge name={"beta_tester"} />
                                     </div>
                                     {/* <div className="column listed-badge is-one-third">
                                         <a
