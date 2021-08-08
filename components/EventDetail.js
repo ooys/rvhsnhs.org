@@ -8,6 +8,8 @@ import { useState, useRef } from "react";
 import sendEmail from "/components/email/sendEmail.js";
 import { useForm } from "react-hook-form";
 import swal from "sweetalert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 initFirebase();
 const db = firebase.firestore();
@@ -19,6 +21,7 @@ function EventDetail({ data, uid, eid }) {
     const [value, loading, error] = useDocumentDataOnce(profileRef);
     const [disable, setDisable] = useState(false);
     const [verify, setVerify] = useState("false");
+    const [registerModal, setRegisterModal] = useState("false");
     const [progress, setProgress] = useState(0);
     const fileInputRef = useRef(null);
     const {
@@ -389,7 +392,68 @@ function EventDetail({ data, uid, eid }) {
         }
     }
 
-    function RegisterButton({ task, index, disable, setDisable }) {
+    function RegisterModal({ index, setDisable, email }) {
+        if (registerModal === index) {
+            return (
+                <div className={"modal is-active"} id="tutee-approve-modal">
+                    <div
+                        className="modal-background"
+                        onClick={() => {
+                            setRegisterModal("false");
+                        }}></div>
+                    <div className="modal-content tutee-approve-modal-content columns is-multiline">
+                        <div className="tutee-approve-modal-title column is-full">
+                            Verify Registration Information
+                            <hr className="tutee-approve-modal-line"></hr>
+                        </div>
+
+                        <div className="columns is-multiline is-mobile tutee-modal is-gapless"></div>
+                        <div className="warning-text">
+                            Please double check all fields before submitting
+                            this registration. Once registered, you are
+                            responsible for scheduling and providing your own
+                            transportation to this event unless specified
+                            otherwise in event description.
+                        </div>
+                        <div className="tutee-approve-modal-actions">
+                            <a
+                                className="tutee-modal-accept"
+                                onClick={() => {
+                                    startRegister(index, setDisable, email);
+                                }}>
+                                Submit
+                                <span className="hero-button-icon">
+                                    <FontAwesomeIcon
+                                        icon={faArrowRight}></FontAwesomeIcon>
+                                </span>
+                            </a>
+                            <a
+                                className="tutee-modal-cancel"
+                                onClick={() => {
+                                    setRegisterModal("false");
+                                }}>
+                                Cancel
+                                <span className="hero-button-icon">
+                                    <FontAwesomeIcon
+                                        icon={faArrowRight}></FontAwesomeIcon>
+                                </span>
+                            </a>
+                        </div>
+                        <br></br>
+                    </div>
+                    <button
+                        className="modal-close is-large"
+                        aria-label="close"
+                        onClick={() => {
+                            setRegisterModal("false");
+                        }}></button>
+                </div>
+            );
+        } else {
+            return null;
+        }
+    }
+    function RegisterButton({ task, index, disable }) {
         if (loading) {
             return <a className="event-detail-tasks-register">Loading...</a>;
         }
@@ -465,14 +529,21 @@ function EventDetail({ data, uid, eid }) {
                     return null;
                 } else {
                     return (
-                        <a
-                            className={"event-detail-tasks-register"}
-                            onClick={() => {
-                                console.log(index);
-                                startRegister(index, setDisable, value.email);
-                            }}>
-                            Register
-                        </a>
+                        <>
+                            <RegisterModal
+                                index={index}
+                                setDisable={setDisable}
+                                email={value.email}
+                            />
+                            <a
+                                className={"event-detail-tasks-register"}
+                                onClick={() => {
+                                    console.log(index);
+                                    setRegisterModal(index);
+                                }}>
+                                Register
+                            </a>
+                        </>
                     );
                 }
             }
@@ -537,6 +608,8 @@ function EventDetail({ data, uid, eid }) {
                                     task_title: data.tasks[index].title,
                                     status: "registered",
                                     date: data.date,
+                                    time_start: data["start-time"],
+                                    time_end: data["end-time"],
                                     hours: data.tasks[index].hours,
                                     timestamp:
                                         new firebase.firestore.Timestamp.now(),

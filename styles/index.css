@@ -1729,9 +1729,9 @@ video {
     transition: all 0.3s;
 }
 
-.session-is-locked {
+/* .session-is-locked {
     pointer-events: none;
-}
+} */
 
 .pair-list-title {
     font-family: "Montserrat";
@@ -1806,4 +1806,18 @@ video {
 .listed-badge-wrapper:hover {
     transform: translateY(-5px);
     transition: all 0.3s;
+}
+
+/* Calendar */
+
+.calendar-chapter-meeting {
+    background-color: orange !important;
+}
+
+.calendar-opportunity {
+    background-color: #0e447b !important;
+}
+
+.calendar-tutoring {
+    background-color: green !important;
 }

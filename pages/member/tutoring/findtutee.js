@@ -146,6 +146,7 @@ function TutorSelect() {
                                             tuteeData.termlength,
                                         [`tutoring.${docId}.format`]:
                                             tuteeData.format,
+                                        [`tutoring.${docId}.sessions`]: [],
                                     })
                                     .then(() => {
                                         const emailHtml = `We have received your pairing request for tutee <b>${tuteeData.tutee.first}</b> <b>${tuteeData.tutee.last}</b>. You will receive a follow-up email once the pairing has been approved.`;

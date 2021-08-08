@@ -138,4 +138,4 @@ function TutorHome() {
     }
 }
 
-export default withAuth(withFrame(TutorHome, "Dashboard"), "member");
+export default withAuth(withFrame(TutorHome, "Tutoring Dashboard"), "member");
