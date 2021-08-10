@@ -71,7 +71,7 @@ function TutorSelect() {
     ];
 
     function acceptTutee(tuteeData, docId, uid) {
-        const tuteeRef = db.collection("tutee-requests").doc(docId);
+        const tuteeRef2 = db.collection("tutee-requests").doc(docId);
         const tutorRef = db.collection("tutor-requests").doc(docId);
         const userRef = db.collection("users").doc(uid);
         userRef.get().then((userDoc) => {
@@ -94,61 +94,60 @@ function TutorSelect() {
                     pairCompleted++;
                 }
             });
-            tuteeRef.get().then((docSnapshot) => {
+            tuteeRef2.get().then((docSnapshot) => {
                 if (docSnapshot.exists) {
-                    tuteeRef.delete().then(() => {
-                        tutorRef
-                            .set({
-                                tutee: tuteeData.tutee,
-                                availability: tuteeData.availability,
-                                parent: tuteeData.parent,
-                                termlength: tuteeData.termlength,
-                                format: tuteeData.format,
-                                comments: tuteeData.comments,
-                                timestamp: {
-                                    tutee: tuteeData.timestamp,
-                                    tutor: new firebase.firestore.Timestamp.now(),
-                                },
-                                tutor: {
-                                    uid: uid,
-                                    first: userData.first,
-                                    last: userData.last,
-                                    email: userData.email,
-                                    grade: userData.grade,
-                                },
-                                tutorstatus: {
-                                    pending: pairPending,
-                                    active: pairActive,
-                                    completed: pairCompleted,
-                                    completedhours: userData.hours.tutoring,
-                                },
-                            })
-                            .then(() => {
-                                userRef
-                                    .update({
-                                        [`tutoring.${docId}.status`]:
-                                            "requested",
-                                        [`tutoring.${docId}.first`]:
-                                            tuteeData.tutee.first,
-                                        [`tutoring.${docId}.last`]:
-                                            tuteeData.tutee.last,
-                                        [`tutoring.${docId}.email`]:
-                                            tuteeData.tutee.email,
-                                        [`tutoring.${docId}.school`]:
-                                            tuteeData.tutee.school.name,
-                                        [`tutoring.${docId}.grade`]:
-                                            tuteeData.tutee.school.grade,
-                                        [`tutoring.${docId}.subject`]:
-                                            tuteeData.tutee.school.subject,
-                                        [`tutoring.${docId}.course`]:
-                                            tuteeData.tutee.school.course,
-                                        [`tutoring.${docId}.termlength`]:
-                                            tuteeData.termlength,
-                                        [`tutoring.${docId}.format`]:
-                                            tuteeData.format,
-                                        [`tutoring.${docId}.sessions`]: [],
-                                    })
-                                    .then(() => {
+                    tutorRef
+                        .set({
+                            tutee: tuteeData.tutee,
+                            availability: tuteeData.availability,
+                            parent: tuteeData.parent,
+                            termlength: tuteeData.termlength,
+                            format: tuteeData.format,
+                            comments: tuteeData.comments,
+                            timestamp: {
+                                tutee: tuteeData.timestamp,
+                                tutor: new firebase.firestore.Timestamp.now(),
+                            },
+                            tutor: {
+                                uid: uid,
+                                first: userData.first,
+                                last: userData.last,
+                                email: userData.email,
+                                grade: userData.grade,
+                            },
+                            tutorstatus: {
+                                pending: pairPending,
+                                active: pairActive,
+                                completed: pairCompleted,
+                                completedhours: userData.hours.tutoring,
+                            },
+                        })
+                        .then(() => {
+                            userRef
+                                .update({
+                                    [`tutoring.${docId}.status`]: "requested",
+                                    [`tutoring.${docId}.first`]:
+                                        tuteeData.tutee.first,
+                                    [`tutoring.${docId}.last`]:
+                                        tuteeData.tutee.last,
+                                    [`tutoring.${docId}.email`]:
+                                        tuteeData.tutee.email,
+                                    [`tutoring.${docId}.school`]:
+                                        tuteeData.tutee.school.name,
+                                    [`tutoring.${docId}.grade`]:
+                                        tuteeData.tutee.school.grade,
+                                    [`tutoring.${docId}.subject`]:
+                                        tuteeData.tutee.school.subject,
+                                    [`tutoring.${docId}.course`]:
+                                        tuteeData.tutee.school.course,
+                                    [`tutoring.${docId}.termlength`]:
+                                        tuteeData.termlength,
+                                    [`tutoring.${docId}.format`]:
+                                        tuteeData.format,
+                                    [`tutoring.${docId}.sessions`]: [],
+                                })
+                                .then(() => {
+                                    tuteeRef2.delete().then(() => {
                                         const emailHtml = `We have received your pairing request for tutee <b>${tuteeData.tutee.first}</b> <b>${tuteeData.tutee.last}</b>. You will receive a follow-up email once the pairing has been approved.`;
                                         sendEmail(
                                             userData.email,
@@ -156,19 +155,18 @@ function TutorSelect() {
                                                 tuteeData.tutee.first,
                                             "Received!",
                                             emailHtml
-                                        );
-                                    })
-                                    .then(() => {
-                                        swal(
-                                            "Success!",
-                                            "Your tutor pairing request has been submitted.",
-                                            "success"
                                         ).then(() => {
-                                            router.push("/member/tutoring");
+                                            swal(
+                                                "Success!",
+                                                "Your tutor pairing request has been submitted.",
+                                                "success"
+                                            ).then(() => {
+                                                router.push("/member/tutoring");
+                                            });
                                         });
                                     });
-                            });
-                    });
+                                });
+                        });
                 } else {
                     swal(
                         "Oops!",

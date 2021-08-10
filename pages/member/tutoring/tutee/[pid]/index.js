@@ -194,10 +194,10 @@ function TutorPair() {
                                             ),
                                     })
                                     .then(() => {
-                                        const userRef = db
+                                        const userRef2 = db
                                             .collection("users")
                                             .doc(pairData.tutor.uid);
-                                        userRef
+                                        userRef2
                                             .update({
                                                 [`tutoring.${pid}.sessions`]:
                                                     firebase.firestore.FieldValue.arrayUnion(
