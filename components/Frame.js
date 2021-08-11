@@ -60,7 +60,8 @@ function withFrame(C, currPage) {
             <>
                 <div className="columns is-multiline frame-toolbar">
                     <ToolbarTitle page="Member" />
-                    <ToolbarElement page="Dashboard" route="/member" />
+                    <ToolbarElement page="Home" route="/member" />
+                    <ToolbarElement page="Profile" route="/profile" />
                     <ToolbarTitle page="Opportunities" />
                     <ToolbarElement
                         page="Find Opportunity"
@@ -185,7 +186,7 @@ function withFrame(C, currPage) {
             <>
                 <Navbar user="member" />
                 <div className="frame-wrapper">
-                    <div className="columns">
+                    <div className="columns is-desktop">
                         <div className="column is-3">
                             <Toolbar />
                         </div>

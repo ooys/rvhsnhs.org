@@ -48,7 +48,7 @@ function Routes(user) {
         return (
             <div className="navbar-start">
                 <Link href="/member">
-                    <a className="navbar-item">News</a>
+                    <a className="navbar-item">Home</a>
                 </Link>
                 <Link href="/member/opportunities">
                     <a className="navbar-item">Opportunities</a>
