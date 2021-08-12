@@ -4,6 +4,7 @@ import initFirebase from "/services/firebase.js";
 import withAuth from "/components/auth/withAuth.js";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import withFrame from "/components/Frame.js";
 import swal from "sweetalert";
 
@@ -32,6 +33,7 @@ function SessionInfo() {
     const { sessionId } = router.query;
     const sessionRef = db.collection("tutor-sessions").doc(sessionId);
     const [data, loading, error] = useDocumentDataOnce(sessionRef);
+    const [addPair, setAddPair] = useState(false);
 
     async function addHours(hours, userId) {
         const userRef = db.collection("users").doc(userId);
@@ -92,6 +94,56 @@ function SessionInfo() {
             });
     }
 
+    function addAdditionalPair() {}
+
+    function AddPairModal() {
+        if (addPair) {
+            return (
+                <>
+                    <div className={"modal is-active"} id="verify-modal">
+                        <div
+                            className="modal-background"
+                            onClick={() => {
+                                setAddPair(false);
+                            }}></div>
+                        <div
+                            className="modal-content verify-modal-content columns is-multiline"
+                            id="selection-modal-content">
+                            <div className="columns">
+                                <div className="column is-full">
+                                    Add a tutor pair for this session.
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                            className="modal-close is-large"
+                            aria-label="close"
+                            onClick={() => {
+                                setAddPair(false);
+                            }}></button>
+                    </div>
+                    <a
+                        className="column is-full pair-add"
+                        onClick={() => {
+                            setAddPair(true);
+                        }}>
+                        Add Additional Pair
+                    </a>
+                </>
+            );
+        } else {
+            return (
+                <a
+                    className="column is-full pair-add"
+                    onClick={() => {
+                        setAddPair(true);
+                    }}>
+                    Add Additional Pair
+                </a>
+            );
+        }
+    }
+
     function PairCards({ sessionData, status }) {
         if (status === "registered") {
             return (
@@ -130,7 +182,7 @@ function SessionInfo() {
                             );
                         } else return null;
                     })}
-                    <div className="column is-full pair-add">Add Pair</div>
+                    <AddPairModal />
                 </div>
             );
         } else if (status === "present") {

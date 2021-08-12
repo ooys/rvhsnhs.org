@@ -10,6 +10,7 @@ import Navbar from "../../components/Navbar.js";
 import Footer from "../../components/Footer";
 import { render } from "nprogress";
 import withAuth from "/components/auth/withAuth.js";
+import Papa from "papaparse";
 // import memberlist from ;
 // import officerlist from "/data/officers.csv";
 
@@ -19,18 +20,39 @@ const db = firebase.firestore();
 
 async function putData(row) {
     const userRef = db.collection("inituser").doc(row["Student ID"]);
+    const agRef = db.collection("admin-group").doc(row["Admin Group"]);
     if (row.hasOwnProperty("Officer Role")) {
-        await userRef.set(
-            {
-                role: row["Website"],
-                hours: {
-                    carryon: 0,
+        await userRef
+            .set(
+                {
+                    role: row["Website"],
+                    hours: {
+                        carryon: 0,
+                    },
+                    admingroup: { groupId: row["Admin Group"] },
+                    grade: row["Grade"],
                 },
-                admingroup: "",
-                grade: row["Grade"],
-            },
-            { merge: false }
-        );
+                { merge: false }
+            )
+            .then(() => {
+                agRef.set(
+                    {
+                        groupId: row["Admin Group"],
+                        officer: {
+                            first: row["First Name"],
+                            last: row["Last Name"],
+                            email: row["Email"],
+                            sid: row["Student ID"],
+                        },
+                        members: [],
+                        hours: {
+                            tutoring: 0,
+                            volunteering: 0,
+                        },
+                    },
+                    { merge: true }
+                );
+            });
     } else {
         let hours = (parseFloat(row["Spring 2021"]) || 0) - 20;
         await userRef.set(
@@ -39,7 +61,7 @@ async function putData(row) {
                 hours: {
                     carryon: hours,
                 },
-                admingroup: row["Admin Group"],
+                admingroup: { groupId: row["Admin Group"] },
                 grade: row["Grade Level"],
             },
             { merge: false }
