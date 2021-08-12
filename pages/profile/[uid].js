@@ -1,4 +1,5 @@
 import withAuth from "/components/auth/withAuth.js";
+import withFrame from "/components/Frame.js";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import initFirebase from "/services/firebase.js";
@@ -310,4 +311,4 @@ function Profile() {
     }
 }
 
-export default withAuth(Profile, "member");
+export default withAuth(withFrame(Profile, "Profile"), "member");

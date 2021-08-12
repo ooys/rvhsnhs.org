@@ -103,37 +103,4 @@ function Dashboard() {
     }
 }
 
-export default withAuth(withFrame(Dashboard, "Dashboard"), "member");
-
-/*
-<div className="member-top-page-wrapper">
-                    <div className="slideshow-wrapper">
-                        <Events />
-                    </div>
-                    <div className="member-side-column">
-                        <div className="member-side-column-upcoming">
-                            <p> Upcoming Events </p>
-                        </div>
-                        <div className="member-side-column-text">
-                            <p>
-                                <li>July 28 - Freshmen Tours</li>
-                                <li>September 18 - Full Chapter Meeting</li>
-                                <li>September 30 - NHS Shirt Pickup</li>
-                                <li>October 10 - Full Chapter Meeting</li>
-                                <li>
-                                    October 29 - Loudoun Hunger Relief Drive
-                                    Closes
-                                </li>
-                                <li>November 16 - Full Chapter Meeting</li>
-                                <li>December 17 - Holidy Party GSP</li>
-                                <li>December 31 - Hour Logs Due</li>
-                                <li>
-                                    January 16 - Spring NHS Members Inducted
-                                </li>
-                                <li>Janury 28 - Full Chapter Meeting</li>
-                                <li>February 18 - Full Chapter Meeting</li>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-*/
+export default withAuth(withFrame(Dashboard, "Home"), "member");
