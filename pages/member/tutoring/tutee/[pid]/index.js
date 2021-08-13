@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import sendEmail from "/components/email/sendEmail.js";
 import swal from "sweetalert";
+import Empty from "/components/utils/Empty.js";
 
 initFirebase();
 const db = firebase.firestore();
@@ -259,6 +260,10 @@ function TutorPair() {
     }
 
     function FutureSessions({ data, tuteeData }) {
+        if (data.sessions.length === 0) {
+            return <Empty />;
+        }
+        console.log(data.sessions);
         return (
             <div className="columns is-multiline">
                 {data.sessions.map((session) => {

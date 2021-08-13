@@ -7,6 +7,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
 import withFrame from "/components/Frame.js";
+import Empty from "/components/utils/Empty.js";
 
 initFirebase();
 const db = firebase.firestore();
@@ -18,6 +19,10 @@ function TutorHome() {
     const [data, loading, error] = useDocumentDataOnce(userRef);
 
     function DisplayTutees({ tutees }) {
+        if (Object.keys(tutees).length === 0) {
+            return <Empty />;
+        }
+
         return (
             <div className="columns is-multiline tutee-list">
                 {Object.keys(tutees).map((keyId, index) => {

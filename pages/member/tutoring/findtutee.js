@@ -13,6 +13,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import swal from "sweetalert";
 import sendEmail from "/components/email/sendEmail.js";
+import Empty from "/components/utils/Empty.js";
 
 initFirebase();
 const db = firebase.firestore();
@@ -455,6 +456,9 @@ function TutorSelect() {
     }
 
     function DisplayTutees({ tutees }) {
+        if (tutees.docs.length === 1) {
+            return <Empty />;
+        }
         return (
             <div className="columns is-multiline tutee-list">
                 {tutees.docs.map((tutee, index) => {
