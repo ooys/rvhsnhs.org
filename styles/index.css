@@ -1817,3 +1817,11 @@ video {
 .calendar-tutoring {
     background-color: green !important;
 }
+
+/* Empty */
+
+.empty {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
