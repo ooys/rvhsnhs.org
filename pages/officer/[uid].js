@@ -10,6 +10,7 @@ import Footer from "/components/Footer";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { set } from "react-hook-form";
 
 initFirebase();
 const auth = firebase.auth();
@@ -21,6 +22,7 @@ function OfficerDashboard() {
     const userRef = db.collection("users").doc(uid);
     const [data, loading, error] = useDocumentDataOnce(userRef);
     const [admingroup, setAdmingroup] = useState(null);
+    const [agHours, setAgHours] = useState({});
 
     let events = [
         // {
@@ -86,62 +88,110 @@ function OfficerDashboard() {
         const agRef = db.collection("admin-group").doc(data.admingroup.groupId);
         agRef.get().then((snapshot) => {
             setAdmingroup(snapshot.data());
+            let memberIds = [];
+            snapshot.data().members.forEach((member) => {
+                memberIds.push(member.uid);
+            });
+
+            const profilesRef = db
+                .collection("users")
+                .where(
+                    firebase.firestore.FieldPath.documentId(),
+                    "in",
+                    memberIds
+                );
+            profilesRef.get().then((snapshots) => {
+                let hoursdata = {};
+                snapshots.forEach((snapshot) => {
+                    // add snapshot.data() key value pair to agHours object
+                    hoursdata = {
+                        ...hoursdata,
+                        [snapshot.id]: snapshot.data(),
+                    };
+                });
+                setAgHours(hoursdata);
+            });
         });
     }
 
     function DisplayAdminGroup() {
         if (admingroup) {
-            return (
-                <>
-                    <div className="tutor-list-title">
-                        Admin Group: {admingroup.officer.first}{" "}
-                        {admingroup.officer.last}
-                    </div>
-                    <div className="admin-group-table">
-                        <table className="table is-bordered is-fullwidth profile-hours-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>School ID</th>
-                                    <th>Mixed</th>
-                                    <th>Tutoring</th>
-                                    <th>Total</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {admingroup.members.map((member) => {
-                                    return (
-                                        <tr key={member.uid}>
-                                            <td>
-                                                {member.first} {member.last}
-                                            </td>
-                                            <td>{member.sid}</td>
-                                            <td>{0}</td>
-                                            <td>{0}</td>
-                                            <td>{0}</td>
-                                            <td>Email</td>
-                                        </tr>
-                                    );
-                                })}
-                                <tr>
-                                    <td>
-                                        <b>Total:</b>
-                                    </td>
-                                    <td>N/A</td>
-                                    <td>{admingroup.hours.volunteering}</td>
-                                    <td>{admingroup.hours.tutoring}</td>
-                                    <td>
-                                        {admingroup.hours.volunteering +
-                                            admingroup.hours.tutoring}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </>
-            );
+            if (Object.keys(agHours).length > 0) {
+                let sums = [0, 0];
+                Object.keys(agHours).forEach((key) => {
+                    const hours = agHours[key].hours;
+                    sums[0] += hours.volunteering;
+                    sums[1] += hours.tutoring;
+                });
+                return (
+                    <>
+                        <div className="tutor-list-title">
+                            Admin Group: {admingroup.officer.first}{" "}
+                            {admingroup.officer.last}
+                        </div>
+                        <div className="admin-group-table">
+                            <table className="table is-bordered is-fullwidth profile-hours-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>School ID</th>
+                                        <th>Grade</th>
+                                        <th>Volunteering</th>
+                                        <th>Tutoring</th>
+                                        <th>Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {admingroup.members.map((member) => {
+                                        return (
+                                            <tr key={member.uid}>
+                                                <td>
+                                                    {member.first} {member.last}
+                                                </td>
+                                                <td>{member.sid}</td>
+                                                <td>{member.grade}</td>
+                                                <td>
+                                                    {
+                                                        agHours[member.uid]
+                                                            .hours.volunteering
+                                                    }
+                                                </td>
+                                                <td>
+                                                    {
+                                                        agHours[member.uid]
+                                                            .hours.tutoring
+                                                    }
+                                                </td>
+                                                <td>
+                                                    {agHours[member.uid].hours
+                                                        .volunteering +
+                                                        agHours[member.uid]
+                                                            .hours.tutoring}
+                                                </td>
+                                                <td>Email</td>
+                                            </tr>
+                                        );
+                                    })}
+                                    <tr>
+                                        <td>Total:</td>
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                        <td>{sums[0]}</td>
+                                        <td>{sums[1]}</td>
+                                        <td>{sums[0] + sums[1]}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </>
+                );
+            } else {
+                console.log(agHours);
+                return null;
+            }
         } else {
+            loadAdminGroup(data);
             return null;
         }
     }
@@ -153,7 +203,6 @@ function OfficerDashboard() {
         return <div></div>;
     } else {
         loadEvents(data);
-        loadAdminGroup(data);
         return (
             <>
                 <div className="columns is-multiline tutor-list">
