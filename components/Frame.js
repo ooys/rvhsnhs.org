@@ -97,7 +97,7 @@ function withFrame(C, currPage) {
                     <ToolbarTitle
                         page="Officer"
                         isNotHidden={[
-                            "Admin Group",
+                            "Officer Home",
                             "Verify Hours",
                             "Verify Tutoring",
                             "Moderator Dashboard",
@@ -106,10 +106,10 @@ function withFrame(C, currPage) {
                         ]}
                     />
                     <ToolbarElement
-                        page="Admin Group"
-                        route={"/officer/admingroup"}
+                        page="Officer Home"
+                        route={"/officer"}
                         isNotHidden={[
-                            "Admin Group",
+                            "Officer Home",
                             "Verify Hours",
                             "Verify Tutoring",
                             "Moderator Dashboard",
@@ -121,7 +121,7 @@ function withFrame(C, currPage) {
                         page="Verify Hours"
                         route={"/officer/verify/hours"}
                         isNotHidden={[
-                            "Admin Group",
+                            "Officer Home",
                             "Verify Hours",
                             "Verify Tutoring",
                             "Moderator Dashboard",
@@ -133,7 +133,7 @@ function withFrame(C, currPage) {
                         page="Verify Tutoring"
                         route={"/officer/verify/tutoring"}
                         isNotHidden={[
-                            "Admin Group",
+                            "Officer Home",
                             "Verify Hours",
                             "Verify Tutoring",
                             "Moderator Dashboard",

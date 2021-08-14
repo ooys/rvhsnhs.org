@@ -155,7 +155,7 @@ function SignIn() {
                                 },
                                 grade: profileInfo.grade,
                                 admingroup: {
-                                    groupId: profileInfo.admingroup,
+                                    ...profileInfo.admingroup,
                                     officer: agData.officer,
                                 },
                                 opportunities: {},
