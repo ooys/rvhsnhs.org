@@ -41,7 +41,7 @@ function SignIn() {
             if (!docSnapshot.exists) {
                 createProfile(profile).then(() => {
                     profileRef.get().then((doc) => {
-                        // router.push("/" + doc.data().role);
+                        router.push("/" + doc.data().role);
                     });
                 });
             } else {
@@ -224,6 +224,19 @@ function SignIn() {
     );
 }
 
+function postLoginActions(uid) {
+    const router = useRouter();
+    const profileRef = db.collection("users").doc(uid);
+    profileRef.get().then((docSnapshot) => {
+        if (!docSnapshot.exists) {
+            signOut();
+            router.push("/login/");
+        } else {
+            router.push("/" + docSnapshot.data().role);
+        }
+    });
+}
+
 function Login() {
     const router = useRouter();
     const { dest } = router.query;
@@ -235,7 +248,8 @@ function Login() {
     if (error != undefined || user == undefined) {
         return <SignIn />;
     } else {
-        router.push("/" + dest);
+        // router.push("/" + dest);
+        postLoginActions(user.uid);
         return <>Signed in!</>;
     }
 }
