@@ -150,6 +150,138 @@ function Profile() {
     const [data, loading, error] = useDocumentDataOnce(userRef);
     const [active, setActive] = useState("");
 
+    function DisplayProfile({ data }) {
+        return (
+            <>
+                <div className="columns">
+                    <div className="column is-8" id="profile-large">
+                        <div className="profile-name">
+                            {data.first.charAt(0).toUpperCase() +
+                                data.first.slice(1).toLowerCase()}{" "}
+                            {data.last}
+                        </div>
+                        <div className="profile-role">
+                            {convertRole(data.role)}
+                        </div>
+                        <div className="profile-year">SY 2021-2022</div>
+                        <hr className="profile-line"></hr>
+                        <div className="profile-hours">
+                            <div className="profile-hours-title">
+                                Hours Summary
+                            </div>
+                            <table className="table is-bordered is-fullwidth is-hoverable">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Hours</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tutoring</td>
+                                        <td>{data.hours.tutoring}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Volunteering</td>
+                                        <td>{data.hours.volunteering}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>
+                                            {data.hours.tutoring +
+                                                data.hours.volunteering}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="profile-hours">
+                            <div className="profile-hours-title">
+                                Volunteer Opportunities
+                            </div>
+                            <table className="table is-bordered is-fullwidth is-hoverable">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Event</th>
+                                        <th>Task Group</th>
+                                        <th>Hours</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {Object.keys(data.opportunities).map(
+                                        (keyName, index) => {
+                                            return (
+                                                <tr key={index}>
+                                                    <td>
+                                                        {
+                                                            data.opportunities[
+                                                                keyName
+                                                            ].date
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        {
+                                                            data.opportunities[
+                                                                keyName
+                                                            ].title
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        {
+                                                            data.opportunities[
+                                                                keyName
+                                                            ]["task_title"]
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        {
+                                                            data.opportunities[
+                                                                keyName
+                                                            ].hours
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        {Status(
+                                                            data.opportunities[
+                                                                keyName
+                                                            ].status,
+                                                            keyName
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            );
+                                        }
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="modal-wrapper"></div>
+                    </div>
+                    <div className="column is-4" id="profile-small">
+                        <Rank
+                            hours={
+                                data.hours.tutoring + data.hours.volunteering
+                            }
+                            active={active}
+                            setActive={setActive}
+                        />
+
+                        <div className="profile-badges-title">Badges</div>
+                        <hr className="profile-line small-margins"></hr>
+                        <div className="columns is-mobile is-multiline profile-badges">
+                            {data.badges.map((name) => {
+                                return Badge(name, active, setActive);
+                            })}
+                        </div>
+                        <br></br>
+                    </div>
+                </div>
+            </>
+        );
+    }
+
     if (loading) {
         return <>Loading Events...</>;
     }
@@ -158,155 +290,17 @@ function Profile() {
         return <div>Error!</div>;
     } else {
         return (
-            <div id="profile">
-                <Navbar user="member" />
-                <div className="page-wrapper">
-                    <br></br>
-                    <span className="profile-title">User Profile</span>
-                    <div className="columns profile-full">
-                        <div
-                            className="column is-4 profile-info"
-                            id="profile-small">
-                            <br></br>
-                            <Rank
-                                hours={
-                                    data.hours.tutoring +
-                                    data.hours.volunteering
-                                }
-                                active={active}
-                                setActive={setActive}
-                            />
-
-                            <div className="profile-badges-title">Badges</div>
-                            <hr className="profile-line small-margins"></hr>
-                            <div className="columns is-mobile is-multiline profile-badges">
-                                {data.badges.map((name) => {
-                                    return Badge(name, active, setActive);
-                                })}
-                            </div>
-                            <br></br>
-                        </div>
-                        <div
-                            className="column is-8 profile-info"
-                            id="profile-large">
-                            <div className="profile-name">
-                                {data.first.charAt(0).toUpperCase() +
-                                    data.first.slice(1).toLowerCase()}{" "}
-                                {data.last}
-                            </div>
-                            <div className="profile-role">
-                                {convertRole(data.role)}
-                            </div>
-                            <div className="profile-year">SY 2021-2022</div>
-                            {/* <img
-                                className="profile-picture"
-                                src={data.profilePicture}
-                                alt={data.first}
-                            /> */}
-                            <hr className="profile-line"></hr>
-                            <div className="profile-hours">
-                                <div className="profile-hours-title">
-                                    Hours Summary
-                                </div>
-                                <table className="table is-bordered is-fullwidth is-hoverable">
-                                    <thead>
-                                        <tr>
-                                            <th>Description</th>
-                                            <th>Hours</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tutoring</td>
-                                            <td>{data.hours.tutoring}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Volunteering</td>
-                                            <td>{data.hours.volunteering}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total</td>
-                                            <td>
-                                                {data.hours.tutoring +
-                                                    data.hours.volunteering}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="profile-hours">
-                                <div className="profile-hours-title">
-                                    Volunteer Opportunities
-                                </div>
-                                <table className="table is-bordered is-fullwidth is-hoverable">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Event</th>
-                                            <th>Task Group</th>
-                                            <th>Hours</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {Object.keys(data.opportunities).map(
-                                            (keyName, index) => {
-                                                return (
-                                                    <tr key={index}>
-                                                        <td>
-                                                            {
-                                                                data
-                                                                    .opportunities[
-                                                                    keyName
-                                                                ].date
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                data
-                                                                    .opportunities[
-                                                                    keyName
-                                                                ].title
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                data
-                                                                    .opportunities[
-                                                                    keyName
-                                                                ]["task_title"]
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {
-                                                                data
-                                                                    .opportunities[
-                                                                    keyName
-                                                                ].hours
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            {Status(
-                                                                data
-                                                                    .opportunities[
-                                                                    keyName
-                                                                ].status,
-                                                                keyName
-                                                            )}
-                                                        </td>
-                                                    </tr>
-                                                );
-                                            }
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="modal-wrapper"></div>
-                        </div>
+            <>
+                <div className="columns is-multiline tutor-list">
+                    <div className="column is-full tutor-list-title">
+                        Profile
+                        <hr className="tutor-list-hr"></hr>
+                    </div>
+                    <div className="column is-full">
+                        <DisplayProfile data={data} />
                     </div>
                 </div>
-                <Footer />
-            </div>
+            </>
         );
     }
 }
