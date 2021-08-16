@@ -4,7 +4,7 @@ import { useEffect } from "react";
 function LoginRoute() {
     const router = useRouter();
     useEffect(() => {
-        router.push("/login/member");
+        router.push("/login/user");
     });
     return <>Routing to member login...</>;
 }
