@@ -129,9 +129,7 @@ function Rank({ hours, active, setActive }) {
         }
         return (
             <>
-                <div className={"column is-full rank-text"}>
-                    {text}: {title}
-                </div>
+                <div className={"column is-full rank-text"}>{text}</div>
                 <div className={"column " + size}>
                     <a
                         className="badge-wrapper"
@@ -153,6 +151,7 @@ function Rank({ hours, active, setActive }) {
                         color={color}
                     />
                 </div>
+                <div className={"column is-full rank-text"}>{title}</div>
             </>
         );
     }
