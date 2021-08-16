@@ -356,11 +356,11 @@ function TuteeApply() {
                                 Tutee Registration
                             </div>
                             <div className="about-section-body">
-                                Students, please complete this form carefully to
-                                request a tutor in a particular subject area.
-                                Please check your email reguarly for our reply
-                                when we find a tutor suitable for your
-                                preferences.
+                                Students, please complete this form carefully
+                                with a parental guardian to request a tutor in a
+                                particular subject area. Please check your email
+                                reguarly for our reply when we find a tutor
+                                suitable for your preferences.
                             </div>
                         </div>
                     </div>
