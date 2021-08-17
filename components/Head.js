@@ -12,6 +12,7 @@ function HeadTag({ page }) {
                     name="description"
                     content="Riverside National Honor Society is dedicated to empowering Northern Virginia communities through meaningful volunteering and tutoring services."
                 />
+                <meta name="theme-color" content="#2793fa" />
 
                 {/* <!-- Open Graph / Facebook --> */}
                 <meta property="og:type" content="website" />
