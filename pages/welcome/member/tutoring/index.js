@@ -9,6 +9,11 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import withFrame from "/components/Frame.js";
 import Empty from "/components/utils/Empty.js";
+import dynamic from "next/dynamic";
+
+const WelcomeTour = dynamic(() => import("/components/WelcomeTour"), {
+    ssr: false,
+});
 
 initFirebase();
 const db = firebase.firestore();
@@ -18,6 +23,7 @@ function TutorHome() {
     const router = useRouter();
     const [user, loading, error] = useAuthState(auth);
     const [userData, setUserData] = useState(["null", "null"]);
+    const [isTourOpen, setIsTourOpen] = useState(true);
 
     async function getUserData(uid) {
         if (userData[0] != uid) {
@@ -34,9 +40,22 @@ function TutorHome() {
 
     function DisplayTutees({ uid }) {
         if (userData[0] === uid) {
-            const tutees = userData[1].tutoring;
+            let tutees = userData[1].tutoring;
             if (Object.keys(tutees).length === 0) {
-                return <Empty />;
+                tutees = {
+                    test: {
+                        status: "active",
+                        first: "Johnny",
+                        last: "Appleseed",
+                        email: "0000000@lcps.org",
+                        school: "Riverside High School",
+                        grade: "11",
+                        termlength: "Short Term",
+                        format: "Virtual",
+                        subject: "Mathematics",
+                        course: "AP Calculus AB",
+                    },
+                };
             }
 
             return (
@@ -145,6 +164,65 @@ function TutorHome() {
         }
     }
 
+    const steps = [
+        {
+            selector: "",
+            content: (
+                <>
+                    <div className="tour-header">Tutoring Dashboard</div>
+                    <div className="tour-body">
+                        You can find all your tutoring pairs here.<br></br>
+                        <br></br>
+                        For the active pairings, you can click to{" "}
+                        <b>register for a tutoring session</b> and to view more
+                        information.
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+        },
+        {
+            selector: ".tutee-list",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        This is a sample!<br></br>
+                        <br></br>
+                        These information are provided by the tutee upon their
+                        registration.
+                        <br></br>
+                        <br></br>
+                        Make sure you don't request for more tutees than you can
+                        handle! Quality over quantity!
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+            stepInteraction: false,
+        },
+        {
+            selector: "#toolbar-element-FindTutee",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        Let's go <b>pair with a tutee</b>!<br></br>
+                        <br></br>
+                        Click "Find Tutee" to continue.
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+        },
+    ];
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -153,6 +231,14 @@ function TutorHome() {
     } else {
         return (
             <>
+                <WelcomeTour
+                    steps={steps}
+                    open={isTourOpen}
+                    setOpen={setIsTourOpen}
+                    route={"/member"}
+                    startAt={0}
+                    offset={0}
+                />
                 <div className="columns is-multiline tutor-list">
                     <div className="column is-full tutor-list-title">
                         Your Tutees
@@ -167,4 +253,7 @@ function TutorHome() {
     }
 }
 
-export default withAuth(withFrame(TutorHome, "Tutoring Dashboard"), "member");
+export default withAuth(
+    withFrame(TutorHome, "Tutoring Dashboard", true),
+    "member"
+);

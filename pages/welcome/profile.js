@@ -7,6 +7,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import router, { useRouter } from "next/router";
 import { useState } from "react";
 import Rank from "/components/Rank.js";
+import dynamic from "next/dynamic";
+
+const WelcomeTour = dynamic(() => import("/components/WelcomeTour"), {
+    ssr: false,
+});
 
 initFirebase();
 const auth = firebase.auth();
@@ -147,6 +152,7 @@ function Profile() {
     const [user, loading, error] = useAuthState(auth);
     const [userData, setUserData] = useState(["null", "null"]);
     const [active, setActive] = useState("");
+    const [isTourOpen, setIsTourOpen] = useState(true);
 
     async function getUserData(uid) {
         if (userData[0] != uid) {
@@ -166,65 +172,69 @@ function Profile() {
             const data = userData[1];
             return (
                 <>
-                    <div className="columns">
+                    <div className="columns profile-wrapper">
                         <div className="column is-8" id="profile-large">
-                            <div className="profile-name">
-                                {data.first.charAt(0).toUpperCase() +
-                                    data.first.slice(1).toLowerCase()}{" "}
-                                {data.last}
-                            </div>
-                            <div className="profile-role">
-                                {convertRole(data.role)}
-                            </div>
-                            <div className="profile-year">SY 2021-2022</div>
-                            <hr className="profile-line"></hr>
-                            <div className="profile-hours">
-                                <div className="profile-hours-title">
-                                    Hours Summary
+                            <div className="profile-large-tour">
+                                <div className="profile-name">
+                                    {data.first.charAt(0).toUpperCase() +
+                                        data.first.slice(1).toLowerCase()}{" "}
+                                    {data.last}
                                 </div>
-                                <table className="table is-bordered is-fullwidth is-hoverable">
-                                    <thead>
-                                        <tr>
-                                            <th>Description</th>
-                                            <th>Hours</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tutoring</td>
-                                            <td>{data.hours.tutoring}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Volunteering</td>
-                                            <td>{data.hours.volunteering}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total</td>
-                                            <td>
-                                                {data.hours.tutoring +
-                                                    data.hours.volunteering}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="profile-hours">
-                                <div className="profile-hours-title">
-                                    Volunteer Opportunities
+                                <div className="profile-role">
+                                    {convertRole(data.role)}
                                 </div>
-                                <table className="table is-bordered is-fullwidth is-hoverable">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Event</th>
-                                            <th>Task Group</th>
-                                            <th>Hours</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {Object.keys(data.opportunities).map(
-                                            (keyName, index) => {
+                                <div className="profile-year">SY 2021-2022</div>
+                                <hr className="profile-line"></hr>
+                                <div className="profile-hours">
+                                    <div className="profile-hours-title">
+                                        Hours Summary
+                                    </div>
+                                    <table className="table is-bordered is-fullwidth is-hoverable">
+                                        <thead>
+                                            <tr>
+                                                <th>Description</th>
+                                                <th>Hours</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Tutoring</td>
+                                                <td>{data.hours.tutoring}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Volunteering</td>
+                                                <td>
+                                                    {data.hours.volunteering}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total</td>
+                                                <td>
+                                                    {data.hours.tutoring +
+                                                        data.hours.volunteering}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className="profile-hours">
+                                    <div className="profile-hours-title">
+                                        Volunteer Opportunities
+                                    </div>
+                                    <table className="table is-bordered is-fullwidth is-hoverable">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Event</th>
+                                                <th>Task Group</th>
+                                                <th>Hours</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {Object.keys(
+                                                data.opportunities
+                                            ).map((keyName, index) => {
                                                 return (
                                                     <tr key={index}>
                                                         <td>
@@ -270,29 +280,33 @@ function Profile() {
                                                         </td>
                                                     </tr>
                                                 );
-                                            }
-                                        )}
-                                    </tbody>
-                                </table>
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className="modal-wrapper"></div>
                             </div>
-                            <div className="modal-wrapper"></div>
                         </div>
                         <div className="column is-4" id="profile-small">
-                            <Rank
-                                hours={
-                                    data.hours.tutoring +
-                                    data.hours.volunteering
-                                }
-                                active={active}
-                                setActive={setActive}
-                            />
+                            <div className="profile-small-tour">
+                                <Rank
+                                    hours={
+                                        data.hours.tutoring +
+                                        data.hours.volunteering
+                                    }
+                                    active={active}
+                                    setActive={setActive}
+                                />
 
-                            <div className="profile-badges-title">Badges</div>
-                            <hr className="profile-line small-margins"></hr>
-                            <div className="columns is-mobile is-multiline profile-badges">
-                                {data.badges.map((name) => {
-                                    return Badge(name, active, setActive);
-                                })}
+                                <div className="profile-badges-title">
+                                    Badges
+                                </div>
+                                <hr className="profile-line small-margins"></hr>
+                                <div className="columns is-mobile is-multiline profile-badges">
+                                    {data.badges.map((name) => {
+                                        return Badge(name, active, setActive);
+                                    })}
+                                </div>
                             </div>
                             <br></br>
                         </div>
@@ -305,6 +319,96 @@ function Profile() {
         }
     }
 
+    const steps = [
+        {
+            selector: "",
+            content: (
+                <>
+                    <div className="tour-header">Member Profile</div>
+                    <div className="tour-body">
+                        This is your <b>NHS profile</b>.<br></br>
+                        <br></br>
+                        Here, all your NHS related data are displayed. Don't
+                        worry, only you (and your admin leader, of course) can
+                        see this information.
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+        },
+        {
+            selector: ".profile-large-tour",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        Your <b>hours</b> and <b>opportunities</b> are displayed
+                        here.<br></br>
+                        <br></br>
+                        No more hours logs, woohoo! We now count the hours for
+                        you so that you may focus on volunteering.
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+        },
+        {
+            selector: ".profile-small-tour",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        We implemented a <b>rank</b> and <b>badges</b> system.
+                        <br></br>
+                        <br></br>
+                        The more volunteering you do, the higher your rank will
+                        be. You can also obtain <b>unique badges</b> through
+                        special events, awards, and opportunities.
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+            stepInteraction: false,
+        },
+        {
+            selector: ".frame-toolbar-volunteering",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        Here are pages for <b>volunteering</b>.
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+            stepInteraction: false,
+        },
+        {
+            selector: "#toolbar-element-FindOpportunity",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        Let's go see all your new <b>opportunities</b>.<br></br>
+                        <br></br>
+                        Click "Find Opportunity" to continue.
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+        },
+    ];
+
     if (loading) {
         return <>Loading Events...</>;
     }
@@ -314,12 +418,20 @@ function Profile() {
     } else {
         return (
             <>
+                <WelcomeTour
+                    steps={steps}
+                    open={isTourOpen}
+                    setOpen={setIsTourOpen}
+                    route={"/member"}
+                    startAt={0}
+                    offset={0}
+                />
                 <div className="columns is-multiline tutor-list">
                     <div className="column is-full tutor-list-title">
                         Profile
                         <hr className="tutor-list-hr"></hr>
                     </div>
-                    <div className="column is-full profile-wrapper">
+                    <div className="column is-full">
                         <DisplayProfile uid={user.uid} />
                     </div>
                 </div>
@@ -328,4 +440,4 @@ function Profile() {
     }
 }
 
-export default withAuth(withFrame(Profile, "Profile"), "member");
+export default withAuth(withFrame(Profile, "Profile", true), "member");
