@@ -3,11 +3,13 @@ import Footer from "../components/Footer.js";
 import React, { useState, useEffect } from "react";
 import Profile from "../components/Profile.js";
 import LazyLoad from "react-lazyload";
+import HeadTag from "/components/Head.js";
 
 function About() {
     let [hidden, setHidden] = useState(5);
     return (
         <>
+            <HeadTag page={"About Us"} />
             <Navbar />
 
             <div className="page-wrapper" id="about">
