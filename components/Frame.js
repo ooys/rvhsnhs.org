@@ -12,7 +12,7 @@ initFirebase();
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-function withFrame(C, currPage) {
+function withFrame(C, currPage, isWelcome) {
     function Toolbar() {
         const [currRole, setCurrRole] = useState("");
         const [user, loading, error] = useAuthState(auth);
@@ -72,7 +72,9 @@ function withFrame(C, currPage) {
                     }
                 }
                 return (
-                    <div className="column is-full toolbar-title toolbar-is-hidden">
+                    <div
+                        className="column is-full toolbar-title toolbar-is-hidden"
+                        id={"toolbar-title-" + page}>
                         {page}
                     </div>
                 );
@@ -86,23 +88,24 @@ function withFrame(C, currPage) {
                         return null;
                     }
                 }
-                if (currPage === page) {
-                    return (
-                        <Link href={route}>
-                            <a className="column is-full toolbar-element element-selected">
-                                {page}
-                            </a>
-                        </Link>
-                    );
-                } else {
-                    return (
-                        <Link href={route}>
-                            <a className="column is-full toolbar-element">
-                                {page}
-                            </a>
-                        </Link>
-                    );
-                }
+                return (
+                    <Link href={isWelcome ? "/welcome/" + route : route}>
+                        <a
+                            className={
+                                "column is-full toolbar-element " +
+                                (currPage === page ? "element-selected" : "")
+                            }
+                            id={
+                                "toolbar-element-" +
+                                page
+                                    .split(" ")
+                                    .filter((s) => s)
+                                    .join("")
+                            }>
+                            {page}
+                        </a>
+                    </Link>
+                );
             } else return null;
         }
 
@@ -119,37 +122,55 @@ function withFrame(C, currPage) {
             return (
                 <>
                     <div className="columns is-multiline frame-toolbar">
-                        <ToolbarTitle page="Member" needRole={"member"} />
-                        <ToolbarElement
-                            page="Home"
-                            route="/member"
-                            needRole={"member"}
-                        />
-                        <ToolbarElement
-                            page="Profile"
-                            route="/profile"
-                            needRole={"member"}
-                        />
-                        <ToolbarTitle
-                            page="Opportunities"
-                            needRole={"member"}
-                        />
-                        <ToolbarElement
-                            page="Find Opportunity"
-                            route="/member/opportunities"
-                            needRole={"member"}
-                        />
-                        <ToolbarTitle page="Tutoring" needRole={"member"} />
-                        <ToolbarElement
-                            page="Tutoring Dashboard"
-                            route="/member/tutoring"
-                            needRole={"member"}
-                        />
-                        <ToolbarElement
-                            page="Find Tutee"
-                            route="/member/tutoring/findtutee"
-                            needRole={"member"}
-                        />
+                        <div className="column is-full">
+                            <div className="columns is-multiline frame-toolbar-member">
+                                <ToolbarTitle
+                                    page="Member"
+                                    needRole={"member"}
+                                />
+                                <ToolbarElement
+                                    page="Home"
+                                    route="/member"
+                                    needRole={"member"}
+                                />
+                                <ToolbarElement
+                                    page="Profile"
+                                    route="/profile"
+                                    needRole={"member"}
+                                />
+                            </div>
+                        </div>
+                        <div className="column is-full">
+                            <div className="columns is-multiline frame-toolbar-volunteering">
+                                <ToolbarTitle
+                                    page="Opportunities"
+                                    needRole={"member"}
+                                />
+                                <ToolbarElement
+                                    page="Find Opportunity"
+                                    route="/member/opportunities"
+                                    needRole={"member"}
+                                />
+                            </div>
+                        </div>
+                        <div className="column is-full">
+                            <div className="columns is-multiline frame-toolbar-tutoring">
+                                <ToolbarTitle
+                                    page="Tutoring"
+                                    needRole={"member"}
+                                />
+                                <ToolbarElement
+                                    page="Tutoring Dashboard"
+                                    route="/member/tutoring"
+                                    needRole={"member"}
+                                />
+                                <ToolbarElement
+                                    page="Find Tutee"
+                                    route="/member/tutoring/findtutee"
+                                    needRole={"member"}
+                                />
+                            </div>
+                        </div>
                         <ToolbarTitle
                             page="Tutee"
                             isNotHidden={["Information", "Feedback"]}
