@@ -12,7 +12,7 @@ function HeadTag() {
                 />
                 <meta
                     property="og:image"
-                    content="https://rvhnhs.vercel.app/images/nhs_black.svg"
+                    content="https://rvhnhs.vercel.app/images/nhslogo.png"
                     key="image"
                 />
                 <meta
