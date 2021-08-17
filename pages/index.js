@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer";
 import HeroSection from "../components/HeroSection.js";
 import ImageGallery from "react-image-gallery";
+import HeadTag from "/components/Head.js";
 
 function Index() {
     let [hidden, setHidden] = useState(0);
@@ -106,6 +107,7 @@ function Index() {
 
     return (
         <>
+            <HeadTag />
             <Navbar />
             <HeroSection />
             <div className="page-wrapper" id="index">
