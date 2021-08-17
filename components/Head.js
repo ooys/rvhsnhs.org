@@ -10,11 +10,12 @@ function HeadTag() {
                     content="Riverside National Honor Society"
                     key="title"
                 />
+                <meta property="og:site_name" content="Website Name"></meta>
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://rvhnhs.vercel.app/" />
                 <meta
                     property="og:image"
-                    content="https://rvhnhs.vercel.app/images/nhslogo.png"
+                    content="https://rvhnhs.vercel.app/images/nhslogowhite.png"
                     key="image"
                 />
                 <meta
@@ -23,7 +24,7 @@ function HeadTag() {
                     key="description"
                 />
                 <meta name="theme-color" content="#2793fa" />
-                <meta name="twitter:card" content="summary_large_image" />
+                {/* <meta name="twitter:card" content="summary_large_image" /> */}
             </Head>
         </div>
     );
