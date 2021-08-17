@@ -1,36 +1,16 @@
 import Head from "next/head";
 
-function HeadTag() {
+function HeadTag({ page }) {
     return (
         <div>
             <Head>
-                {/* <title>Riverside National Honor Society</title>
-                <meta
-                    property="og:title"
-                    content="Riverside National Honor Society"
-                    key="title"
-                />
-                <meta property="og:site_name" content="Website Name"></meta>
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://rvhnhs.vercel.app/" />
-                <meta
-                    property="og:image"
-                    content="https://rvhnhs.vercel.app/images/nhslogowhite.png"
-                    key="image"
-                />
-                <meta
-                    property="og:description"
-                    content="Volunteer. Lead. Serve."
-                    key="description"
-                />
-                <meta name="theme-color" content="#2793fa" />
-                <meta name="twitter:card" content="summary_large_image" /> */}
-                {/* <!-- Primary Meta Tags --> */}
-                <title>Riverside National Honor Society</title>
+                <title>
+                    Riverside National Honor Society{+page ? " - " + page : ""}
+                </title>
                 <meta name="title" content="Riverside National Honor Society" />
                 <meta
                     name="description"
-                    content="National Honor Society is dedicated to empowering communities through meaningful service. With Group Service Projects, Individual Volunteering, and the most successful tutoring program in Loudoun County, the Riverside Chapter is making a difference. Think you've got what it takes?"
+                    content="Riverside National Honor Society is dedicated to empowering Northern Virginia communities through meaningful volunteering and tutoring services."
                 />
 
                 {/* <!-- Open Graph / Facebook --> */}
@@ -42,7 +22,7 @@ function HeadTag() {
                 />
                 <meta
                     property="og:description"
-                    content="National Honor Society is dedicated to empowering communities through meaningful service. With Group Service Projects, Individual Volunteering, and the most successful tutoring program in Loudoun County, the Riverside Chapter is making a difference. Think you've got what it takes?"
+                    content="Riverside National Honor Society is dedicated to empowering Northern Virginia communities through meaningful volunteering and tutoring services."
                 />
                 <meta
                     property="og:image"
@@ -61,7 +41,7 @@ function HeadTag() {
                 />
                 <meta
                     property="twitter:description"
-                    content="National Honor Society is dedicated to empowering communities through meaningful service. With Group Service Projects, Individual Volunteering, and the most successful tutoring program in Loudoun County, the Riverside Chapter is making a difference. Think you've got what it takes?"
+                    content="Riverside National Honor Society is dedicated to empowering Northern Virginia communities through meaningful volunteering and tutoring services."
                 />
                 <meta
                     property="twitter:image"
