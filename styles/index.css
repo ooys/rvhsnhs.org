@@ -531,6 +531,132 @@ video {
     margin-left: 4px;
 }
 
+.custom-shape-divider-bottom-1629403044 {
+    position: absolute;
+    bottom: -105px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1629403044 svg {
+    position: relative;
+    display: block;
+    width: calc(106% + 1.3px);
+    height: 150px;
+}
+
+.custom-shape-divider-bottom-1629403044 .shape-fill {
+    fill: #ffffff;
+}
+
+.custom-shape-divider-top-1629403421 {
+    position: relative;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1629403421 svg {
+    position: relative;
+    display: block;
+    width: calc(182% + 1.3px);
+    height: 120px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1629403421 .shape-fill {
+    fill: #ffffff;
+}
+
+.custom-shape-divider-bottom-1629403947 {
+    position: relative;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1629403947 svg {
+    position: relative;
+    display: block;
+    width: calc(182% + 1.3px);
+    height: 150px;
+}
+
+.custom-shape-divider-bottom-1629403947 .shape-fill {
+    fill: #ffffff;
+}
+
+.custom-shape-divider-top-1629404117 {
+    position: relative;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1629404117 svg {
+    position: relative;
+    display: block;
+    width: calc(300% + 1.3px);
+    height: 120px;
+}
+
+.custom-shape-divider-top-1629404117 .shape-fill {
+    fill: #ffffff;
+}
+
+.custom-shape-divider-bottom-1629404241 {
+    position: relative;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1629404241 svg {
+    position: relative;
+    display: block;
+    width: calc(167% + 1.3px);
+    height: 120px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1629404241 .shape-fill {
+    fill: #ffffff;
+}
+
+.custom-shape-divider-top-1629404316 {
+    position: relative;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1629404316 svg {
+    position: relative;
+    display: block;
+    width: calc(177% + 1.3px);
+    height: 199px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1629404316 .shape-fill {
+    fill: #ffffff;
+}
+
 @media screen and (max-width: 960px) {
     .hero-container > h1 {
         font-size: 70px;
