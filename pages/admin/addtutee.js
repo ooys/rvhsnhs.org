@@ -189,7 +189,7 @@ function AddTutee() {
                     "Theater Arts IV",
                     "Technical Theater I",
                     "Technical Theater 2",
-                    "Musical Theater]",
+                    "Musical Theater",
                 ];
             } else if (tutorsubject === "Music") {
                 choices = [
