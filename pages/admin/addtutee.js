@@ -16,7 +16,7 @@ initFirebase();
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-function TuteeApply() {
+function AddTutee() {
     const router = useRouter();
     const [user, loading, error] = useAuthState(auth);
     const [userData, setUserData] = useState(["null", "null"]);
@@ -296,57 +296,56 @@ function TuteeApply() {
         console.log(exterior);
 
         const tuteeRef = db.collection("tutee-requests");
-        await tuteeRef
-            .add({
-                tutee: {
-                    uid: userData[0],
-                    first: values.first,
-                    last: values.last,
-                    email: values.email,
-                    school: {
-                        name: values.school,
-                        grade: values.grade,
-                        subject: values.subject,
-                        course: values.course,
-                        teacher: {
-                            first: values.teacherfirst,
-                            last: values.teacherlast,
-                            email: values.teacheremail,
-                        },
-                        counseloremail: values.counseloremail,
+        await tuteeRef.add({
+            tutee: {
+                uid: userData[0],
+                first: values.first,
+                last: values.last,
+                email: values.email,
+                school: {
+                    name: values.school,
+                    grade: values.grade,
+                    subject: values.subject,
+                    course: values.course,
+                    teacher: {
+                        first: values.teacherfirst,
+                        last: values.teacherlast,
+                        email: values.teacheremail,
                     },
+                    counseloremail: values.counseloremail,
                 },
-                parent: {
-                    first: values.parentfirst,
-                    last: values.parentlast,
-                    email: values.parentemail,
-                },
-                termlength: values.termlength,
-                comments: values.comments,
-                format: values.format,
-                availability: {
-                    studyhall: values.studyhall,
-                    exterior: exterior,
-                },
-                timestamp: new firebase.firestore.Timestamp.now(),
-            })
-            .then(() => {
-                let emailHtml = `You have registered for tutoring in <b>${values.subject}</b> with Riverside NHS. A follow-up email will be sent once you are paired with our tutor!`;
-                sendEmail(
-                    values.email + "," + values.parentemail,
-                    "Registered: Riverside NHS Tutoring",
-                    "Success!",
-                    emailHtml
-                );
-            })
-            .then(() => {
-                swal(
-                    "Success!",
-                    "Tutoring application has been submitted. We have sent you a confirmation email.",
-                    "success"
-                );
-                router.push("/findtutor");
-            });
+            },
+            parent: {
+                first: values.parentfirst,
+                last: values.parentlast,
+                email: values.parentemail,
+            },
+            termlength: values.termlength,
+            comments: values.comments,
+            format: values.format,
+            availability: {
+                studyhall: values.studyhall,
+                exterior: exterior,
+            },
+            timestamp: new firebase.firestore.Timestamp.now(),
+        });
+        // .then(() => {
+        //     let emailHtml = `You have registered for tutoring in <b>${values.subject}</b> with Riverside NHS. A follow-up email will be sent once you are paired with our tutor!`;
+        //     sendEmail(
+        //         values.email + "," + values.parentemail,
+        //         "Registered: Riverside NHS Tutoring",
+        //         "Success!",
+        //         emailHtml
+        //     );
+        // })
+        // .then(() => {
+        //     swal(
+        //         "Success!",
+        //         "Tutoring application has been submitted. We have sent you a confirmation email.",
+        //         "success"
+        //     );
+        //     // router.push("/findtutor");
+        // });
     }
 
     function FormWrapper({ uid }) {
@@ -377,82 +376,79 @@ function TuteeApply() {
                             onSubmit={handleSubmit(onSubmitForm)}>
                             <div className="field-title">Tutee Information</div>
                             <hr className="field-title-hr"></hr>
-                            <fieldset disabled>
-                                <div className="field is-grouped">
-                                    <label className="label">
-                                        First Name
-                                        <div className="control">
-                                            <input
-                                                className="input"
-                                                type="text"
-                                                value={
-                                                    data.first
-                                                        .charAt(0)
-                                                        .toUpperCase() +
-                                                    data.first
-                                                        .slice(1)
-                                                        .toLowerCase()
-                                                }
-                                                {...register("first", {
-                                                    required: true,
-                                                })}></input>
-                                            <span className="help is-danger">
-                                                {errors.first?.type ===
-                                                    "required" &&
-                                                    "First name is required."}
-                                            </span>
-                                        </div>
-                                    </label>
-                                    <label className="label">
-                                        Last Name
-                                        <div className="control">
-                                            <input
-                                                className="input"
-                                                type="text"
-                                                value={
-                                                    data.last
-                                                        .charAt(0)
-                                                        .toUpperCase() +
-                                                    data.last
-                                                        .slice(1)
-                                                        .toLowerCase()
-                                                }
-                                                {...register("last", {
-                                                    required: true,
-                                                })}></input>
-                                            <span className="help is-danger">
-                                                {errors.last?.type ===
-                                                    "required" &&
-                                                    "Last name is required."}
-                                            </span>
-                                        </div>
-                                    </label>
-                                </div>
+                            <div className="field is-grouped">
+                                <label className="label">
+                                    First Name
+                                    <div className="control">
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            // value={
+                                            //     data.first
+                                            //         .charAt(0)
+                                            //         .toUpperCase() +
+                                            //     data.first
+                                            //         .slice(1)
+                                            //         .toLowerCase()
+                                            // }
+                                            {...register("first", {
+                                                required: true,
+                                            })}></input>
+                                        <span className="help is-danger">
+                                            {errors.first?.type ===
+                                                "required" &&
+                                                "First name is required."}
+                                        </span>
+                                    </div>
+                                </label>
+                                <label className="label">
+                                    Last Name
+                                    <div className="control">
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            // value={
+                                            //     data.last
+                                            //         .charAt(0)
+                                            //         .toUpperCase() +
+                                            //     data.last
+                                            //         .slice(1)
+                                            //         .toLowerCase()
+                                            // }
+                                            {...register("last", {
+                                                required: true,
+                                            })}></input>
+                                        <span className="help is-danger">
+                                            {errors.last?.type === "required" &&
+                                                "Last name is required."}
+                                        </span>
+                                    </div>
+                                </label>
+                            </div>
 
-                                <div className="field is-grouped">
-                                    <label className="label">
-                                        Student LCPS Email
-                                        <div className="control">
-                                            <input
-                                                className="input"
-                                                type="text"
-                                                value={data.email}
-                                                {...register("email", {
-                                                    required: true,
-                                                })}></input>
-                                            <span className="help">
-                                                LCPS issued student email
-                                                (Student ID +@lcps.org)
-                                            </span>
-                                            <span className="help is-danger">
-                                                {errors.title?.type ===
-                                                    "required" &&
-                                                    "Email is required."}
-                                            </span>
-                                        </div>
-                                    </label>
-                                </div>
-                            </fieldset>
+                            <div className="field is-grouped">
+                                <label className="label">
+                                    Student LCPS Email
+                                    <div className="control">
+                                        <input
+                                            className="input"
+                                            type="text"
+                                            // value={data.email}
+                                            {...register("email", {
+                                                required: true,
+                                            })}></input>
+                                        <span className="help">
+                                            LCPS issued student email (Student
+                                            ID +@lcps.org)
+                                        </span>
+                                        <span className="help is-danger">
+                                            {errors.title?.type ===
+                                                "required" &&
+                                                "Email is required."}
+                                        </span>
+                                    </div>
+                                </label>
+                            </div>
                             <div className="field is-grouped">
                                 <label className="label">
                                     <div className="control">
@@ -928,7 +924,7 @@ function TuteeApply() {
                                         name="cancel"
                                         value="Cancel"
                                         onClick={() => {
-                                            router.push("/findtutor");
+                                            // router.push("/findtutor");
                                         }}></input>
                                 </div>
                             </div>
@@ -959,4 +955,4 @@ function TuteeApply() {
     }
 }
 
-export default withAuth(TuteeApply, "student");
+export default withAuth(AddTutee, "admin");
