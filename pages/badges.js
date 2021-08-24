@@ -140,6 +140,17 @@ function Badges() {
                                     <div className="column listed-badge is-one-third">
                                         <Badge name={"beta_tester"} />
                                     </div>
+                                    <div className="column listed-badge is-one-third">
+                                        <Badge name={"bug_hunter"} />
+                                    </div>
+                                    <div className="column listed-badge is-one-third">
+                                        <Badge name={"overachiever"} />
+                                    </div>
+                                    <div className="column listed-badge is-one-third">
+                                        <Badge
+                                            name={"volunteer_of_the_month"}
+                                        />
+                                    </div>
                                     {/* <div className="column listed-badge is-one-third">
                                         <a
                                             className="column listed-badge-wrapper"
