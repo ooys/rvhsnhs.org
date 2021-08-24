@@ -14,6 +14,11 @@ import { useState } from "react";
 import swal from "sweetalert";
 import sendEmail from "/components/email/sendEmail.js";
 import Empty from "/components/utils/Empty.js";
+import dynamic from "next/dynamic";
+
+const WelcomeTour = dynamic(() => import("/components/WelcomeTour"), {
+    ssr: false,
+});
 
 initFirebase();
 const db = firebase.firestore();
@@ -31,6 +36,7 @@ function TutorSelect() {
         subject: [],
         availability: [],
     });
+    const [isTourOpen, setIsTourOpen] = useState(true);
 
     const formatFilter = ["Virtual", "In Person"];
     const termLengthFilter = ["Short Term", "Long Term"];
@@ -62,13 +68,6 @@ function TutorSelect() {
         "Thursday Afternoon",
         "Friday Morning",
         "Friday Afternoon",
-    ];
-
-    const allFilters = [
-        formatFilter,
-        termLengthFilter,
-        subjectFilter,
-        availabilityFilter,
     ];
 
     function acceptTutee(tuteeData, docId, uid) {
@@ -625,6 +624,107 @@ function TutorSelect() {
         );
     }
 
+    const steps = [
+        {
+            selector: "",
+            content: (
+                <>
+                    <div className="tour-header">Find Tutee</div>
+                    <div className="tour-body">
+                        We tried to optimize the tutee-pairing process for you.
+                        All tutee information and preferences are displayed on
+                        this page.
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+        },
+        {
+            selector: ".tutee-filter",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        Use this filter to find tutees that match{" "}
+                        <b>your availabilities</b>.<br></br>
+                        <br></br>
+                        Make sure to read their comments for special
+                        preferences!
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+            stepInteraction: false,
+        },
+        {
+            selector: ".tutee-list",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        All the unpaired tutees are listed below. You can
+                        request to be their tutor by simply pressing the
+                        "Request" button.
+                        <br></br>
+                        <br></br>
+                        NHS officers will then verify your request. Once
+                        verified, you and your tutee will be{" "}
+                        <b>notified by email</b>. You are then responsible for
+                        all follow-up communications with the tutee.<br></br>
+                        <br></br>
+                        Make sure you don't request for more tutees than you can
+                        handle! <b>Quality over quantity</b>!
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+            stepInteraction: false,
+        },
+        {
+            selector: "",
+            content: (
+                <>
+                    <div className="tour-header">You made it!</div>
+                    <div className="tour-body">
+                        Wow, can't believe that we reached the end of the
+                        website tour!
+                        <br></br>
+                        <br></br>
+                        If you have any follow-up questions, please contact us
+                        by email.
+                        <br></br>
+                        <br></br>
+                        <div className="columns">
+                            <a
+                                className="column is-half tour-button"
+                                onClick={() => {
+                                    router.push("/welcome/member");
+                                }}>
+                                Restart Tour
+                            </a>
+                            <a
+                                className="column is-half tour-button"
+                                onClick={() => {
+                                    router.push("/member");
+                                }}>
+                                End Tour
+                            </a>
+                        </div>
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+        },
+    ];
+
     if (loading || loading2) {
         return <div>Loading...</div>;
     }
@@ -638,6 +738,14 @@ function TutorSelect() {
     } else {
         return (
             <>
+                <WelcomeTour
+                    steps={steps}
+                    open={isTourOpen}
+                    setOpen={setIsTourOpen}
+                    route={"/member"}
+                    startAt={0}
+                    offset={0}
+                />
                 <div className="columns is-multiline tutor-list">
                     <div className="column is-full tutor-list-title">
                         Unpaired Tutees
@@ -655,4 +763,4 @@ function TutorSelect() {
     }
 }
 
-export default withAuth(withFrame(TutorSelect, "Find Tutee"), "member");
+export default withAuth(withFrame(TutorSelect, "Find Tutee", true), "member");

@@ -9,19 +9,22 @@ import swal from "sweetalert";
 function Badges() {
     const [active, setActive] = useState("");
     const router = useRouter();
+    const badgenames = ["officer", "beta_tester", "bug_hunter", "overachiever", "volunteer_of_the_month", "colorrun", "holidayparty", "bronze", "trophy"];
 
     function BadgeModal({ name, title, src, desc, color }) {
         if (active === name) {
             return (
                 <>
-                    <a
-                        className="column listed-badge-wrapper"
-                        onClick={() => {
-                            setActive(name);
-                        }}>
-                        <img className="badge-pic" src={src} alt={title}></img>
-                    </a>
-                    <div className="listed-badge-name">{title}</div>
+                    <div className="column listed-badge is-one-third">
+                        <a
+                            className="column listed-badge-wrapper"
+                            onClick={() => {
+                                setActive(name);
+                            }}>
+                            <img className="badge-pic" src={src} alt={title}></img>
+                        </a>
+                        <div className="listed-badge-name">{title}</div>
+                    </div>
                     <div className={"modal is-active"} id="badge-modal">
                         <div
                             className="modal-background"
@@ -55,14 +58,16 @@ function Badges() {
         } else {
             return (
                 <>
-                    <a
-                        className="column listed-badge-wrapper"
-                        onClick={() => {
-                            setActive(name);
-                        }}>
-                        <img className="badge-pic" src={src} alt={title}></img>
-                    </a>
-                    <div className="listed-badge-name">{title}</div>
+                    <div className="column listed-badge is-one-third">
+                        <a
+                            className="column listed-badge-wrapper"
+                            onClick={() => {
+                                setActive(name);
+                            }}>
+                            <img className="badge-pic" src={src} alt={title}></img>
+                        </a>
+                        <div className="listed-badge-name">{title}</div>
+                    </div>
                 </>
             );
         }
@@ -96,10 +101,30 @@ function Badges() {
                 break;
             case "volunteer_of_the_month":
                 title = '"Volunteer of the Month" Award';
-                desc =
-                    "Selected as Volunteer of the Month by the NHS committee.";
+                desc = "Selected as Volunteer of the Month by the NHS committee.";
                 src = "/images/badges/medal.svg";
                 break;
+            case "colorrun":
+                title = "Color Run GSP";
+                desc = "Volunteered in the Color Run GSP.";
+                src = "/images/badges/colorrun.svg";
+                break;
+            case "holidayparty":
+                title = "Holiday Party GSP";
+                desc = "Volunteered in the Holiday Party GSP";
+                src = "/images/badges/holidayparty.svg";
+                break;
+            case "bronze":
+                title = "Bronze Rank";
+                desc = "Members in the novice tier are often newer members or those who have yet to engage in significant volunteer work. While it may not be the most visually appealing badge, it’s a starting point for our volunteering journey.";
+                src = "/images/badges/rank3.svg";
+                break;
+            case "trophy":
+                title = "Mystery";
+                desc = "A badge past Master tier? Impossible. ";
+                src = "/images/badges/crystaltrophy.svg";
+                break;
+
         }
         return (
             <BadgeModal
@@ -134,149 +159,14 @@ function Badges() {
                                 </div>
                                 <br></br>
                                 <div className="columns badge-list is-multiline">
-                                    <div className="column listed-badge is-one-third">
-                                        <Badge name={"officer"} />
-                                    </div>
-                                    <div className="column listed-badge is-one-third">
-                                        <Badge name={"beta_tester"} />
-                                    </div>
-                                    <div className="column listed-badge is-one-third">
-                                        <Badge name={"bug_hunter"} />
-                                    </div>
-                                    <div className="column listed-badge is-one-third">
-                                        <Badge name={"overachiever"} />
-                                    </div>
-                                    <div className="column listed-badge is-one-third">
-                                        <Badge
-                                            name={"volunteer_of_the_month"}
-                                        />
-                                    </div>
-                                    {/* <div className="column listed-badge is-one-third">
-                                        <a
-                                            className="column listed-badge-wrapper"
-                                            onClick={() => {
-                                                setActive("beta_tester");
-                                            }}>
-                                            <img
-                                                className="badge-pic"
-                                                src="/images/badges/beta_tester.svg"
-                                                alt="Beta Tester"></img>
-                                        </a>
-                                        <div className="listed-badge-name">
-                                            Beta Tester
-                                        </div>
-                                    </div>
-                                    <div className="column listed-badge is-one-third">
-                                        <a
-                                            className="column listed-badge-wrapper"
-                                            onClick={() => {
-                                                setActive(title);
-                                            }}>
-                                            <img
-                                                className="badge-pic"
-                                                src="/images/badges/bug_hunter.svg"
-                                                alt="Bug Hunter"></img>
-                                        </a>
-                                        <div className="listed-badge-name">
-                                            Bug Hunter
-                                        </div>
-                                    </div>
-                                    <div className="column listed-badge is-one-third is-offset-2">
-                                        <a
-                                            className="column listed-badge-wrapper"
-                                            onClick={() => {
-                                                setActive(title);
-                                            }}>
-                                            <img
-                                                className="badge-pic"
-                                                src="/images/badges/overachiever.svg"
-                                                alt="Overachiever"></img>
-                                        </a>
-                                        <div className="listed-badge-name">
-                                            Overachiever
-                                        </div>
-                                    </div>
-                                    <div className="column listed-badge is-one-third">
-                                        <a
-                                            className="column listed-badge-wrapper"
-                                            onClick={() => {
-                                                setActive(title);
-                                            }}>
-                                            <img
-                                                className="badge-pic"
-                                                src="/images/badges/medal.svg"
-                                                alt="Volunteer of the Month"></img>
-                                        </a>
-                                        <div className="listed-badge-name">
-                                            Volunteer of the Month
-                                        </div>
-                                    </div>
-                                    <div className="column listed-badge is-one-third"></div>
-                                    <div className="column listed-badge is-one-third"></div>
-                                    <div className="column listed-badge is-one-third"></div>
-                                    <div className="column listed-badge is-one-third"></div> */}
+                                        {badgenames.map((name) => {
+                                            return <Badge name={name} />;
+                                        })}
                                 </div>
-                            </div>
-                            {/* <div className="column about-section-text is-full">
-                                <div className="columns about-section-split">
-                                    <div className="column tutor-button-wrapper is-half">
-                                        <a
-                                            className="tutor-button"
-                                            onClick={() => {
-                                                router.push(
-                                                    "/student/findtutor"
-                                                );
-                                            }}>
-                                            Get started
-                                            <span className="hero-button-icon">
-                                                <FontAwesomeIcon
-                                                    icon={
-                                                        faArrowRight
-                                                    }></FontAwesomeIcon>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div className="column books-image-wrapper is-half">
-                                        <img
-                                            src="images/books.png"
-                                            className=" books-image"></img>
-                                    </div>
-                                </div>
-                            </div> */}
-                        </div>
-                    </div>
-                </div>
-
-                {/* <div className="columns">
-                    <div className="column">
-                        <div className="column is-vcentered">
-                            <div className="column tutoring-video-container is-half is-offset-one-quarter">
-                                <div className="column black-bg"></div>
-                            </div>
-                            <div className="column tutoring-video-body is-offset-4">
-                                Riverside Tutoring Promotional Video
                             </div>
                         </div>
                     </div>
                 </div>
-                WILL PROBABLY BE A TESTIMONIAL SECTION SOON
-                <div className="columns is-full is-bg-shade">
-                    <div className="column benefit-1 is-half is-offset-one-quarter">
-                        <img
-                            src="images\tutorimages\a-plus-best-test-result.png"
-                            className="column benefit-image"></img>
-                    </div>
-                    <div className="column benefit-2 is-half is-offset-one-quarter">
-                        <img
-                            src="images\tutorimages\exchange.png"
-                            className="column benefit-image"></img>
-                    </div>
-                    <div className="column benefit-3 is-half is-offset-one-quarter">
-                        <img
-                            src="images\tutorimages\tap.png"
-                            className="column benefit-image"></img>
-                    </div>
-                </div> */}
             </div>
             <Footer />
         </>

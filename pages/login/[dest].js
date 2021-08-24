@@ -39,11 +39,7 @@ function SignIn() {
             .doc(firebase.auth().currentUser.uid);
         profileRef.get().then((docSnapshot) => {
             if (!docSnapshot.exists) {
-                createProfile(profile).then(() => {
-                    profileRef.get().then((doc) => {
-                        router.push("/" + doc.data().role);
-                    });
-                });
+                createProfile(profile);
             } else {
                 router.push("/" + docSnapshot.data().role);
             }
@@ -128,32 +124,79 @@ function SignIn() {
                 { merge: true }
             );
         } else {
-            await userRef.set(
-                {
-                    first:
-                        profile.given_name.charAt(0).toUpperCase() +
-                        profile.given_name.slice(1).toLowerCase(),
-                    last:
-                        profile.family_name.charAt(0).toUpperCase() +
-                        profile.family_name.slice(1).toLowerCase(),
-                    sid: profileInfo.sid,
-                    email: profile.email,
-                    role: profileInfo.role,
-                    hours: {
-                        carryon: profileInfo.hours,
-                        volunteering: 0,
-                        tutoring: 0,
-                    },
-                    grade: profileInfo.grade,
-                    admingroup: profileInfo.admingroup,
-                    opportunities: {},
-                    tutoring: {},
-                    badges: ["beta_tester"],
-                    profilePicture: profile.picture,
-                    firstLogin: new firebase.firestore.Timestamp.now(),
-                },
-                { merge: true }
-            );
+            const agRef = db
+                .collection("admin-group")
+                .doc(profileInfo.admingroup.groupId);
+            agRef.get().then((snapshot) => {
+                if (snapshot.exists) {
+                    const agData = snapshot.data();
+                    userRef
+                        .set(
+                            {
+                                first:
+                                    profile.given_name.charAt(0).toUpperCase() +
+                                    profile.given_name.slice(1).toLowerCase(),
+                                last:
+                                    profile.family_name
+                                        .charAt(0)
+                                        .toUpperCase() +
+                                    profile.family_name.slice(1).toLowerCase(),
+                                sid: profileInfo.sid,
+                                email: profile.email,
+                                role: profileInfo.role,
+                                hours: {
+                                    carryon: profileInfo.hours,
+                                    volunteering: 0,
+                                    tutoring: 0,
+                                },
+                                grade: profileInfo.grade,
+                                admingroup: {
+                                    ...profileInfo.admingroup,
+                                    officer: agData.officer,
+                                },
+                                opportunities: {},
+                                tutoring: {},
+                                badges: ["beta_tester"],
+                                profilePicture: profile.picture,
+                                firstLogin:
+                                    new firebase.firestore.Timestamp.now(),
+                            },
+                            { merge: true }
+                        )
+                        .then(() => {
+                            agRef
+                                .update({
+                                    members:
+                                        firebase.firestore.FieldValue.arrayUnion(
+                                            {
+                                                uid: firebase.auth().currentUser
+                                                    .uid,
+                                                first:
+                                                    profile.given_name
+                                                        .charAt(0)
+                                                        .toUpperCase() +
+                                                    profile.given_name
+                                                        .slice(1)
+                                                        .toLowerCase(),
+                                                last:
+                                                    profile.family_name
+                                                        .charAt(0)
+                                                        .toUpperCase() +
+                                                    profile.family_name
+                                                        .slice(1)
+                                                        .toLowerCase(),
+                                                sid: profileInfo.sid,
+                                                email: profile.email,
+                                                grade: profileInfo.grade,
+                                            }
+                                        ),
+                                })
+                                .then(() => {
+                                    router.push("/welcome/member");
+                                });
+                        });
+                }
+            });
         }
     }
 
@@ -184,6 +227,19 @@ function SignIn() {
     );
 }
 
+function postLoginActions(uid) {
+    const router = useRouter();
+    const profileRef = db.collection("users").doc(uid);
+    profileRef.get().then((docSnapshot) => {
+        if (!docSnapshot.exists) {
+            // auth.signOut();
+            // router.push("/login/");
+        } else {
+            router.push("/" + docSnapshot.data().role);
+        }
+    });
+}
+
 function Login() {
     const router = useRouter();
     const { dest } = router.query;
@@ -195,8 +251,9 @@ function Login() {
     if (error != undefined || user == undefined) {
         return <SignIn />;
     } else {
-        router.push("/" + dest);
-        return <>Signed in!</>;
+        // router.push("/" + dest);
+        // postLoginActions(user.uid);
+        return <>Routing</>;
     }
 }
 

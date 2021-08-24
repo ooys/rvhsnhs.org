@@ -8,6 +8,11 @@ import initFirebase from "/services/firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import dynamic from "next/dynamic";
+
+const WelcomeTour = dynamic(() => import("/components/WelcomeTour"), {
+    ssr: false,
+});
 
 initFirebase();
 const auth = firebase.auth();
@@ -18,6 +23,7 @@ function Dashboard() {
     const [user, loading, error] = useAuthState(auth);
     const [allEvents, setAllEvents] = useState([]);
     const [userData, setUserData] = useState(["null", "null"]);
+    const [isTourOpen, setIsTourOpen] = useState(true);
 
     async function getUserData(uid) {
         if (userData[0] != uid) {
@@ -109,6 +115,102 @@ function Dashboard() {
         }
     }
 
+    const steps = [
+        {
+            selector: "",
+            content: (
+                <>
+                    <div className="tour-header">
+                        Hello, {userData[1].first}!
+                    </div>
+                    <div className="tour-body">
+                        Welcome to Riverside NHS Portal!
+                        <br></br>
+                        <br></br>
+                        This is the place where you can manage all your
+                        resources, including your NHS <b>profile</b>,{" "}
+                        <b>volunteering</b> opportunities, and <b>tutoring</b>{" "}
+                        pairs.
+                        <br></br>
+                        <br></br>
+                        Let's go on a quick tour!
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+        },
+        {
+            selector: ".tutor-list-title",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        This is your <b>Dashboard</b>.<br></br>
+                        <br></br>
+                        It is the first place you will reach upon login.
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+        },
+        {
+            selector: ".calendar-wrapper",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        Your interactive <b>Calendar</b> displays all your
+                        NHS-related events.<br></br>
+                        <br></br>
+                        We have already loaded for you all the dates and times
+                        of our full chapter meetings this year. check them out
+                        by flipping the pages!
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+        },
+        {
+            selector: ".frame-toolbar-member",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        This is your <b>member toolbar</b>.<br></br>
+                        <br></br>
+                        All the pages you can visit are listed here.
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+            stepInteraction: false,
+        },
+        {
+            selector: "#toolbar-element-Profile",
+            content: (
+                <>
+                    <div className="tour-header"></div>
+                    <div className="tour-body">
+                        Let's check out your <b>NHS profile</b>!<br></br>
+                        <br></br>
+                        Click "Profile" to continue.
+                    </div>
+                    <div className="tour-footer">
+                        <img src="/images/nhslogo.png" />
+                    </div>
+                </>
+            ),
+        },
+    ];
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -117,12 +219,20 @@ function Dashboard() {
     } else {
         return (
             <>
+                <WelcomeTour
+                    steps={steps}
+                    open={isTourOpen}
+                    setOpen={setIsTourOpen}
+                    route={"/member"}
+                    startAt={0}
+                    offset={0}
+                />
                 <div className="columns is-multiline tutor-list">
                     <div className="column is-full tutor-list-title">
                         Dashboard
                         <hr className="tutor-list-hr"></hr>
                     </div>
-                    <div className="column is-full">
+                    <div className="column is-full calendar-wrapper">
                         <CalendarWrapper uid={user.uid} />
                     </div>
                 </div>
@@ -131,4 +241,4 @@ function Dashboard() {
     }
 }
 
-export default withAuth(withFrame(Dashboard, "Home"), "member");
+export default withAuth(withFrame(Dashboard, "Home", true), "member");

@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import sendEmail from "/components/email/sendEmail.js";
 import swal from "sweetalert";
+import Empty from "/components/utils/Empty.js";
 
 initFirebase();
 const db = firebase.firestore();
@@ -123,6 +124,9 @@ function Tutoring() {
             "Arts",
             "Music",
         ];
+        if (pairs.docs.length === 1) {
+            return <Empty />;
+        }
         return (
             <div className="columns is-multiline tutee-list">
                 {pairs.docs.map((pair, index) => {

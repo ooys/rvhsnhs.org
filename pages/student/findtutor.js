@@ -7,18 +7,19 @@ import withAuth from "/components/auth/withAuth.js";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useState } from "react";
 import sendEmail from "/components/email/sendEmail.js";
 import swal from "sweetalert";
 
 initFirebase();
 const db = firebase.firestore();
+const auth = firebase.auth();
 
 function TuteeApply() {
     const router = useRouter();
-    const { nid } = router.query;
-    const userRef = db.collection("users").doc(nid);
-    const [data, loading, error] = useDocumentDataOnce(userRef);
+    const [user, loading, error] = useAuthState(auth);
+    const [userData, setUserData] = useState(["null", "null"]);
     const {
         register,
         control,
@@ -271,6 +272,19 @@ function TuteeApply() {
         );
     }
 
+    async function getUserData(uid) {
+        if (userData[0] != uid) {
+            const userRef = db.collection("users").doc(uid);
+            userRef.get().then((snapshot) => {
+                const data = snapshot.data();
+                setUserData([uid, data]);
+                return data;
+            });
+        } else {
+            return userData[1];
+        }
+    }
+
     async function onSubmitForm(values) {
         console.log(values);
         let exterior = [];
@@ -285,7 +299,7 @@ function TuteeApply() {
         await tuteeRef
             .add({
                 tutee: {
-                    uid: nid,
+                    uid: userData[0],
                     first: values.first,
                     last: values.last,
                     email: values.email,
@@ -335,17 +349,10 @@ function TuteeApply() {
             });
     }
 
-    if (loading) {
-        return <>Loading Events...</>;
-    }
-    if (error != undefined || data == undefined) {
-        // console.log("error");
-        router.push("/student/findtutor");
-        return <div>Error!</div>;
-    } else {
-        return (
-            <>
-                <Navbar />
+    function FormWrapper({ uid }) {
+        if (userData[0] === uid) {
+            const data = userData[1];
+            return (
                 <div className="page-wrapper" id="tutee-apply">
                     <div
                         className={
@@ -356,11 +363,11 @@ function TuteeApply() {
                                 Tutee Registration
                             </div>
                             <div className="about-section-body">
-                                Students, please complete this form carefully to
-                                request a tutor in a particular subject area.
-                                Please check your email reguarly for our reply
-                                when we find a tutor suitable for your
-                                preferences.
+                                Students, please complete this form carefully
+                                with a parental guardian to request a tutor in a
+                                particular subject area. Please check your email
+                                reguarly for our reply when we find a tutor
+                                suitable for your preferences.
                             </div>
                         </div>
                     </div>
@@ -921,13 +928,31 @@ function TuteeApply() {
                                         name="cancel"
                                         value="Cancel"
                                         onClick={() => {
-                                            router.push("/student");
+                                            router.push("/findtutor");
                                         }}></input>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
+            );
+        } else {
+            getUserData(uid);
+            return null;
+        }
+    }
+
+    if (loading) {
+        return <>Loading Events...</>;
+    }
+    if (error != undefined || user == undefined) {
+        // console.log("error");
+        return <div>Error!</div>;
+    } else {
+        return (
+            <>
+                <Navbar />
+                <FormWrapper uid={user.uid} />
                 <Footer />
             </>
         );
