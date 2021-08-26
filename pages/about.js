@@ -175,13 +175,13 @@ function About() {
                                             <Profile
                                                 name="Noelle Koo"
                                                 position="Vice President"
-                                                // picture="/images/profile/n_koo.jpg"
+                                                picture="/images/profile/n_koo.jpg"
                                                 email="1004782@lcps.org"
                                             />
                                             <Profile
                                                 name="Shyamanth Kudum"
                                                 position="Vice President"
-                                                // picture="/images/profile/s_kudam.jpg"
+                                                picture="/images/profile/s_kudam.jpg"
                                                 email="836587@lcps.org"
                                             />
                                             <Profile
@@ -197,13 +197,13 @@ function About() {
                                             <Profile
                                                 name="Rachael Michitsch"
                                                 position="Admin Secretary"
-                                                // picture="/images/profile/y_song.jpg"
+                                                picture="/images/profile/r_michitsch.jpg"
                                                 email="811908@lcps.org"
                                             />
                                             <Profile
                                                 name="Lauren Price"
                                                 position="Admin Secretary"
-                                                // picture="/images/profile/l_price.jpg"
+                                                picture="/images/profile/l_price.jpg"
                                                 email="836568@lcps.org"
                                             />
                                             <Profile
@@ -243,7 +243,7 @@ function About() {
                                             <Profile
                                                 name="Noah Selehi"
                                                 position="Project Coordinator"
-                                                // picture="/images/profile/n_selehi.jpg"
+                                                picture="/images/profile/n_selehi.jpg"
                                                 email="812991@lcps.org"
                                             />
                                         </div>
@@ -259,7 +259,7 @@ function About() {
                                             <Profile
                                                 name="Neha Yannam"
                                                 position="Club Liaison"
-                                                // picture="/images/profile/n_yannam.jpg"
+                                                picture="/images/profile/n_yannam.jpg"
                                                 email="837719@lcps.org"
                                             />
                                         </div>
