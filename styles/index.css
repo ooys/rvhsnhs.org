@@ -1097,6 +1097,68 @@ video {
     transition: 0.5s all;
 }
 
+.custom-shape-divider-top-1629826782 {
+    position: relative;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1629826782 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 64px;
+}
+
+.custom-shape-divider-top-1629826782 .shape-fill {
+    fill: #ffffff;
+}
+
+.custom-shape-divider-bottom-1629829254 {
+    position: relative;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1629829254 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 64px;
+}
+
+.custom-shape-divider-bottom-1629829254 .shape-fill {
+    fill: #ffffff;
+}
+
+.custom-shape-divider-top-1629829561 {
+    position: relative;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1629829561 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 64px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1629829561 .shape-fill {
+    fill: #ffffff;
+}
+
 /* Profile */
 
 .is-profile {
