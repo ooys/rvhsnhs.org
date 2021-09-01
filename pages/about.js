@@ -147,7 +147,7 @@ function About() {
                                             <Profile
                                                 name="Brianna Trocki"
                                                 position="President"
-                                                // picture="/images/profile/b_trocki.jpg"
+                                                picture="/images/profile/b_trocki.jpg"
                                                 email="1007655@lcps.org"
                                             />
                                         </div>
@@ -225,7 +225,7 @@ function About() {
                                             <Profile
                                                 name="Ayush Gupta"
                                                 position="Project Coordinator"
-                                                // picture="/images/profile/a_gupta.jpg"
+                                                picture="/images/profile/a_gupta.jpg"
                                                 email="840536@lcps.org"
                                             />
                                             <Profile

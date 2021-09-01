@@ -2008,3 +2008,25 @@ video {
 .tour-button {
     text-align: center;
 }
+
+/* Outward Facing Pages */
+.about-section-header2 {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 3rem;
+    color: #2793fa;
+    text-align: center;
+    margin-top: -8rem;
+}
+
+.gsp-title-text {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #2793fa;
+    text-align: center;
+}
+
+.gsp-divider {
+    margin-bottom: 3rem;
+}
