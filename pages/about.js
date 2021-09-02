@@ -209,7 +209,7 @@ function About() {
                                             <Profile
                                                 name="Naina Sharma"
                                                 position="Admin Secretary"
-                                                // picture="/images/profile/n_sharma.jpg"
+                                                picture="/images/profile/n_sharma.jpg"
                                                 email="857580@lcps.org"
                                             />
                                         </div>
@@ -219,7 +219,7 @@ function About() {
                                             <Profile
                                                 name="Laasya Doppalapudi"
                                                 position="Project Coordinator"
-                                                // picture="/images/profile/l_doppalapudi.jpg"
+                                                picture="/images/profile/l_doppalapudi.jpg"
                                                 email="837713@lcps.org"
                                             />
                                             <Profile
@@ -253,7 +253,7 @@ function About() {
                                             <Profile
                                                 name="Ben Gomez"
                                                 position="Club Liaison"
-                                                // picture="/images/profile/b_gomez.jpg"
+                                                picture="/images/profile/b_gomez.jfif"
                                                 email="863509@lcps.org"
                                             />
                                             <Profile
