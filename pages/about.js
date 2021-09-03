@@ -147,7 +147,7 @@ function About() {
                                             <Profile
                                                 name="Brianna Trocki"
                                                 position="President"
-                                                // picture="/images/profile/b_trocki.jpg"
+                                                picture="/images/profile/b_trocki.jpg"
                                                 email="1007655@lcps.org"
                                             />
                                         </div>
@@ -209,7 +209,7 @@ function About() {
                                             <Profile
                                                 name="Naina Sharma"
                                                 position="Admin Secretary"
-                                                // picture="/images/profile/n_sharma.jpg"
+                                                picture="/images/profile/n_sharma.jpg"
                                                 email="857580@lcps.org"
                                             />
                                         </div>
@@ -219,13 +219,13 @@ function About() {
                                             <Profile
                                                 name="Laasya Doppalapudi"
                                                 position="Project Coordinator"
-                                                // picture="/images/profile/l_doppalapudi.jpg"
+                                                picture="/images/profile/l_doppalapudi.jpg"
                                                 email="837713@lcps.org"
                                             />
                                             <Profile
                                                 name="Ayush Gupta"
                                                 position="Project Coordinator"
-                                                // picture="/images/profile/a_gupta.jpg"
+                                                picture="/images/profile/a_gupta.jpg"
                                                 email="840536@lcps.org"
                                             />
                                             <Profile
@@ -253,7 +253,7 @@ function About() {
                                             <Profile
                                                 name="Ben Gomez"
                                                 position="Club Liaison"
-                                                // picture="/images/profile/b_gomez.jpg"
+                                                picture="/images/profile/b_gomez.jfif"
                                                 email="863509@lcps.org"
                                             />
                                             <Profile
