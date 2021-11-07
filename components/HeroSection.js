@@ -13,9 +13,9 @@ function HeroSection() {
             <a
                 className="hero-button"
                 onClick={() => {
-                    router.push("/apply");
+                    router.push("/findtutor");
                 }}>
-                Apply for 2021-2022 SY
+                Find a Tutor
                 <span className="hero-button-icon">
                     <FontAwesomeIcon icon={faArrowRight}></FontAwesomeIcon>
                 </span>
