@@ -38,7 +38,8 @@ function FindTutor() {
                                             "Riverside NHS Tutoring is only available for students currently enrolled in LCPS. Please login to our portal with the tutee's LCPS Google Account to access the registration site.",
                                             "warning"
                                         ).then(() => {
-                                            router.push("/student/findtutor");
+                                            // router.push("/student/findtutor");
+                                            router.push("https://bit.ly/rvhtutor")
                                         });
                                     }}>
                                     Apply here
