@@ -896,7 +896,7 @@ function TuteeApply() {
                                     Additional Information
                                     <div className="control">
                                         <textarea
-                                            class="textarea"
+                                            className="textarea"
                                             placeholder="Write here..."
                                             {...register(
                                                 "comments",
