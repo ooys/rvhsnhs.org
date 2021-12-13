@@ -1061,6 +1061,14 @@ video {
     color: #2793fa;
 }
 
+.about-section-header-center {
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 3rem;
+    color: #2793fa;
+    text-align: center;
+}
+
 .about-section-body {
     font-size: 1.2rem;
 }
@@ -2025,4 +2033,29 @@ video {
     font-size: 1.8rem;
     color: #2793fa;
     text-align: center;
+}
+
+/* Sponsors */
+
+.is-sponsor {
+    /* border-style: solid;
+    border-width: 2px;
+    border-color: #2793fa; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    padding-top: 3vw;
+    padding-bottom: 2vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    margin-left: 4vw;
+    margin-right: 4vw;
+    transition: all 0.3s;
+    background-color: white;
+}
+
+.is-sponsor:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2),
+        0 24px 80px 0 rgba(0, 0, 0, 0.19);
+    transition: all 0.3s;
 }

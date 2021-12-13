@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar.js";
 import Footer from "../components/Footer.js";
 import React, { useState, useEffect } from "react";
-import Profile from "../components/Profile.js";
+import Sponsor from "../components/Sponsor.js";
 import LazyLoad from "react-lazyload";
 import HeadTag from "/components/Head.js";
 
@@ -22,27 +22,36 @@ function About() {
                                 "columns about-section-wrapper is-vcentered" +
                                 (hidden >= 1 ? "" : " is-scroll-hidden")
                             }>
+                            <div className="column about-section-text">
+                                <div className="about-section-header">
+                                    Holiday Party 2021
+                                </div>
+                                <div className="about-section-body">
+                                    The NHS Holiday Party is an opportunity for
+                                    Riverside to give back to the community.
+                                    Families in need in Northern Virgina come to
+                                    Riverside for nourishments, holiday themed
+                                    activities, games, movies, gifts, and more!
+                                    <br></br>
+                                    <br></br>
+                                    Our NHS members collaborate to collect
+                                    donations from business sponsors, organize
+                                    events, and provide groceries and gifts for
+                                    these families. The Holiday Party encourages
+                                    engagement with the community during the
+                                    holiday season and helps students give back
+                                    to families from Riverside feeder schools.
+                                </div>
+                            </div>
                             <div
                                 className="column about-section-picture is-half"
                                 id="about-column-picture-1">
                                 <LazyLoad once={true}>
                                     <img
-                                        src="images/nhs/induction.jpg"
+                                        src="https://lh3.googleusercontent.com/rnGKk7ce7O6WmaWzonR401oHNQhPrTXSmtMJhh8HcUuz0MMUMgcUDmVwR7fXJ33qBGuTV5dy1T8NxOxvODThYauVUeIZpOTbE-SwAylRCex2ybjJrjfqCQs9m-OzZAbHnqPdcxEE"
                                         alt="induction"
                                     />
                                 </LazyLoad>
-                            </div>
-                            <div className="column about-section-text is-half">
-                                <div className="about-section-header">
-                                    Established 2015
-                                </div>
-                                <div className="about-section-body">
-                                    Riverside High School chapter of the
-                                    National Honor Society is committed to
-                                    serving the community while upholding the
-                                    values of scholarship, service, leadership
-                                    and character.
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -73,22 +82,127 @@ function About() {
                                 "columns about-section-wrapper is-vcentered" +
                                 (hidden >= 2 ? "" : " is-scroll-hidden")
                             }>
-                            <div className="column about-section-text align-center">
+                            <div className="column about-section-text">
                                 <div className="about-section-header">
-                                    Sponsors
+                                    Our Sponsors
                                 </div>
                                 <div className="about-section-body">
-                                    Whether tutoring peers or supporting our
-                                    local businesses, we dedicate time and
-                                    effort to making a positive difference in
-                                    our community.
+                                    Businesses and companies located in the
+                                    Northern Virginia area helped fund the
+                                    Holiday Party. The following organizations
+                                    provided gifts, food, and more for the
+                                    families in attendance.
+                                </div>
+                                <div className="about-section-body">
+                                    <div className="column is-full">
+                                        <div className="columns is-multiline is-centered">
+                                            <div className="column is-full">
+                                                <br></br>
+
+                                                <div className="columns is-mobile is-multiline is-centered">
+                                                    <Sponsor
+                                                        name="FCN Technology Solutions"
+                                                        picture="/images/Holiday Party 2021/Sponsors/FCN.png"
+                                                        url="https://fcnit.com/"
+                                                    />
+                                                    <Sponsor
+                                                        name="Veteran Made Digital"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Veteran Made Digital.png"
+                                                        url="https://veteranmade.com/"
+                                                    />
+                                                    <Sponsor
+                                                        name="Product Knowledge"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Product Knowledge.png"
+                                                        url="http://www.productknowledge.cc/home.html"
+                                                    />
+                                                    <Sponsor
+                                                        name="GoldSentinel"
+                                                        picture="/images/Holiday Party 2021/Sponsors/GoldSentinel.png"
+                                                        url="http://goldsentinel.com/"
+                                                    />
+                                                    <Sponsor
+                                                        name="VIP Groceries"
+                                                        picture="/images/Holiday Party 2021/Sponsors/VIP Groceries.jpeg"
+                                                    />
+                                                    <Sponsor
+                                                        name="Glaze Nail"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Glaze Nail.jpeg"
+                                                        url="https://glazenail.com/"
+                                                    />
+                                                    <Sponsor
+                                                        name="Decisiv SRM"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Decisiv SRM.png"
+                                                        url="https://decisiv.com/"
+                                                    />
+                                                    <Sponsor
+                                                        name="Anthony Vince Nail Spa"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Anthony Vince Nail Spa.png"
+                                                        url="https://www.anthonyvincenailspa.com/"
+                                                    />
+                                                    <Sponsor
+                                                        name="The Loudoun Kitchen & Bar"
+                                                        picture="/images/Holiday Party 2021/Sponsors/The Loudoun Kitchen & Bar.png"
+                                                        url="https://theloudounkitchenandbar.com/"
+                                                    />
+                                                    <Sponsor
+                                                        name="Nutrition CPR"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Nutrition CPR.png"
+                                                        url="https://nutritioncpr.com/"
+                                                    />
+                                                    <Sponsor
+                                                        name="Lockton Companies"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Lockton Companies.jpeg"
+                                                        url="https://global.lockton.com/us/en"
+                                                    />
+                                                    <Sponsor
+                                                        name="Garrell Group Real Estate"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Garrell Group Real Estate.png"
+                                                        url="https://www.garrellgroup.com/"
+                                                    />
+                                                    <Sponsor
+                                                        name="Fastlane Swimming"
+                                                        picture="/images/Holiday Party 2021/Sponsors/FastLane Swimming.png"
+                                                        url="http://www.fastlaneswimming.us/"
+                                                    />
+                                                    <Sponsor
+                                                        name="Fastlane Swimming"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Anthony Vince Nail Spa.png"
+                                                        url="https://www.anthonyvincenailspa.com/"
+                                                    />
+
+                                                    <Sponsor
+                                                        name="Crumbl Cookies"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Crumbl Cookies.jpeg"
+                                                        url="https://crumblcookies.com/"
+                                                    />
+                                                    <Sponsor
+                                                        name="Wegmans"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Wegmans.png"
+                                                        url="https://www.wegmans.com/"
+                                                    />
+                                                    <Sponsor
+                                                        name="Ihop"
+                                                        picture="/images/Holiday Party 2021/Sponsors/Ihop.png"
+                                                        url="https://www.ihop.com/en"
+                                                    />
+                                                    <Sponsor
+                                                        name="DC Prime Steak and Lobster"
+                                                        picture="/images/Holiday Party 2021/Sponsors/DC Prime Steak and Lobster.png"
+                                                        url="https://dcprimesteaks.com/"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br></br>
+                                <br></br>
+                                <div className="about-section-header-center">
+                                    Thank you for your donations!
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                
-                 
                 </div>
             </div>
             <Footer />
