@@ -106,6 +106,11 @@ function About() {
                                                         url="https://fcnit.com/"
                                                     />
                                                     <Sponsor
+                                                        name="National Sports Medicine Institute"
+                                                        picture="/images/Holiday Party 2021/Sponsors/NSMI.jpeg"
+                                                        url="https://www.nationalsportsmed.com/"
+                                                    />
+                                                    <Sponsor
                                                         name="Veteran Made Digital"
                                                         picture="/images/Holiday Party 2021/Sponsors/Veteran Made Digital.png"
                                                         url="https://veteranmade.com/"
