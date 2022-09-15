@@ -139,13 +139,13 @@ function About() {
                                     <div className="column is-full">
                                         <div className="columns is-mobile is-multiline is-centered">
                                             <Profile
-                                                name="Yihong Song"
+                                                name="Max Lu"
                                                 position="President"
-                                                picture="/images/profile/y_song.jpg"
+                                                picture="/images/profile/Max.PNG"
                                                 email="1036566@lcps.org"
                                             />
                                             <Profile
-                                                name="Brianna Trocki"
+                                                name="Molly Berry"
                                                 position="President"
                                                 picture="/images/profile/b_trocki.jpg"
                                                 email="1007655@lcps.org"
@@ -155,33 +155,33 @@ function About() {
                                     <div className="column is-full">
                                         <div className="columns is-mobile is-multiline is-centered">
                                             <Profile
-                                                name="Hunter Habersaat"
+                                                name="Leo Lupo"
                                                 position="Vice President"
-                                                picture="/images/profile/h_habersaat.jpg"
+                                                picture="/images/profile/Leo.PNG"
                                                 email="895090@lcps.org"
                                             />
                                             <Profile
-                                                name="Elizabeth Joo"
+                                                name="Ariana Paris"
                                                 position="Vice President"
-                                                picture="/images/profile/el_joo.jpg"
+                                                picture="/images/profile/Ari.PNG"
                                                 email="829997@lcps.org"
                                             />
                                             <Profile
-                                                name="Edward Joo"
+                                                name="Nathan Roberts"
                                                 position="Vice President"
-                                                picture="/images/profile/ed_joo.jpg"
+                                                picture="/images/profile/Nathan.PNG"
                                                 email="830000@lcps.org"
                                             />
                                             <Profile
-                                                name="Noelle Koo"
+                                                name="Maryam Rehman"
                                                 position="Vice President"
                                                 picture="/images/profile/n_koo.jpg"
                                                 email="1004782@lcps.org"
                                             />
                                             <Profile
-                                                name="Shyamanth Kudum"
+                                                name="Will Cho"
                                                 position="Vice President"
-                                                picture="/images/profile/s_kudam.jpg"
+                                                picture="/images/profile/Will.PNG"
                                                 email="836587@lcps.org"
                                             />
                                             <Profile
@@ -195,19 +195,19 @@ function About() {
                                     <div className="column is-full">
                                         <div className="columns is-mobile is-multiline is-centered">
                                             <Profile
-                                                name="Rachael Michitsch"
+                                                name="Ilana Goldman"
                                                 position="Admin Secretary"
                                                 picture="/images/profile/r_michitsch.jpg"
                                                 email="811908@lcps.org"
                                             />
                                             <Profile
-                                                name="Lauren Price"
+                                                name="Sritha Alluri"
                                                 position="Admin Secretary"
-                                                picture="/images/profile/l_price.jpg"
+                                                picture="/images/profile/Sritha Alluri"
                                                 email="836568@lcps.org"
                                             />
                                             <Profile
-                                                name="Naina Sharma"
+                                                name="Karolina Maslowski"
                                                 position="Admin Secretary"
                                                 picture="/images/profile/n_sharma.jpg"
                                                 email="857580@lcps.org"
@@ -217,31 +217,37 @@ function About() {
                                     <div className="column is-full">
                                         <div className="columns is-mobile is-multiline is-centered">
                                             <Profile
-                                                name="Laasya Doppalapudi"
+                                                name="Luis Cuellar"
                                                 position="Project Coordinator"
                                                 picture="/images/profile/l_doppalapudi.jpg"
                                                 email="837713@lcps.org"
                                             />
                                             <Profile
-                                                name="Ayush Gupta"
+                                                name="Nick Jones"
                                                 position="Project Coordinator"
                                                 picture="/images/profile/a_gupta.jpg"
                                                 email="840536@lcps.org"
                                             />
                                             <Profile
-                                                name="Colin Habersaat"
+                                                name="Nick Huertas"
                                                 position="Project Coordinator"
                                                 picture="/images/profile/c_habersaat.jpg"
                                                 email="895088@lcps.org"
                                             />
                                             <Profile
-                                                name="Sriya Jakka"
+                                                name="Hannah Salmons"
                                                 position="Project Coordinator"
                                                 picture="/images/profile/s_jakka.jpg"
                                                 email="813694@lcps.org"
                                             />
                                             <Profile
-                                                name="Noah Selehi"
+                                                name="Elizabeth Sanden"
+                                                position="Project Coordinator"
+                                                picture="/images/profile/El.PNG"
+                                                email="812991@lcps.org"
+                                            />
+                                                    <Profile
+                                                name="Suhina Sharma"
                                                 position="Project Coordinator"
                                                 picture="/images/profile/n_selehi.jpg"
                                                 email="812991@lcps.org"
@@ -251,15 +257,15 @@ function About() {
                                     <div className="column is-full">
                                         <div className="columns is-mobile is-multiline is-centered">
                                             <Profile
-                                                name="Ben Gomez"
+                                                name="Mason Corkhill"
                                                 position="Club Liaison"
-                                                picture="/images/profile/b_gomez.jfif"
+                                                picture="/images/profile/Mason.PNG"
                                                 email="863509@lcps.org"
                                             />
                                             <Profile
-                                                name="Neha Yannam"
+                                                name="Mahika Tyagi"
                                                 position="Club Liaison"
-                                                picture="/images/profile/n_yannam.jpg"
+                                                picture="/images/profile/Mahika.PNG"
                                                 email="837719@lcps.org"
                                             />
                                         </div>
