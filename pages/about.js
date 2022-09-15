@@ -184,12 +184,6 @@ function About() {
                                                 picture="/images/profile/Will.PNG"
                                                 email="836587@lcps.org"
                                             />
-                                            <Profile
-                                                name="Anya Passino"
-                                                position="Vice President"
-                                                picture="/images/profile/a_passino.png"
-                                                email="812857@lcps.org"
-                                            />
                                         </div>
                                     </div>
                                     <div className="column is-full">
@@ -203,7 +197,7 @@ function About() {
                                             <Profile
                                                 name="Sritha Alluri"
                                                 position="Admin Secretary"
-                                                picture="/images/profile/Sritha Alluri"
+                                                picture="/images/profile/Sritha.PNG"
                                                 email="836568@lcps.org"
                                             />
                                             <Profile
