@@ -192,7 +192,7 @@ function About() {
                                 <div className="about-section-body">
                                     Information regarding the hour requirements
                                     of ALL members of National Honor Society for
-                                    the 2021-2022 school year.
+                                    the 2022-2023 school year.
                                 </div>
                                 <br></br>
                             </div>
@@ -215,7 +215,7 @@ function About() {
                                     </div>
                                     <div className="column is-full">
                                         <div className="columns is-mobile is-multiline is-centered about-section-body">
-                                            <b>Fall 2021 Inductees</b>
+                                            <b>Fall 2022 Inductees</b>
                                         </div>
                                     </div>
                                     <div className="column is-full">
