@@ -126,7 +126,7 @@ function About() {
                             }>
                             <div className="column about-section-text is-full">
                                 <div className="about-section-header">
-                                    2021-2022 Officers
+                                    2022-2023 Officers
                                 </div>
                                 <div className="about-section-body">
                                     We look forward to bringing you a revised
